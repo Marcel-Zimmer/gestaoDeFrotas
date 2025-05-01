@@ -18,16 +18,31 @@ public class DriverService {
     public void testando(){
         
     }
-    public DriverEntity createDriver(Driver motorista) {
-        DriverEntity motoristaEntity = new DriverEntity(
-            motorista.getNameDriver(),         
-            motorista.getCpfDriver(),          
-            motorista.getCnhDriver(),          
-            motorista.getPhoneNumberDriver(),  
-            motorista.getAdressDriver(),       
-            motorista.getEmailDriver(),        
-            motorista.getPasswordDriver()      
+    public DriverEntity createDriver(Driver driver) {
+        DriverEntity driverEntity = new DriverEntity(
+            driver.getNameDriver(),            // Nome do motorista
+            driver.getCpfDriver(),             // CPF do motorista
+            driver.getCnhDriver(),             // CNH do motorista
+            driver.getExpirationDateCnh(),     // Data de expiração da CNH
+            driver.getPhoneNumberDriver(),     // Número de telefone do motorista
+            driver.getEmailDriver(),           // Email do motorista
+            driver.getPasswordDriver(),        // Senha do motorista (hashed)
+            driver.getZipCode(),               // CEP do endereço
+            driver.getStreet(),                // Logradouro do endereço
+            driver.getComplement(),            // Complemento do endereço
+            driver.getUnit(),                  // Unidade do endereço
+            driver.getNeighborhood(),          // Bairro do endereço
+            driver.getCity(),                  // Cidade do endereço
+            driver.getStateAbbreviation(),     // Abreviação do estado
+            driver.getState(),                 // Estado
+            driver.getRegion(),                // Região
+            driver.getIbgeCode(),              // Código IBGE
+            driver.getGiaCode(),               // Código GIA
+            driver.getDdd(),                   // DDD
+            driver.getSiafiCode(),             // Código SIAFI
+            driver.getNumberAddress()          // Número do endereço
         );
-        return driverRepository.save(motoristaEntity);
+        
+        return driverRepository.save(driverEntity);
     }
 }

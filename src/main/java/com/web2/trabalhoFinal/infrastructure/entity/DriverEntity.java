@@ -1,5 +1,8 @@
 package com.web2.trabalhoFinal.infrastructure.entity;
 
+
+import java.time.LocalDate;
+
 import com.web2.trabalhoFinal.domain.model.Address;
 import com.web2.trabalhoFinal.domain.model.Cnh;
 import com.web2.trabalhoFinal.domain.model.Cpf;
@@ -48,12 +51,14 @@ public class DriverEntity {
     public DriverEntity() {
     }
 
-    public DriverEntity(String name, String cpf, String cnh, String phoneNumber, String adress, String email, String password) {
+    public DriverEntity(String name, String cpf, String cnh, LocalDate expirationDate, String phoneNumber, String email, String password,String zipCode,String street,
+    String complement,String unit,String neighborhood,String city,String stateAbbreviation,String state ,String region,String ibgeCode,
+    String giaCode,String ddd,String siafiCode,String numberAdress){
         this.name = new Name(name);
         this.cpf = new Cpf(cpf);
-        this.cnh = new Cnh(cnh);
+        this.cnh = new Cnh(cnh,expirationDate);
         this.phoneNumber = new PhoneNumber(phoneNumber);
-        this.address = new Address(adress);
+        this.address = new Address(zipCode,street,complement,unit,neighborhood,city,stateAbbreviation,state,region,ibgeCode,giaCode,ddd,siafiCode,numberAdress);
         this.email = new Email(email);
         this.password = new Password(password);
     }
@@ -65,60 +70,31 @@ public class DriverEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
     public Name getName() {
         return name;
-    }
-
-    public void setName(Name name) {
-        this.name = name;
     }
 
     public Cpf getCpf() {
         return cpf;
     }
 
-    public void setCpf(Cpf cpf) {
-        this.cpf = cpf;
-    }
-
     public Cnh getCnh() {
         return cnh;
-    }
-
-    public void setCnh(Cnh cnh) {
-        this.cnh = cnh;
     }
 
     public PhoneNumber getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public Address getAddress() {
         return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public Email getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
     public Password getPassword() {
         return password;
-    }
-
-    public void setPassword(Password password) {
-        this.password = password;
     }
 }
