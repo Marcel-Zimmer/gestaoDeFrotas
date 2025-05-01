@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.interfacee.controller;
+package com.web2.trabalhoFinal.Interface.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
