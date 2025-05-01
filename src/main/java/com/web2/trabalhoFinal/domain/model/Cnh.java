@@ -1,7 +1,7 @@
 package com.web2.trabalhoFinal.domain.model;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Cnh {
 
