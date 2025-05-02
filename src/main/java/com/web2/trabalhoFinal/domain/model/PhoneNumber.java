@@ -1,16 +1,15 @@
 package com.web2.trabalhoFinal.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-
-@Embeddable
 public class PhoneNumber {
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
 
-    public PhoneNumber(String phoneNumber) {
+    private String phoneNumber;
+    private String dddNumber;
+
+    public PhoneNumber(String phoneNumber, String dddNumber) {
         validate(phoneNumber);
+        validateDdd(dddNumber);
         this.phoneNumber = phoneNumber;
+        this.dddNumber = dddNumber;
     }
 
     public PhoneNumber(){
@@ -29,8 +28,23 @@ public class PhoneNumber {
             throw new IllegalArgumentException("Número de telefone inválido.");
         }
     }
+    private void validateDdd(String ddd) {
+        if (ddd == null || ddd.trim().isEmpty()) {
+            throw new IllegalArgumentException("O DDD não pode estar vazio.");
+        }
+    
+        String dddRegex = "^\\d{2}$";
+    
+        if (!ddd.matches(dddRegex)) {
+            throw new IllegalArgumentException("DDD inválido. Deve conter exatamente dois dígitos.");
+        }
+    }    
 
-    public String getValue() {
+    public String getPhoneValue() {
         return phoneNumber;
+    }
+
+    public String getDddValue() {
+        return dddNumber;
     }
 }

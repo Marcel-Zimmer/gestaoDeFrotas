@@ -39,6 +39,9 @@ public class Driver extends User{
         return cnh.getExpirationDate();
     }
     public String getValuePhoneNumberDriver(){
-        return phoneNumber.getValue();
+        return phoneNumber.getPhoneValue();
+    }
+    public String getValueDDDNumberDriver(){
+        return phoneNumber.getDddValue();
     }
 }

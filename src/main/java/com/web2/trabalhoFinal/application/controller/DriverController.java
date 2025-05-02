@@ -8,6 +8,7 @@ import com.web2.trabalhoFinal.application.dto.DriverRequestDto;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;
 import com.web2.trabalhoFinal.domain.model.Driver;
 import com.web2.trabalhoFinal.domain.service.DriverService;
+import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 
 @RestController
 @RequestMapping("/register")
@@ -20,13 +21,10 @@ public class DriverController {
     }
     
     @PostMapping("/driver")
-    public ResponseEntity<Void> driverRegister(@RequestBody DriverRequestDto dto) {
+    public DriverEntity driverRegister(@RequestBody DriverRequestDto dto) {
         Driver driver = DriverMapper.toDomain(dto);
-        boolean driverIsCreate = driverService.createDriver(driver);
-        if(driverIsCreate){
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        DriverEntity driverIsCreate = driverService.createDriver(driver);
+        return driverIsCreate;
     }
 
 }

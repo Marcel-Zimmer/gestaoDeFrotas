@@ -8,6 +8,7 @@ public class DriverRequestDto {
     public String cnh;
     public LocalDate expirationDate;
     public String phoneNumber;
+    public String dddNumber;
     public String email;
     public String password;
     public String zipCode;

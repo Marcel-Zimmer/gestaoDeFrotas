@@ -14,7 +14,7 @@ public class DriverMapper {
             dto.name, 
             new Cpf(dto.cpf),  
             new Cnh(dto.cnh, dto.expirationDate),  
-            new PhoneNumber(dto.phoneNumber),  
+            new PhoneNumber(dto.phoneNumber, dto.dddNumber),  
             new Address(
                 dto.zipCode, 
                 dto.street, 

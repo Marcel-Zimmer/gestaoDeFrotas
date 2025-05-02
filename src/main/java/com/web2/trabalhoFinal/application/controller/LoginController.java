@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web2.trabalhoFinal.domain.model.Driver;
 import com.web2.trabalhoFinal.domain.service.DriverService;
-import com.web2.trabalhoFinal.infrastructure.entity.DriverEntity;
+import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 
 
 
