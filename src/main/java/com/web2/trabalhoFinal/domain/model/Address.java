@@ -1,20 +1,37 @@
 package com.web2.trabalhoFinal.domain.model;
 
-public class Address {
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
+public class Address {
+    @Column(name = "zipCode")
     private  String zipCode;
+    @Column(name = "street")
     private  String street;
+    @Column(name = "complement")
     private  String complement;
+    @Column(name = "unit")
     private  String unit;
+    @Column(name = "neighborhood")
     private  String neighborhood;
+    @Column(name = "city")
     private  String city;
+    @Column(name = "stateAbbreviation")
     private  String stateAbbreviation;
+    @Column(name = "state")
     private  String state;
+    @Column(name = "region")
     private  String region;
+    @Column(name = "ibgeCode")
     private  String ibgeCode;
+    @Column(name = "giaCode")
     private  String giaCode;
+    @Column(name = "ddd")
     private  String ddd;
+    @Column(name = "siafiCode")
     private  String siafiCode;
+    @Column(name = "numberAddress")
     private  String numberAddress;
 
     public Address(){

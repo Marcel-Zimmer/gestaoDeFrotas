@@ -1,6 +1,11 @@
 package com.web2.trabalhoFinal.domain.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Email {
+    @Column(insertable=false, updatable=false)
     private String email;
 
     public Email(String email) {

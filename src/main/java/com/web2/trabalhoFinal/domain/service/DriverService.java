@@ -18,31 +18,21 @@ public class DriverService {
     public void testando(){
         
     }
-    public DriverEntity createDriver(Driver driver) {
+    public Boolean createDriver(Driver driver) {
         DriverEntity driverEntity = new DriverEntity(
-            driver.getNameDriver(),            // Nome do motorista
-            driver.getCpfDriver(),             // CPF do motorista
-            driver.getCnhDriver(),             // CNH do motorista
-            driver.getExpirationDateCnh(),     // Data de expiração da CNH
-            driver.getPhoneNumberDriver(),     // Número de telefone do motorista
-            driver.getEmailDriver(),           // Email do motorista
-            driver.getPasswordDriver(),        // Senha do motorista (hashed)
-            driver.getZipCode(),               // CEP do endereço
-            driver.getStreet(),                // Logradouro do endereço
-            driver.getComplement(),            // Complemento do endereço
-            driver.getUnit(),                  // Unidade do endereço
-            driver.getNeighborhood(),          // Bairro do endereço
-            driver.getCity(),                  // Cidade do endereço
-            driver.getStateAbbreviation(),     // Abreviação do estado
-            driver.getState(),                 // Estado
-            driver.getRegion(),                // Região
-            driver.getIbgeCode(),              // Código IBGE
-            driver.getGiaCode(),               // Código GIA
-            driver.getDdd(),                   // DDD
-            driver.getSiafiCode(),             // Código SIAFI
-            driver.getNumberAddress()          // Número do endereço
+            driver.getName(),            
+            driver.getCpf(),             
+            driver.getCnh(),               
+            driver.getPhoneNumber(),
+            driver.getAddress(),     
+            driver.getEmail(),           
+            driver.getPassword(),        
+            driver.isSuperUser()            
         );
-        
-        return driverRepository.save(driverEntity);
+        DriverEntity driverCreate= driverRepository.save(driverEntity);
+        if(driverCreate != null){
+            return true;
+        }
+        return false;
     }
 }

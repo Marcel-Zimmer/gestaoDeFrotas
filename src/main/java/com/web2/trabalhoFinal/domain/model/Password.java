@@ -1,7 +1,12 @@
 package com.web2.trabalhoFinal.domain.model;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Password {
+    @Column(insertable=false, updatable=false)
     private final String hashedValue;
 
     public Password(String plainPassword) {

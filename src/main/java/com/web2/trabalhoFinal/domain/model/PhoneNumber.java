@@ -1,7 +1,12 @@
 package com.web2.trabalhoFinal.domain.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class PhoneNumber {
-    private final String phoneNumber;
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 
     public PhoneNumber(String phoneNumber) {
         validate(phoneNumber);

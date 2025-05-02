@@ -1,6 +1,11 @@
 package com.web2.trabalhoFinal.domain.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Cpf {
+    @Column(name = "cpf")
     private String cpf;
 
     public Cpf(String cpf) {

@@ -2,10 +2,14 @@ package com.web2.trabalhoFinal.domain.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public class Cnh {
-
+    @Column(name = "cnh")
     private String cnh;
+    @Column(name = "expirationDate")
     private LocalDate expirationDate;
 
     public Cnh() {
