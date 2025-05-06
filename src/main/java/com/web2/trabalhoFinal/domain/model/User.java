@@ -9,6 +9,7 @@ public class User {
     private Password password;
     private boolean isSuperUser;
     private boolean isAtive;
+    private String passwordRaw;
 
     public User(){}
     
@@ -22,8 +23,8 @@ public class User {
     }
 
     public User(String email, String password){
-        this.email = new Email(email);
-        this.password = new Password(password);
+        this.email= new Email(email);
+        this.passwordRaw = password;
     }
 
     public String getName(){
@@ -34,8 +35,8 @@ public class User {
         return email.getValue();
     }
     
-    public String getPassword(){
-        return password.getHashedValue();
+    public Password getPassword(){
+        return password;
     }
 
     public boolean isSuperUser() {
@@ -45,5 +46,8 @@ public class User {
     public boolean isAtive() {
         return isAtive;
     }
-
+    public String getPasswordRaw() {
+        return passwordRaw;
+    }
+    
 }

@@ -40,7 +40,7 @@ public class DriverService {
 
 
     public DriverEntity createDriver(Driver driver) {
-        UserEntity user = new UserEntity(driver.getName(), driver.getEmail(), driver.getPassword(), driver.isSuperUser(),driver.isAtive());
+        UserEntity user = new UserEntity(driver.getName(), driver.getEmail(), driver.getPassword().getHashedValue(), driver.isSuperUser(),driver.isAtive());
         PhoneNumberEntity phoneNumber = new PhoneNumberEntity(driver.getPhoneNumber().getPhoneValue());
         DddNumberEntity dddNumber = new DddNumberEntity(driver.getPhoneNumber().getDddValue());
         CpfEntity cpf = new CpfEntity(driver.getCpf().getValue());
