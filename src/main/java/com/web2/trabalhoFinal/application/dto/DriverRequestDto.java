@@ -26,5 +26,6 @@ public class DriverRequestDto {
     public String siafiCode;
     public String numberAddress;
     public boolean isSuperUser;
+    public boolean isAtive;
     
 }

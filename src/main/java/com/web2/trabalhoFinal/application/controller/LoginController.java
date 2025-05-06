@@ -1,19 +1,18 @@
 package com.web2.trabalhoFinal.application.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.web2.trabalhoFinal.application.dto.UserRequestDto;
+import com.web2.trabalhoFinal.application.mapper.UserMapper;
+import com.web2.trabalhoFinal.domain.model.User;
+import com.web2.trabalhoFinal.domain.service.LoginService;
+import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 
-import com.web2.trabalhoFinal.domain.model.Driver;
-import com.web2.trabalhoFinal.domain.service.DriverService;
-import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 
 
 
-/* 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -24,9 +23,9 @@ public class LoginController {
     } 
     
     @PostMapping("/user")
-    public ResponseEntity<LoginEntity> userLogin(@RequestBody Driver motorista) {
-        DriverEntity motoristaCriadoEntity = driverService.createDriver(motorista);
-        return ResponseEntity.status(HttpStatus.CREATED).body(motoristaCriadoEntity);
+    public UserEntity userLogin(@RequestBody UserRequestDto dto) throws Exception {
+        User user = UserMapper.toDomain(dto);
+        UserEntity userLogin = loginService.loginUser(user);
+        return userLogin;
     }    
 }
-*/

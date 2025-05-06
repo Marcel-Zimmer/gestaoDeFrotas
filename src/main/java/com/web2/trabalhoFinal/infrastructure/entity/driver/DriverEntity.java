@@ -1,6 +1,7 @@
 package com.web2.trabalhoFinal.infrastructure.entity.driver;
 
-import jakarta.persistence.Column;
+
+import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,17 +18,13 @@ public class DriverEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
+    private UserEntity user;
 
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Column(name = "isSuperUser")
-    private boolean isSuperUser;
+    @ManyToOne
+    @JoinColumn(name = "id_ddd_number", referencedColumnName = "id", nullable = false)
+    private DddNumberEntity dddNumber;
 
     @ManyToOne
     @JoinColumn(name = "id_phone_number", referencedColumnName = "id", nullable = false)
@@ -47,36 +44,14 @@ public class DriverEntity{
 
     public DriverEntity() {}
 
-    public DriverEntity(String name, String email, String password, boolean isSuperUser, PhoneNumberEntity phoneNumber,
+    public DriverEntity(UserEntity user ,DddNumberEntity dddNumber, PhoneNumberEntity phoneNumber,
             CpfEntity cpf, CnhEntity cnh, AddressEntity address) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.isSuperUser = isSuperUser;
+        this.user = user;
+        this.dddNumber = dddNumber;
         this.phoneNumber = phoneNumber;
         this.cpf = cpf;
         this.cnh = cnh;
         this.address = address;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean isSuperUser() {
-        return isSuperUser;
     }
 
     public PhoneNumberEntity getPhoneNumber() {

@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.infrastructure.repository;
+package com.web2.trabalhoFinal.infrastructure.repository.driver;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,4 +8,5 @@ import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 
 @Repository
 public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
+    
 }

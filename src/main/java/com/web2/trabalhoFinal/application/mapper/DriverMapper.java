@@ -33,7 +33,8 @@ public class DriverMapper {
             ),  
             dto.email,  
             dto.password, 
-            dto.isSuperUser 
+            dto.isSuperUser,
+            dto.isAtive
         );
     }
 }           

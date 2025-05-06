@@ -9,8 +9,8 @@ public class Driver extends User{
     private Address address;
 
     public Driver(String name, Cpf cpf, Cnh cnh, PhoneNumber phoneNumber, Address address,
-        String email, String password, boolean isSuperUser) {
-        super(name, email, password, isSuperUser);
+        String email, String password, boolean isSuperUser, boolean isAtive) {
+        super(name, email, password, isSuperUser, isAtive);
         this.cpf = cpf;
         this.cnh = cnh;
         this.phoneNumber = phoneNumber;

@@ -1,33 +1,31 @@
 package com.web2.trabalhoFinal.domain.model;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
 public class User {
-    @Column(insertable=false, updatable=false)
     private Name name;
-    @Column(insertable=false, updatable=false)
     private Email email;
-    @Column(insertable=false, updatable=false)
     private Password password;
-    @Column(insertable=false, updatable=false)
     private boolean isSuperUser;
+    private boolean isAtive;
 
-    public User(){
-
-    }
+    public User(){}
     
-    public User(String name, String email, String password, boolean isSuperUser) {
+    public User(String name, String email, String password, boolean isSuperUser, boolean isAtive) {
 
         this.name = new Name(name);
         this.email = new Email(email);
         this.password = new Password(password);
         this.isSuperUser = isSuperUser;
+        this.isAtive = isAtive;
     }
 
-    
+    public User(String email, String password){
+        this.email = new Email(email);
+        this.password = new Password(password);
+    }
+
     public String getName(){
         return name.getValue();
     }
@@ -42,6 +40,10 @@ public class User {
 
     public boolean isSuperUser() {
         return isSuperUser;
-    }        
+    }
+    
+    public boolean isAtive() {
+        return isAtive;
+    }
 
 }
