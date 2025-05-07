@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.web2.trabalhoFinal.application.dto.LoginResponse;
 import com.web2.trabalhoFinal.application.dto.UserRequestDto;
 import com.web2.trabalhoFinal.application.mapper.UserMapper;
-import com.web2.trabalhoFinal.domain.model.User;
+import com.web2.trabalhoFinal.domain.model.User.User;
 import com.web2.trabalhoFinal.domain.service.LoginService;
 
 @RestController

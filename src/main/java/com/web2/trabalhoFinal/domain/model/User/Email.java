@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model;
+package com.web2.trabalhoFinal.domain.model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -22,7 +22,6 @@ public class Email {
             throw new IllegalArgumentException("O e-mail não pode estar vazio.");
         }
 
-        // Regex simples para validar formato de e-mail
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
         if (!email.matches(emailRegex)) {

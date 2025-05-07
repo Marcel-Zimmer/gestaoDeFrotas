@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.web2.trabalhoFinal.application.dto.DriverRequestDto;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;
-import com.web2.trabalhoFinal.domain.model.Driver;
+import com.web2.trabalhoFinal.domain.model.Driver.Driver;
 import com.web2.trabalhoFinal.domain.service.DriverService;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 

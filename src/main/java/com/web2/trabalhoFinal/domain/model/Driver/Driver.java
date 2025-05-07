@@ -1,6 +1,8 @@
-package com.web2.trabalhoFinal.domain.model;
+package com.web2.trabalhoFinal.domain.model.Driver;
 
 import java.time.LocalDate;
+
+import com.web2.trabalhoFinal.domain.model.User.User;
 
 public class Driver extends User{
     private Cpf cpf;
