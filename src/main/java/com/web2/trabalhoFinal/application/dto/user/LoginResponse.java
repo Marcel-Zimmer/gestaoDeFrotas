@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.application.dto;
+package com.web2.trabalhoFinal.application.dto.user;
 
 public class LoginResponse {
     private boolean success;

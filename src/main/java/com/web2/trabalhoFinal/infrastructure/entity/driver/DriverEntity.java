@@ -41,8 +41,12 @@ public class DriverEntity{
     @ManyToOne
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
     private AddressEntity address; 
-
+    
     public DriverEntity() {}
+
+    public DriverEntity(Long id) {
+        this.id = id;
+    }
 
     public DriverEntity(UserEntity user ,DddNumberEntity dddNumber, PhoneNumberEntity phoneNumber,
             CpfEntity cpf, CnhEntity cnh, AddressEntity address) {

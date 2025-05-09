@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.application.dto;
+package com.web2.trabalhoFinal.application.dto.vehicle;
 
 public class VehicleRequestDto {
     public String licence;

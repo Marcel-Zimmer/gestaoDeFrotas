@@ -13,13 +13,14 @@ public class YearVehicle {
 
     private void validate(String year) {
         try {
-            Year yearValidate = Year.parse(year, null);
+            Year yearValidate = Year.parse(year);
             if(yearValidate.getValue() < Year.of(1960).getValue()){
                 throw new IllegalArgumentException("Ano Invalido");
             }
         } catch (Exception e) {
             throw new IllegalArgumentException("Ano Invalido");
         }
+        
     }
 
     public String getYear() {

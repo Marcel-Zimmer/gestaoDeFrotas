@@ -20,22 +20,13 @@ public class StatusVehicle {
         }
     }
 
-    private Status status;
+    private String status;
 
     public StatusVehicle(String status) {
-        this.status = Status.fromString(status);
+        this.status = status;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public String getFormattedStatus() {
-        return switch (status) {
-            case DISPONIVEL     -> "Disponível";
-            case EM_USO         -> "Em uso";
-            case EM_MANUTENCAO  -> "Em manutenção";
-            case DESATIVADO     -> "Desativado";
-        };
+    public String getStatus() {
+        return this.status;
     }
 }

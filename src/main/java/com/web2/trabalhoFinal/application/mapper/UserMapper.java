@@ -1,6 +1,6 @@
 package com.web2.trabalhoFinal.application.mapper;
 
-import com.web2.trabalhoFinal.application.dto.UserRequestDto;
+import com.web2.trabalhoFinal.application.dto.user.UserRequestDto;
 import com.web2.trabalhoFinal.domain.model.User.User;
 
 public class UserMapper {

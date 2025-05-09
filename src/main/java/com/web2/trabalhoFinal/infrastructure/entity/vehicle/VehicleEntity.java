@@ -37,7 +37,11 @@ public class VehicleEntity {
     @JoinColumn(name = "id_year_vehicle", referencedColumnName = "id", nullable = false)
     private YearVehicleEntity yearVehicleEntity;
 
-    public VehicleEntity() {}
+    public VehicleEntity(){}
+    
+    public VehicleEntity(Long id) {
+        this.id = id;
+    }
 
     public VehicleEntity(String licencePlate, Double currentMileage, ModelVehicleEntity modelVehicleEntity,
             StatusVehicleEntity statusVehicleEntity, TypeVehicleEntity typeVehicleEntity,
