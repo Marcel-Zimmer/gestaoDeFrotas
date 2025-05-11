@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "status_trip")
+@Table(name = "trip")
 public class TripEntity {
 
     @Id

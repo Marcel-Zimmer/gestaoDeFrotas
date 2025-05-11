@@ -17,7 +17,7 @@ public class StatusTripEntity {
     @Column(name = "status_trip",nullable = false)
     private String status;
     
-    StatusTripEntity(){}
+    public StatusTripEntity(){}
 
     public StatusTripEntity(String status){
         this.status =  status;
