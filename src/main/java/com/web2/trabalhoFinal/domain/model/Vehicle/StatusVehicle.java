@@ -30,4 +30,9 @@ public class StatusVehicle {
     public String getStatus() {
         return this.fromString(this.status).name();
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

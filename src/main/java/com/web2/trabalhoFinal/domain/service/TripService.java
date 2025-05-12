@@ -1,5 +1,4 @@
 package com.web2.trabalhoFinal.domain.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleResponse;
@@ -35,9 +34,6 @@ public class TripService {
         TripEntity newTrip = new TripEntity(vehicle, driver, status, trip.getDate(), trip.getTime(), trip.getJustify().getJustify());
         tripRepository.save(newTrip);
         return new TripScheduleResponse(true, "viagem agendada", newTrip.getId());
-
-
-
     }
 
 }

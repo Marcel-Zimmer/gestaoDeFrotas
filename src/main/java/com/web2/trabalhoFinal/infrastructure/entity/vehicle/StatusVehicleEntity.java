@@ -33,4 +33,13 @@ public class StatusVehicleEntity {
         return statusVehicle;
     }
 
+    public void setStatusVehicle(String statusVehicle) {
+        switch (statusVehicle) {
+            case "disponivel"     -> this.statusVehicle = "DISPONIVEL";
+            case "em_uso"         -> this.statusVehicle ="EM_USO";
+            case "em_manutenção"  -> this.statusVehicle ="EM_MANUTENCAO";
+            default     -> this.statusVehicle ="DESATIVADO";
+        };        
+    }
+
 }

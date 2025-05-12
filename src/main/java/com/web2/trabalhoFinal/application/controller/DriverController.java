@@ -1,7 +1,5 @@
 package com.web2.trabalhoFinal.application.controller;
-
 import org.springframework.web.bind.annotation.*;
-
 import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
 import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;

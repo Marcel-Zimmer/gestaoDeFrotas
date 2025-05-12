@@ -1,8 +1,6 @@
 package com.web2.trabalhoFinal.domain.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.web2.trabalhoFinal.application.dto.refueling.RefuelingResponse;
 import com.web2.trabalhoFinal.domain.model.refueling.Refueling;
 import com.web2.trabalhoFinal.infrastructure.entity.refueling.RefuelingEntity;

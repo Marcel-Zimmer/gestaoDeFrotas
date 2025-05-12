@@ -82,5 +82,10 @@ public class VehicleEntity {
         return yearVehicleEntity;
     }
 
+    public void setStatusVehicleEntity(StatusVehicleEntity statusVehicleEntity) {
+        this.statusVehicleEntity = statusVehicleEntity;
+    }
+
+
     
 }

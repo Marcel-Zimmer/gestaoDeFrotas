@@ -1,10 +1,8 @@
 package com.web2.trabalhoFinal.application.controller;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleRequestDto;
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleResponse;
 import com.web2.trabalhoFinal.application.mapper.TripMapper;
@@ -24,8 +22,13 @@ public class TripController {
 
     @PostMapping("/schedule")
     public TripScheduleResponse registerSchedule(@RequestBody TripScheduleRequestDto dto) throws Exception{
-        Trip trip = TripMapper.toDomain(dto);
-        TripScheduleResponse tripCreate= tripService.registerTrip(trip);
-        return tripCreate;
+        try {
+            Trip trip = TripMapper.toDomain(dto);
+            TripScheduleResponse tripCreate= tripService.registerTrip(trip);
+            return tripCreate;   
+        } catch (Exception e) {
+            return new TripScheduleResponse(false, e.getMessage());
+        }
+
     }  
 }
