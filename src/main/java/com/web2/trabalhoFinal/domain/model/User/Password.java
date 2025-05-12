@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.User;
+package com.web2.trabalhoFinal.domain.model.user;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import jakarta.persistence.Column;

@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.Vehicle;
+package com.web2.trabalhoFinal.domain.model.vehicle;
 
 
 public class StatusVehicle {
@@ -8,17 +8,18 @@ public class StatusVehicle {
         EM_USO,
         EM_MANUTENCAO,
         DESATIVADO;
-
-        public static Status fromString(String value) {
-            return switch (value.toLowerCase()) {
-                case "disponivel"     -> DISPONIVEL;
-                case "em uso"         -> EM_USO;
-                case "em manutenção"  -> EM_MANUTENCAO;
-                case "desativado"     -> DESATIVADO;
-                default -> throw new IllegalArgumentException("Status inválido: " + value);
-            };
-        }
     }
+
+    public Status fromString(String value) {
+            return switch (value.toLowerCase()) {
+                case "disponivel"     -> Status.DISPONIVEL;
+                case "em uso"         -> Status.EM_USO;
+                case "em manutenção"  -> Status.EM_MANUTENCAO;
+                case "desativado"     -> Status.DESATIVADO;
+                default -> throw new IllegalArgumentException("Status inválido: " + value);
+        };
+    }
+    
 
     private String status;
 
@@ -27,6 +28,6 @@ public class StatusVehicle {
     }
 
     public String getStatus() {
-        return this.status;
+        return this.fromString(this.status).name();
     }
 }

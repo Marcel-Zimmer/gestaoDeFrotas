@@ -22,7 +22,7 @@ public class TripController {
         this.tripService = tripService;
     }
 
-     @PostMapping("/schedule")
+    @PostMapping("/schedule")
     public TripScheduleResponse registerSchedule(@RequestBody TripScheduleRequestDto dto) throws Exception{
         Trip trip = TripMapper.toDomain(dto);
         TripScheduleResponse tripCreate= tripService.registerTrip(trip);

@@ -7,5 +7,5 @@ import com.web2.trabalhoFinal.infrastructure.entity.vehicle.ModelVehicleEntity;
 
 @Repository
 public interface ModelVehicleRepository extends JpaRepository<ModelVehicleEntity, Long> {
-
+    ModelVehicleEntity findByModelVehicle(String modelVehicle);
 }

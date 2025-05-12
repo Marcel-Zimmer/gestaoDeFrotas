@@ -58,6 +58,18 @@ public class DriverEntity{
         this.address = address;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public DddNumberEntity getDddNumber() {
+        return dddNumber;
+    }
+
     public PhoneNumberEntity getPhoneNumber() {
         return phoneNumber;
     }
@@ -73,4 +85,6 @@ public class DriverEntity{
     public AddressEntity getAddress() {
         return address;
     }
+
+
 }

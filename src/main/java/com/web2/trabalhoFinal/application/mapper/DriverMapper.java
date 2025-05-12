@@ -1,11 +1,11 @@
 package com.web2.trabalhoFinal.application.mapper;
 
 import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
-import com.web2.trabalhoFinal.domain.model.Driver.Address;
-import com.web2.trabalhoFinal.domain.model.Driver.Cnh;
-import com.web2.trabalhoFinal.domain.model.Driver.Cpf;
-import com.web2.trabalhoFinal.domain.model.Driver.Driver;
-import com.web2.trabalhoFinal.domain.model.Driver.PhoneNumber;
+import com.web2.trabalhoFinal.domain.model.driver.Address;
+import com.web2.trabalhoFinal.domain.model.driver.Cnh;
+import com.web2.trabalhoFinal.domain.model.driver.Cpf;
+import com.web2.trabalhoFinal.domain.model.driver.Driver;
+import com.web2.trabalhoFinal.domain.model.driver.PhoneNumber;
 
 public class DriverMapper {
     public static Driver toDomain(DriverRequestDto dto) {

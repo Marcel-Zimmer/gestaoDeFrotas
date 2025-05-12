@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.Driver;
+package com.web2.trabalhoFinal.domain.model.driver;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

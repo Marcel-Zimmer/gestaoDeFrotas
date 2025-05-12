@@ -6,5 +6,5 @@ import com.web2.trabalhoFinal.infrastructure.entity.vehicle.TypeVehicleEntity;
 
 @Repository
 public interface TypeVehicleRepository extends JpaRepository<TypeVehicleEntity, Long> {
-
+    TypeVehicleEntity findByTypeVehicle(String typeVehicle);
 }

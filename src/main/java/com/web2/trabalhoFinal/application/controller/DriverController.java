@@ -3,13 +3,13 @@ package com.web2.trabalhoFinal.application.controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
+import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;
-import com.web2.trabalhoFinal.domain.model.Driver.Driver;
+import com.web2.trabalhoFinal.domain.model.driver.Driver;
 import com.web2.trabalhoFinal.domain.service.DriverService;
-import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/driver")
 public class DriverController {
 
     private DriverService driverService;
@@ -18,11 +18,15 @@ public class DriverController {
         this.driverService = driverService;
     }
     
-    @PostMapping("/driver")
-    public DriverEntity driverRegister(@RequestBody DriverRequestDto dto) {
-        Driver driver = DriverMapper.toDomain(dto);
-        DriverEntity driverIsCreate = driverService.createDriver(driver);
-        return driverIsCreate;
+    @PostMapping("/register")
+    public DriverResponse registerDriver(@RequestBody DriverRequestDto dto) {
+        try {
+            Driver driver = DriverMapper.toDomain(dto);
+            DriverResponse createDriver = driverService.createDriver(driver);
+            return createDriver;
+        } catch (Exception e) {
+            return new DriverResponse(false, "erro ao criar" + e.getMessage());
+        }
     }
 
 }

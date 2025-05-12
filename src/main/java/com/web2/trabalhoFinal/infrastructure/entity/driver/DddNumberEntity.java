@@ -18,6 +18,8 @@ public class DddNumberEntity {
     @Column(name = "ddd_number",nullable = false)
     private String dddNumber;
 
+    public DddNumberEntity() {
+    }
     public DddNumberEntity(String dddNumber) {
         this.dddNumber = dddNumber;
     }

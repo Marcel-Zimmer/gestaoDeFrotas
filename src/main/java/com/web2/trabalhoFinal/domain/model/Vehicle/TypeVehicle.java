@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.Vehicle;
+package com.web2.trabalhoFinal.domain.model.vehicle;
 
 public class TypeVehicle {
 

@@ -1,9 +1,7 @@
 package com.web2.trabalhoFinal.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
-
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleResponse;
 import com.web2.trabalhoFinal.domain.model.trip.Trip;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
@@ -35,8 +33,6 @@ public class TripService {
         StatusTripEntity status = statusTripRepository.findByStatus(trip.getStatus().getStatus())
         .orElseThrow(() -> new IllegalArgumentException("status não encontrado"));
         TripEntity newTrip = new TripEntity(vehicle, driver, status, trip.getDate(), trip.getTime(), trip.getJustify().getJustify());
-        System.err.println(status);
-        System.err.println(newTrip);
         tripRepository.save(newTrip);
         return new TripScheduleResponse(true, "viagem agendada", newTrip.getId());
 
