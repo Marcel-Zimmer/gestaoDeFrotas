@@ -1,1 +1,4 @@
 Todas as senhas devem ser criptografadas usando Hash SHA-256 + SALT
+
+criar os status e tipos de combustivel no bd
+criar os status de um veiculo e tipos de manutenção
