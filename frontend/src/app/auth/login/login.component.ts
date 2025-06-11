@@ -43,27 +43,31 @@ export class LoginComponent {
   }
 
 login() {
-  if (this.loginForm.valid) {
-    console.log('Enviando para a API:', this.loginForm.value);
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (response) => {
+          // A LÓGICA DE PÓS-LOGIN FICA AQUI, NO COMPONENTE!
+          console.log('Login bem-sucedido!', response);
 
-    // Chama o método login do nosso serviço, passando os dados do formulário
-    this.authService.login(this.loginForm.value).subscribe({
-      // O 'next' é executado quando a API retorna uma resposta de sucesso (status 2xx)
-      next: (response) => {
-        console.log('Login bem-sucedido!', response);
-        alert('Login realizado com sucesso!');
-        // Futuramente, aqui você vai salvar o token e redirecionar o usuário
-        // Ex: this.router.navigate(['/motorista']);
-      },
-      // O 'error' é executado quando a API retorna um erro (status 4xx, 5xx)
-      error: (err) => {
-        console.error('Erro no login:', err);
-        alert('E-mail ou senha inválidos. Tente novamente.');
-      }
-    });
+          // 1. Salva os dados no localStorage
+          //localStorage.setItem('usuario_logado', JSON.stringify(response));
 
-  } else {
-    console.error('Formulário inválido!');
+          // 2. Avisa o usuário
+          alert('Login realizado com sucesso!');
+          this.router.navigate(['/admin']);
+          // 3. Redireciona o usuário com base no perfil
+          if (response.superUser) {
+            
+          } else if (!response.superUser) {
+            this.router.navigate(['/motorista']);
+          }
+        },
+        error: (err) => {
+          // O tratamento de erro também é responsabilidade do componente
+          console.error('Erro no login:', err);
+          alert('E-mail ou senha inválidos. Tente novamente.');
+        }
+      });
+    }
   }
-}
 }

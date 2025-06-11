@@ -1,0 +1,35 @@
+<h2>Dashboard de Agendamentos</h2>
+
+<mat-table [dataSource]="agendamentos">
+  <ng-container matColumnDef="data">
+    <mat-header-cell *matHeaderCellDef>Data</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.dataSaida | date: 'dd/MM/yyyy HH:mm' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="veiculo">
+    <mat-header-cell *matHeaderCellDef>Veículo</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.veiculo.modelo }} ({{ agendamento.veiculo.placa }})</mat-cell>
+  </ng-container>
+  
+  <ng-container matColumnDef="destino">
+    <mat-header-cell *matHeaderCellDef>Destino</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.destino }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.status }}</mat-cell>
+  </ng-container>
+  
+  <ng-container matColumnDef="acoes">
+    <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">
+        <button *ngIf="agendamento.status === 'PENDENTE'" mat-icon-button color="primary">Agendar</button>
+        <button *ngIf="agendamento.status === 'EM USO'" mat-icon-button color="accent">Abastecer</button>
+        <button *ngIf="agendamento.status === 'FINALIZADO'" mat-icon-button color="warn">Manutenção</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['data', 'veiculo', 'destino', 'status', 'acoes']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['data', 'veiculo', 'destino', 'status', 'acoes'];"></mat-row>
+</mat-table>
