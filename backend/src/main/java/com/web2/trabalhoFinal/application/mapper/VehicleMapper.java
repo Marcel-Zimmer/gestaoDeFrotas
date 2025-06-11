@@ -1,7 +1,7 @@
 package com.web2.trabalhoFinal.application.mapper;
 
 import com.web2.trabalhoFinal.application.dto.vehicle.VehicleRequestDto;
-import com.web2.trabalhoFinal.domain.model.vehicle.Vehicle;
+import com.web2.trabalhoFinal.domain.model.Vehicle.Vehicle;
 
 public class VehicleMapper {
 

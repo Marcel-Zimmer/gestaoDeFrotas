@@ -2,7 +2,7 @@ package com.web2.trabalhoFinal.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
-import com.web2.trabalhoFinal.domain.model.driver.Driver;
+import com.web2.trabalhoFinal.domain.model.Driver.Driver;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.AddressEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.CnhEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.CpfEntity;

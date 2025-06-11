@@ -20,8 +20,8 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Senha</mat-label>
-          <input matInput formControlName="senha" type="password">
-          <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
+          <input matInput formControlName="password" type="password">
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
             Senha é obrigatória
           </mat-error>
         </mat-form-field>

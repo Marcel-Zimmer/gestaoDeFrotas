@@ -38,16 +38,32 @@ export class LoginComponent {
   constructor() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]]
+      password: ['', [Validators.required]]
     });
   }
 
-  login() {
-    if (this.loginForm.valid) {
-      console.log('Formulário válido. Dados:', this.loginForm.value);
-      // Futuramente, aqui chamaremos o this.authService.login(...)
-    } else {
-      console.error('Formulário inválido!');
-    }
+login() {
+  if (this.loginForm.valid) {
+    console.log('Enviando para a API:', this.loginForm.value);
+
+    // Chama o método login do nosso serviço, passando os dados do formulário
+    this.authService.login(this.loginForm.value).subscribe({
+      // O 'next' é executado quando a API retorna uma resposta de sucesso (status 2xx)
+      next: (response) => {
+        console.log('Login bem-sucedido!', response);
+        alert('Login realizado com sucesso!');
+        // Futuramente, aqui você vai salvar o token e redirecionar o usuário
+        // Ex: this.router.navigate(['/motorista']);
+      },
+      // O 'error' é executado quando a API retorna um erro (status 4xx, 5xx)
+      error: (err) => {
+        console.error('Erro no login:', err);
+        alert('E-mail ou senha inválidos. Tente novamente.');
+      }
+    });
+
+  } else {
+    console.error('Formulário inválido!');
   }
+}
 }

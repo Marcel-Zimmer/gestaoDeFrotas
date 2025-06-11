@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.vehicle;
+package com.web2.trabalhoFinal.domain.model.Vehicle;
 
 import java.time.Year;
 

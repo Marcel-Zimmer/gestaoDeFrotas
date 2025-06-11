@@ -4,7 +4,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.web2.trabalhoFinal.application.dto.user.LoginResponse;
-import com.web2.trabalhoFinal.domain.model.user.User;
+import com.web2.trabalhoFinal.domain.model.User.User;
 import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 import com.web2.trabalhoFinal.infrastructure.repository.user.UserRepository;
 

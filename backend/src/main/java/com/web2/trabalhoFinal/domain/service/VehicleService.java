@@ -2,7 +2,7 @@ package com.web2.trabalhoFinal.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.web2.trabalhoFinal.application.dto.vehicle.VehicleResponse;
-import com.web2.trabalhoFinal.domain.model.vehicle.Vehicle;
+import com.web2.trabalhoFinal.domain.model.Vehicle.Vehicle;
 import com.web2.trabalhoFinal.infrastructure.entity.vehicle.ModelVehicleEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.vehicle.StatusVehicleEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.vehicle.TypeVehicleEntity;

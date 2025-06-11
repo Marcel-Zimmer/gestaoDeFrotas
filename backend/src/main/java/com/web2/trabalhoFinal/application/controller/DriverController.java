@@ -3,7 +3,7 @@ import org.springframework.web.bind.annotation.*;
 import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
 import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;
-import com.web2.trabalhoFinal.domain.model.driver.Driver;
+import com.web2.trabalhoFinal.domain.model.Driver.Driver;
 import com.web2.trabalhoFinal.domain.service.DriverService;
 
 @RestController

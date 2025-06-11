@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.user;
+package com.web2.trabalhoFinal.domain.model.User;
 import jakarta.persistence.MappedSuperclass;
 
 
