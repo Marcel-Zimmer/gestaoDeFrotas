@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Veículo' : 'Novo Veículo' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Placa</mat-label>
+      <input matInput formControlName="placa">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Modelo</mat-label>
+      <input matInput formControlName="modelo">
+    </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvar()" [disabled]="form.invalid">Salvar</button>
+</mat-dialog-actions>
