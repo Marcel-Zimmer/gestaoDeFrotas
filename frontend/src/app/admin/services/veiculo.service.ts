@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class VeiculoService {
   private http = inject(HttpClient);
-  private API_URL = 'http://localhost:8080/api/veiculos'; // Ajuste se necessário
+  private API_URL = 'http://localhost:8080/vehicle/'; 
 
   getVeiculos(): Observable<any[]> {
-    return this.http.get<any[]>(this.API_URL);
+    return this.http.get<any[]>(this.API_URL + "vehicles");
   }
 
   salvar(veiculo: any): Observable<any> {

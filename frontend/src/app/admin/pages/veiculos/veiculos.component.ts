@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Imports do Angular Material para esta página
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -27,7 +27,7 @@ import { VeiculoDialogComponent } from '../../components/veiculo-dialog/veiculo-
 })
 export class VeiculosComponent implements OnInit {
   // Array que guardará os dados para a tabela
-  public veiculos: any[] = [];
+  public dataSource = new MatTableDataSource<any>(); 
   
   // Define as colunas que a tabela irá exibir e a ordem delas.
   // Deve corresponder exatamente aos 'matColumnDef' no seu HTML.
@@ -48,15 +48,13 @@ export class VeiculosComponent implements OnInit {
   carregarVeiculos(): void {
     this.veiculoService.getVeiculos().subscribe({
       next: (dados) => {
-        this.veiculos = dados;
+        // MUDANÇA 2: Atribua os dados à propriedade .data do dataSource
+        this.dataSource.data = dados; // (Lembre-se de usar .data se sua API for envelopada)
       },
-      error: (erro) => {
-        console.error('Erro ao carregar veículos:', erro);
-        // Aqui você pode adicionar uma notificação de erro para o usuário
-      }
+      // ...
     });
   }
-
+  /*
   /**
    * Método para abrir o dialog de criação/edição de veículo.
    * @param veiculo (Opcional) O objeto do veículo a ser editado.
@@ -101,4 +99,5 @@ export class VeiculosComponent implements OnInit {
       });
     }
   }
+  
 }

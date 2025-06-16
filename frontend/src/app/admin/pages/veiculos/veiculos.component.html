@@ -9,11 +9,11 @@
 <mat-table [dataSource]="veiculos">
   <ng-container matColumnDef="placa">
     <mat-header-cell *matHeaderCellDef>Placa</mat-header-cell>
-    <mat-cell *matCellDef="let veiculo">{{ veiculo.placa }}</mat-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.licence }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="modelo">
     <mat-header-cell *matHeaderCellDef>Modelo</mat-header-cell>
-    <mat-cell *matCellDef="let veiculo">{{ veiculo.modelo }}</mat-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.model }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="acoes">
     <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
