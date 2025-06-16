@@ -1,4 +1,6 @@
 package com.web2.trabalhoFinal.domain.service;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.web2.trabalhoFinal.application.dto.vehicle.VehicleResponse;
@@ -50,7 +52,20 @@ public class VehicleService {
         }
         VehicleEntity vehicleEntity = new VehicleEntity(vehicle.getLicencePlate().getLicence(),vehicle.getCurrentMileage().getValue(),modelVehicleEntity, statusVehicleEntity, typeVehicleEntity, yearVehicleEntity);
         vehicleRepository.save(vehicleEntity);
-        return new VehicleResponse(true, "veiculo criado",vehicleEntity.getId());
+        return new VehicleResponse(vehicleEntity.getId());
+    }
+
+    public List<VehicleResponse> getAllVehicles(){
+        List<VehicleEntity> vehicles = vehicleRepository.findAllWithDetails();
+        List<VehicleResponse> response = new ArrayList<>(); 
+
+        for (VehicleEntity vehicle : vehicles) {
+            VehicleResponse vehicleResponse = new VehicleResponse(vehicle.getId(), 
+            vehicle.getLicencePlate(), vehicle.getModelVehicleEntity().getModelVehicle(), vehicle.getTypeVehicleEntity().getTypeVehicle(),
+             vehicle.getYearVehicleEntity().getYearVehicle(), String.valueOf(vehicle.getCurrentMileage()), vehicle.getStatusVehicleEntity().getStatusVehicle());
+             response.add(vehicleResponse);
+        }
+        return response;
     }
 
 }
