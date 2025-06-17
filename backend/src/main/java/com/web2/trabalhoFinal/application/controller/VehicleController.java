@@ -65,6 +65,7 @@ public class VehicleController {
     @PutMapping("update/{id}")
     public Void updateVehicle (@PathVariable Long id,@RequestBody VehicleRequestDto dto) {
         System.out.println(id);
+        Vehicle vehicle = VehicleMapper.toDomain(dto);
         return null;
     }
     
