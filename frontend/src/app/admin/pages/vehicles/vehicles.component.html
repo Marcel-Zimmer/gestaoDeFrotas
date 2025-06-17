@@ -1,0 +1,48 @@
+<div class="header">
+  <h2>Gerenciamento de Veículos</h2>
+  <button mat-raised-button color="primary" (click)="dialogVehicle()">
+    <mat-icon>add</mat-icon>
+    Cadastrar Veículo
+  </button>
+</div>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="placa">
+    <mat-header-cell *matHeaderCellDef>Placa</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.licencePlate }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="modelo">
+    <mat-header-cell *matHeaderCellDef>Modelo</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.modelVehicle }}</mat-cell>
+  </ng-container>
+    <ng-container matColumnDef="tipo">
+    <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.typeVehicle }}</mat-cell>
+  </ng-container>
+    <ng-container matColumnDef="ano">
+    <mat-header-cell *matHeaderCellDef>Ano</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.yearVehicle }}</mat-cell>
+  </ng-container>
+    <ng-container matColumnDef="quilometragem">
+    <mat-header-cell *matHeaderCellDef>Quilometragem</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.currentMileage }}</mat-cell>
+  </ng-container>    
+    <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">{{ veiculo.statusVehicle }}</mat-cell>
+  </ng-container>   
+  <ng-container matColumnDef="acoes">
+    <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+    <mat-cell *matCellDef="let veiculo">
+      <button mat-icon-button color="primary" (click)="dialogVehicle(veiculo)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="excluirVeiculo(veiculo.vehicleId)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['placa', 'modelo', 'tipo', 'ano', 'quilometragem', 'status', 'acoes'];"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['placa', 'modelo', 'tipo', 'ano', 'quilometragem', 'status', 'acoes'];;"></mat-row>
+</mat-table>

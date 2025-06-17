@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VeiculoDialogComponent } from './veiculo-dialog.component';
+import { VeiculoDialogComponent } from './vehicle-dialog.component';
 
 describe('VeiculoDialogComponent', () => {
   let component: VeiculoDialogComponent;

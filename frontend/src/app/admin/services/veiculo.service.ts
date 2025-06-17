@@ -1,22 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../../models/api/api.response.model'
+import { VehicleRequest } from '../../models/api/api.request.model'
 
 @Injectable({ providedIn: 'root' })
 export class VeiculoService {
-  private http = inject(HttpClient);
-  private API_URL = 'http://localhost:8080/vehicle/'; 
 
-  getVeiculos(): Observable<any[]> {
-    return this.http.get<any[]>(this.API_URL + "vehicles");
+  private http = inject(HttpClient);
+  private API_URL = 'http://localhost:8080/vehicle'; 
+
+  getVeiculos(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.API_URL + "/vehicles");
   }
 
-  salvar(veiculo: any): Observable<any> {
+
+  updateVehicle(vehicle: VehicleRequest): Observable<any> {
     // Se o veículo já tem ID, é uma atualização (PUT), senão é uma inserção (POST)
-    if (veiculo.id) {
-      return this.http.put<any>(`${this.API_URL}/${veiculo.id}`, veiculo);
+    if (vehicle.id) {
+      return this.http.put<any>(`${this.API_URL}/update/${vehicle.id}`, vehicle);
     }
-    return this.http.post<any>(this.API_URL, veiculo);
+    return this.http.post<ApiResponse>(this.API_URL+"/register", vehicle);
   }
 
   // Lembre-se que o requisito é INATIVAR, não deletar. O backend deve fazer a lógica.

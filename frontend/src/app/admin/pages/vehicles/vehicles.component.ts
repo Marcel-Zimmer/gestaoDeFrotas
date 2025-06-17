@@ -7,14 +7,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
-// Imports dos seus serviços e componentes customizados
+
 import { VeiculoService } from '../../services/veiculo.service';
-import { VeiculoDialogComponent } from '../../components/veiculo-dialog/veiculo-dialog.component';
+import { VeiculoDialogComponent } from '../../components/veihcle-dialog/vehicle-dialog.component';
+import { Veiculo } from '../../../models/veiculo/veiculo.model';
+import { ApiResponse } from '../../../models/api/api.response.model';
 
 @Component({
   selector: 'app-veiculos',
   standalone: true,
-  // Todos os módulos que o template HTML desta página precisa
   imports: [
     CommonModule,
     MatTableModule,
@@ -22,12 +23,14 @@ import { VeiculoDialogComponent } from '../../components/veiculo-dialog/veiculo-
     MatIconModule,
     MatDialogModule
   ],
-  templateUrl: './veiculos.component.html',
-  styleUrls: ['./veiculos.component.scss']
+  templateUrl: './vehicles.component.html',
+  styleUrls: ['./vehicles.component.scss']
 })
+
+
 export class VeiculosComponent implements OnInit {
   // Array que guardará os dados para a tabela
-  public dataSource = new MatTableDataSource<any>(); 
+  public dataSource = new MatTableDataSource<Veiculo>(); 
   
   // Define as colunas que a tabela irá exibir e a ordem delas.
   // Deve corresponder exatamente aos 'matColumnDef' no seu HTML.
@@ -37,42 +40,40 @@ export class VeiculosComponent implements OnInit {
   private veiculoService = inject(VeiculoService);
   public dialog = inject(MatDialog);
 
+
+  
   // ngOnInit é chamado uma vez quando o componente é inicializado.
   ngOnInit(): void {
-    this.carregarVeiculos();
+    this.loadVehicles();
   }
 
-  /**
-   * Método responsável por chamar o serviço e carregar a lista de veículos.
-   */
-  carregarVeiculos(): void {
+
+ loadVehicles(): void {
     this.veiculoService.getVeiculos().subscribe({
-      next: (dados) => {
-        // MUDANÇA 2: Atribua os dados à propriedade .data do dataSource
-        this.dataSource.data = dados; // (Lembre-se de usar .data se sua API for envelopada)
+
+      next: (response: ApiResponse) => {
+        this.dataSource.data = response.data;
       },
-      // ...
+      error: (erro) => {
+        console.error('Erro ao carregar veículos:', erro);
+      }
     });
   }
-  /*
-  /**
-   * Método para abrir o dialog de criação/edição de veículo.
-   * @param veiculo (Opcional) O objeto do veículo a ser editado.
-   */
-  abrirDialog(veiculo?: any): void {
+
+  dialogVehicle(veiculo?: Veiculo): void {
     const dialogRef = this.dialog.open(VeiculoDialogComponent, {
-      width: '450px',
-      disableClose: true, // Impede que o dialog seja fechado clicando fora dele
-      data: veiculo // Envia o dado do veículo para o dialog. Será 'undefined' no modo de criação.
+      width: '600px',
+      disableClose: true, 
+      data: veiculo 
     });
 
     // Escuta o evento de fechamento do dialog
     dialogRef.afterClosed().subscribe(result => {
-      // 'result' conterá os dados do formulário se o usuário clicou em "Salvar"
+      
       if (result) {
-        this.veiculoService.salvar(result).subscribe({
+        this.veiculoService.updateVehicle(result).subscribe({
           next: () => {
-            this.carregarVeiculos(); // Recarrega a lista para mostrar o item novo/atualizado
+            this.loadVehicles(); // Recarrega a lista para mostrar o item novo/atualizado
           },
           error: (erro) => {
             console.error('Erro ao salvar veículo:', erro);
@@ -87,11 +88,12 @@ export class VeiculosComponent implements OnInit {
    * @param id O ID do veículo a ser excluído.
    */
   excluirVeiculo(id: number): void {
+    console.log(id)
     // Usamos o 'confirm' do navegador para uma confirmação simples
     if (confirm('Tem certeza que deseja inativar este veículo?')) {
       this.veiculoService.excluir(id).subscribe({
         next: () => {
-          this.carregarVeiculos(); // Recarrega a lista para remover o item
+          this.loadVehicles(); // Recarrega a lista para remover o item
         },
         error: (erro) => {
           console.error('Erro ao inativar veículo:', erro);
