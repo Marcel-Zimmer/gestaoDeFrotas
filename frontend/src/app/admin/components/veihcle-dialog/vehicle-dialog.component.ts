@@ -62,7 +62,7 @@ export class VeiculoDialogComponent {
 
     this.form = this.fb.group({
       id: [data?.vehicleId], 
-      licence: [data?.licencePlate, Validators.required,],
+      licence: [data?.licencePlate, [Validators.required,Validators.minLength(7)]],
       model: [data?.modelVehicle, Validators.required],
       type: [data?.typeVehicle, Validators.required],
       year: [data?.yearVehicle, [Validators.required, Validators.min(1950), Validators.max(new Date().getFullYear() + 1)]],

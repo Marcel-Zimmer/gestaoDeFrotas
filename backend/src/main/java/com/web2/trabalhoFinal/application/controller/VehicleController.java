@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,10 +64,27 @@ public class VehicleController {
     }
 
     @PutMapping("update/{id}")
-    public Void updateVehicle (@PathVariable Long id,@RequestBody VehicleRequestDto dto) {
-        System.out.println(id);
-        Vehicle vehicle = VehicleMapper.toDomain(dto);
-        return null;
+    public ResponseEntity<ApiResponse<VehicleResponse>> updateVehicle (@PathVariable Long id,@RequestBody VehicleRequestDto dto) {
+        try {
+            Vehicle vehicle = VehicleMapper.toDomain(dto);
+            ApiResponse<VehicleResponse> response= vehicleService.updateVehicle(id,vehicle);
+            return ResponseEntity.status(HttpStatus.OK).body(response);          
+        } catch (Exception e) {
+            ApiResponse<VehicleResponse> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
     }
-    
+     @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteVehicle(@PathVariable Long id) {
+        try {
+            ApiResponse<Void> response = vehicleService.deleteVehicle(id);
+            return ResponseEntity.ok(response);
+        
+        } catch (Exception e) {
+            String errorMessage = "Erro ao deletar o veículo: " + e.getMessage();
+            ApiResponse<Void> response = new ApiResponse<>(false, errorMessage);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 }

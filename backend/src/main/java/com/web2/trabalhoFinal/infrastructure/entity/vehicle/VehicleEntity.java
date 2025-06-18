@@ -1,4 +1,6 @@
 package com.web2.trabalhoFinal.infrastructure.entity.vehicle;
+import com.web2.trabalhoFinal.domain.model.Vehicle.Vehicle;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -86,6 +88,30 @@ public class VehicleEntity {
         this.statusVehicleEntity = statusVehicleEntity;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public void setLicencePlate(String licencePlate) {
+        this.licencePlate = licencePlate;
+    }
+
+    public void setCurrentMileage(Double currentMileage) {
+        this.currentMileage = currentMileage;
+    }
+
+    public void setModelVehicleEntity(ModelVehicleEntity modelVehicleEntity) {
+        this.modelVehicleEntity = modelVehicleEntity;
+    }
+
+    public void setTypeVehicleEntity(TypeVehicleEntity typeVehicleEntity) {
+        this.typeVehicleEntity = typeVehicleEntity;
+    }
+
+    public void setYearVehicleEntity(YearVehicleEntity yearVehicleEntity) {
+        this.yearVehicleEntity = yearVehicleEntity;
+    }
+
+    
     
 }
