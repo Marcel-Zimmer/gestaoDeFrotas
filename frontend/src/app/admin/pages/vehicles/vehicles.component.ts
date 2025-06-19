@@ -6,6 +6,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 import { VeiculoService } from '../../services/veiculo.service';
@@ -21,7 +22,8 @@ import { ApiResponse } from '../../../models/api/api.response.model';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.scss']
@@ -29,6 +31,7 @@ import { ApiResponse } from '../../../models/api/api.response.model';
 
 
 export class VeiculosComponent implements OnInit {
+  private snackBar = inject(MatSnackBar);
   // Array que guardará os dados para a tabela
   public dataSource = new MatTableDataSource<Veiculo>(); 
   
@@ -74,9 +77,10 @@ export class VeiculosComponent implements OnInit {
         this.veiculoService.updateVehicle(result).subscribe({
           next: () => {
             this.loadVehicles(); // Recarrega a lista para mostrar o item novo/atualizado
+            this.mostrarMensagemDeSucesso("Veiculo salvo com sucesso");
           },
           error: (erro) => {
-            console.error('Erro ao salvar veículo:', erro);
+            this.mostrarMensagemDeErro(erro);
           }
         });
       }
@@ -94,12 +98,28 @@ export class VeiculosComponent implements OnInit {
       this.veiculoService.excluir(id).subscribe({
         next: () => {
           this.loadVehicles(); // Recarrega a lista para remover o item
+          this.mostrarMensagemDeSucesso("Veiculo excluido com sucesso");
         },
         error: (erro) => {
-          console.error('Erro ao inativar veículo:', erro);
+          this.mostrarMensagemDeErro(erro);
         }
       });
     }
   }
-  
-}
+  mostrarMensagemDeSucesso(mensagem: string): void {
+    this.snackBar.open(mensagem, 'Fechar', {
+      duration: 3000, // A mensagem some após 3 segundos
+      horizontalPosition: 'center', // Posição horizontal (pode ser 'start', 'center', 'end', 'left', 'right')
+      verticalPosition: 'bottom', // Posição vertical (pode ser 'top' ou 'bottom')
+    });
+  }
+
+  mostrarMensagemDeErro(mensagem: string): void {
+    this.snackBar.open(mensagem, 'OK', {
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['snackbar-error'] // (Opcional) Classe CSS para estilizar o erro
+    });
+  }
+}  
+

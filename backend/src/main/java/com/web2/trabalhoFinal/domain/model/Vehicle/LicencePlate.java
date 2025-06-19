@@ -5,7 +5,7 @@ public class LicencePlate {
     private String licence;
 
     public LicencePlate(String licence) {
-        this.validate(licence);
+        this.validate(licence.toUpperCase());
         this.licence = licence.toUpperCase();
     }
 

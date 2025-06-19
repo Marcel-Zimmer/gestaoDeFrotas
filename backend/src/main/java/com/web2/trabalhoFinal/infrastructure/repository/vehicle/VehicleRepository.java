@@ -18,4 +18,6 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
            "JOIN FETCH v.statusVehicleEntity")
     List<VehicleEntity> findAllWithDetails();
 
+    VehicleEntity findByLicencePlate(String licence);
+
 }

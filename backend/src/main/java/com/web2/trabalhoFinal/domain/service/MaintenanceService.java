@@ -1,6 +1,7 @@
 package com.web2.trabalhoFinal.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.web2.trabalhoFinal.application.dto.maintenance.MaintenanceResponse;
 import com.web2.trabalhoFinal.domain.model.maintenance.Maintenance;
 import com.web2.trabalhoFinal.infrastructure.entity.maintenance.MaintenanceEntity;
@@ -32,8 +33,11 @@ public class MaintenanceService {
         MaintenanceEntity maintenanceEntity = new MaintenanceEntity(vehicleEntity, typeMaintenanceEntity, maintenance.getDate().getValue(),
         maintenance.getDescription().getValue(), maintenance.getPrice().getValue(), maintenance.getCurrentMileage().getValue());
         
-        StatusVehicleEntity statusVehicleEntity = statusVehicleRepository.findByStatusVehicle("EM_MANUTENCAO")
-        .orElseThrow(() -> new IllegalArgumentException("Tipo de manutenção inválido"));
+        StatusVehicleEntity statusVehicleEntity = statusVehicleRepository.findByStatusVehicle("EM_MANUTENCAO");
+        if(statusVehicleEntity == null){
+            statusVehicleEntity = new StatusVehicleEntity("EM_MANUTENCAO");
+            statusVehicleRepository.save(statusVehicleEntity);
+        }         
 
         vehicleEntity.setStatusVehicleEntity(statusVehicleEntity);
 
