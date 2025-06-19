@@ -9,10 +9,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
-import { VeiculoService } from '../../services/veiculo.service';
+import { VeiculoService } from '../../services/vehicles/veiculo.service';
 import { VeiculoDialogComponent } from '../../components/veihcle-dialog/vehicle-dialog.component';
 import { Veiculo } from '../../../models/veiculo/veiculo.model';
-import { ApiResponse } from '../../../models/api/api.response.model';
+import { ApiResponseVehicle } from '../../../models/api/api.response.model';
 
 @Component({
   selector: 'app-veiculos',
@@ -54,7 +54,7 @@ export class VeiculosComponent implements OnInit {
  loadVehicles(): void {
     this.veiculoService.getVeiculos().subscribe({
 
-      next: (response: ApiResponse) => {
+      next: (response: ApiResponseVehicle) => {
         this.dataSource.data = response.data;
       },
       error: (erro) => {
@@ -80,7 +80,7 @@ export class VeiculosComponent implements OnInit {
             this.mostrarMensagemDeSucesso("Veiculo salvo com sucesso");
           },
           error: (erro) => {
-            this.mostrarMensagemDeErro(erro);
+            this.mostrarMensagemDeErro("Erro ao salvar : " + erro.error.message);
           }
         });
       }
@@ -101,7 +101,7 @@ export class VeiculosComponent implements OnInit {
           this.mostrarMensagemDeSucesso("Veiculo excluido com sucesso");
         },
         error: (erro) => {
-          this.mostrarMensagemDeErro(erro);
+          this.mostrarMensagemDeErro(erro.message);
         }
       });
     }

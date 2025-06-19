@@ -1,35 +1,58 @@
-<h2>Dashboard de Agendamentos</h2>
+<h2>Agendamentos</h2>
+<div class="header">
+  <h2>Gerenciamento de Agendamentos</h2>
+  <button mat-raised-button color="primary" class="dialogTrip">
+    <mat-icon>add</mat-icon>
+    Cadastrar Agendamento
+  </button>
+</div>
 
-<mat-table [dataSource]="agendamentos">
+<mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="data">
     <mat-header-cell *matHeaderCellDef>Data</mat-header-cell>
-    <mat-cell *matCellDef="let agendamento">{{ agendamento.dataSaida | date: 'dd/MM/yyyy HH:mm' }}</mat-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.date | date: 'dd/MM/yyyy' }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="veiculo">
-    <mat-header-cell *matHeaderCellDef>Veículo</mat-header-cell>
-    <mat-cell *matCellDef="let agendamento">{{ agendamento.veiculo.modelo }} ({{ agendamento.veiculo.placa }})</mat-cell>
+  <ng-container matColumnDef="motorista">
+    <mat-header-cell *matHeaderCellDef>Motorista</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.nameDriver }}</mat-cell>
   </ng-container>
-  
-  <ng-container matColumnDef="destino">
-    <mat-header-cell *matHeaderCellDef>Destino</mat-header-cell>
-    <mat-cell *matCellDef="let agendamento">{{ agendamento.destino }}</mat-cell>
+
+  <ng-container matColumnDef="tipo_veiculo">
+    <mat-header-cell *matHeaderCellDef>Tipo Veiculo</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.typeVehicle }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="modelo_veiculo">
+    <mat-header-cell *matHeaderCellDef>Modelo Veiculo</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.licencePlate }}</mat-cell>
+  </ng-container>    
+  <ng-container matColumnDef="placa_veiculo">
+    <mat-header-cell *matHeaderCellDef>Placa Veiculo</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.licencePlate }}</mat-cell>
+  </ng-container>  
+
+  <ng-container matColumnDef="justificativa">
+    <mat-header-cell *matHeaderCellDef>Justificativa</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.justify }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="status">
     <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-    <mat-cell *matCellDef="let agendamento">{{ agendamento.status }}</mat-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.statusTrip }}</mat-cell>
   </ng-container>
   
   <ng-container matColumnDef="acoes">
     <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
-    <mat-cell *matCellDef="let agendamento">
-        <button *ngIf="agendamento.status === 'PENDENTE'" mat-icon-button color="primary">Agendar</button>
-        <button *ngIf="agendamento.status === 'EM USO'" mat-icon-button color="accent">Abastecer</button>
-        <button *ngIf="agendamento.status === 'FINALIZADO'" mat-icon-button color="warn">Manutenção</button>
+    <mat-cell *matCellDef="let veiculo">
+      <button mat-icon-button color="primary" >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" >
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="['data', 'veiculo', 'destino', 'status', 'acoes']"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: ['data', 'veiculo', 'destino', 'status', 'acoes'];"></mat-row>
+  <mat-header-row *matHeaderRowDef="['data','motorista', 'tipo_veiculo','modelo_veiculo','placa_veiculo', 'justificativa', 'status', 'acoes']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['data','motorista', 'tipo_veiculo','modelo_veiculo','placa_veiculo', 'justificativa', 'status', 'acoes'];"></mat-row>
 </mat-table>

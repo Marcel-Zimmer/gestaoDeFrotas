@@ -2,8 +2,10 @@ package com.web2.trabalhoFinal.infrastructure.entity.trip;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.vehicle.VehicleEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,11 +25,11 @@ public class TripEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_vehicle", referencedColumnName = "id", nullable = false)
-    private VehicleEntity vehicleId;
+    private VehicleEntity vehicle;
 
     @ManyToOne
     @JoinColumn(name = "id_driver", referencedColumnName = "id", nullable = false)
-    private DriverEntity driverId;
+    private DriverEntity driver;
 
     @ManyToOne
     @JoinColumn(name = "id_status", referencedColumnName = "id", nullable = false)
@@ -44,24 +46,29 @@ public class TripEntity {
 
     public TripEntity(VehicleEntity vehicleId, DriverEntity driverId, StatusTripEntity status, LocalDate date,
             LocalTime time, String justify) {
-        this.vehicleId = vehicleId;
-        this.driverId = driverId;
+        this.vehicle = vehicleId;
+        this.driver = driverId;
         this.status = status;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
         this.justify = justify;
     }
 
+
+    public TripEntity() {
+    }
+
+
     public Long getId() {
         return id;
     }
 
-    public VehicleEntity getVehicleId() {
-        return vehicleId;
+    public VehicleEntity getVehicle() {
+        return vehicle;
     }
 
-    public DriverEntity getDriverId() {
-        return driverId;
+    public DriverEntity getDriver() {
+        return driver;
     }
 
     public StatusTripEntity getStatus() {

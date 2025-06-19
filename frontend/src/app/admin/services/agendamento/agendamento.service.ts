@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponseTrip} from '../../../models/api/api.response.model'
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,9 @@ import { Observable } from 'rxjs';
 export class AgendamentoService {
   private http = inject(HttpClient);
   // Endpoint para buscar todos os agendamentos (você precisa criar no seu backend)
-  private API_URL = 'http://localhost:8080/api/agendamentos';
+  private API_URL = 'http://localhost:8080/trip/schedules';
 
-  getAgendamentos(): Observable<any[]> {
-    return this.http.get<any[]>(this.API_URL);
-    // Adicione aqui a lógica para enviar o token de autenticação no header!
+  getAgendamentos(): Observable<ApiResponseTrip> {
+    return this.http.get<ApiResponseTrip>(this.API_URL);
   }
 }

@@ -1,12 +1,14 @@
 // Imports que você já tinha
-import { AgendamentoService } from '../../services/agendamento.service';
+import { AgendamentoService } from '../../services/agendamento/agendamento.service';
 import { Component, OnInit, inject } from '@angular/core';
 
 // Imports NECESSÁRIOS para o template
 import { CommonModule } from '@angular/common'; // Para pipes como 'date' e diretivas como *ngIf
-import { MatTableModule } from '@angular/material/table';   // Para a tabela <mat-table>
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button'; // Para os botões <button mat-icon-button>
 import { MatIconModule } from '@angular/material/icon';     // Para os ícones <mat-icon>
+import {Trip} from '../../../models/trip/trip.model';
+import { ApiResponseTrip } from '../../../models/api/api.response.model';
 
 
 @Component({
@@ -25,16 +27,21 @@ import { MatIconModule } from '@angular/material/icon';     // Para os ícones <
 
 export class DashboardComponent implements OnInit {
   private agendamentoService = inject(AgendamentoService);
-  public agendamentos: any[] = []; // Array para guardar os dados
+  public dataSource = new MatTableDataSource<Trip>(); 
 
   ngOnInit(): void {
     this.carregarAgendamentos();
   }
 
   carregarAgendamentos(): void {
-    this.agendamentoService.getAgendamentos().subscribe(dados => {
-      this.agendamentos = dados;
-      console.log('Agendamentos carregados:', this.agendamentos);
+    this.agendamentoService.getAgendamentos().subscribe({
+
+      next: (response: ApiResponseTrip) => {
+        this.dataSource.data = response.data;
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar veículos:', erro);
+      }
     });
   }
 }

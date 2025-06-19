@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../../models/api/api.response.model'
-import { VehicleRequest } from '../../models/api/api.request.model'
+import { ApiResponseVehicle } from '../../../models/api/api.response.model'
+import { VehicleRequest } from '../../../models/api/api.request.model'
 
 @Injectable({ providedIn: 'root' })
 export class VeiculoService {
@@ -10,8 +10,8 @@ export class VeiculoService {
   private http = inject(HttpClient);
   private API_URL = 'http://localhost:8080/vehicle'; 
 
-  getVeiculos(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.API_URL + "/vehicles");
+  getVeiculos(): Observable<ApiResponseVehicle> {
+    return this.http.get<ApiResponseVehicle>(this.API_URL + "/vehicles");
   }
 
 
@@ -21,7 +21,7 @@ export class VeiculoService {
       console.log(vehicle)
       return this.http.put<any>(`${this.API_URL}/update/${vehicle.id}`, vehicle);
     }
-    return this.http.post<ApiResponse>(this.API_URL+"/register", vehicle);
+    return this.http.post<ApiResponseVehicle>(this.API_URL+"/register", vehicle);
   }
 
   // Lembre-se que o requisito é INATIVAR, não deletar. O backend deve fazer a lógica.
