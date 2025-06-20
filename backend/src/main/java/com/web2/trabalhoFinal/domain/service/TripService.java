@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web2.trabalhoFinal.application.dto.ApiResponse;
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleResponse;
 import com.web2.trabalhoFinal.domain.model.trip.Trip;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
@@ -55,6 +56,16 @@ public class TripService {
             response.add(scheduleResponse);
         }
         return response;
+    }
+
+    public ApiResponse<TripScheduleResponse> updateVehicle(Long id, Trip trip) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateVehicle'");
+    }
+
+    public ApiResponse<Void> deleteVehicle(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteVehicle'");
     }
 
 }

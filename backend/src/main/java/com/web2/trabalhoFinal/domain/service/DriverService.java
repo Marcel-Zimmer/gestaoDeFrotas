@@ -1,7 +1,12 @@
 package com.web2.trabalhoFinal.domain.service;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
+import com.web2.trabalhoFinal.application.dto.vehicle.VehicleResponse;
 import com.web2.trabalhoFinal.domain.model.Driver.Driver;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.AddressEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.CnhEntity;
@@ -10,6 +15,7 @@ import com.web2.trabalhoFinal.infrastructure.entity.driver.DddNumberEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.PhoneNumberEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
+import com.web2.trabalhoFinal.infrastructure.entity.vehicle.VehicleEntity;
 import com.web2.trabalhoFinal.infrastructure.repository.driver.CnhRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.driver.CpfRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.driver.DriverRepository;
@@ -54,6 +60,16 @@ public class DriverService {
         addressRepository.save(address);
         DriverEntity newDriver = new DriverEntity(user,dddNumber,phoneNumber, cpf,cnh, address);
         driverRepository.save(newDriver);
-        return new DriverResponse(true, "Motorista criado com sucesso", newDriver.getId());
+        return new DriverResponse(newDriver.getId());
+    }
+    public List<DriverResponse> getAllDrivers() {
+        List<DriverEntity> drivers = driverRepository.findAll();
+        List<DriverResponse> response = new ArrayList<>(); 
+
+        for (DriverEntity driver : drivers) {
+            DriverResponse driverResponse = new DriverResponse(driver.getId(),driver.getUser().getName(),driver.getCpf().getCpf(),driver.getCnh().getCnh(),driver.getUser().getEmail(),driver.getAddress());
+             response.add(driverResponse);
+        }
+        return response;
     }
 }

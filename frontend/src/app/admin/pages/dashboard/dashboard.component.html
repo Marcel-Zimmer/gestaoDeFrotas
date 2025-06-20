@@ -1,7 +1,7 @@
-<h2>Agendamentos</h2>
+
 <div class="header">
   <h2>Gerenciamento de Agendamentos</h2>
-  <button mat-raised-button color="primary" class="dialogTrip">
+  <button mat-raised-button color="primary" class="dialogTrip" (click)="dialogoAgendamento()">
     <mat-icon>add</mat-icon>
     Cadastrar Agendamento
   </button>
@@ -43,11 +43,11 @@
   
   <ng-container matColumnDef="acoes">
     <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
-    <mat-cell *matCellDef="let veiculo">
-      <button mat-icon-button color="primary" >
+    <mat-cell *matCellDef="let agendamento">
+      <button mat-icon-button color="primary" (click)="dialogoAgendamento(agendamento)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" >
+      <button mat-icon-button color="warn" (click)="excluirAgendamento(agendamento.tripId)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>

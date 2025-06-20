@@ -8,3 +8,12 @@ export interface VehicleRequest {
   currentMileage: number;
   statusVehicle: string;
 }
+
+export interface AgendamentoRequest{
+  id :number;
+  idVehicle : number;
+  idDriver : number;
+  date : string;
+  justify : string;
+  status : string
+}
