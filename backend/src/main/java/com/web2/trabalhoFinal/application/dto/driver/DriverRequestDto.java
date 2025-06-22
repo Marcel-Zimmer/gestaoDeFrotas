@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class DriverRequestDto {
     public String name;
+    public String statusDriver;
     public String cpf;
     public String cnh;
     public LocalDate expirationDate;

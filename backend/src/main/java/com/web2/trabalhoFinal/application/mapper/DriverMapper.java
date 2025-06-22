@@ -6,6 +6,7 @@ import com.web2.trabalhoFinal.domain.model.Driver.Cnh;
 import com.web2.trabalhoFinal.domain.model.Driver.Cpf;
 import com.web2.trabalhoFinal.domain.model.Driver.Driver;
 import com.web2.trabalhoFinal.domain.model.Driver.PhoneNumber;
+import com.web2.trabalhoFinal.domain.model.Driver.StatusDriver;
 
 public class DriverMapper {
     public static Driver toDomain(DriverRequestDto dto) {
@@ -34,7 +35,8 @@ public class DriverMapper {
             dto.email,  
             dto.password, 
             dto.isSuperUser,
-            dto.isAtive
+            dto.isAtive,
+            new StatusDriver(dto.statusDriver)
         );
     }
 }           

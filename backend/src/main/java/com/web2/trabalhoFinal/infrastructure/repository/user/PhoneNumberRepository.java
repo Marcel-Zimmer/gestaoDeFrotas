@@ -8,4 +8,6 @@ import com.web2.trabalhoFinal.infrastructure.entity.driver.PhoneNumberEntity;
 @Repository
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumberEntity, Long> {
 
+    public PhoneNumberEntity findByPhoneNumber(String phoneNumber);
+
 }

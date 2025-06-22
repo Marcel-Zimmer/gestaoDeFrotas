@@ -1,6 +1,7 @@
 package com.web2.trabalhoFinal.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.web2.trabalhoFinal.application.dto.refueling.RefuelingResponse;
 import com.web2.trabalhoFinal.domain.model.refueling.Refueling;
 import com.web2.trabalhoFinal.infrastructure.entity.refueling.RefuelingEntity;
@@ -28,8 +29,10 @@ public class RefuelingService {
         .orElseThrow(() -> new IllegalArgumentException("Veículo não encontrado"));
         TypeRefuelingEntity typeRefuelingEntity = typeRefuelingRepository.findByTypeRefueling(refueling.getTypeRefueling().getRefueling())
         .orElseThrow(() -> new IllegalArgumentException("Tipo de combustivel inválido"));
-        UserEntity userEntity = userRepository.findByName(refueling.getNameDriver().getValue())
-        .orElseThrow(() -> new IllegalArgumentException("Veículo não encontrado"));
+        UserEntity userEntity = userRepository.findByName(refueling.getNameDriver().getValue());
+        if(userEntity == null){
+            throw new IllegalArgumentException("Usuário não encontrado");
+        }
         RefuelingEntity refuelingEntity = new RefuelingEntity(vehicleEntity, typeRefuelingEntity, userEntity, refueling.getDate().getValue(),refueling.getPrice().getValue(), refueling.getCurrentMileage().getValue());
         refuelingRepository.save(refuelingEntity);
         return new RefuelingResponse(true, "abastecimento registrado", refuelingEntity.getId());

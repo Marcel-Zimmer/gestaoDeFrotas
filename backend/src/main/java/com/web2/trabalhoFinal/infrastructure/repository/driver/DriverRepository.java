@@ -11,5 +11,7 @@ import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 @Repository
 public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
 
+    public List<DriverEntity> findByStatusStatus(String value);
+
     
 }

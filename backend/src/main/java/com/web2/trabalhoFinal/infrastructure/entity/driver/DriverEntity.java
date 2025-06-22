@@ -2,6 +2,7 @@ package com.web2.trabalhoFinal.infrastructure.entity.driver;
 
 
 import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,6 +42,10 @@ public class DriverEntity{
     @ManyToOne
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
     private AddressEntity address; 
+
+    @ManyToOne
+    @JoinColumn(name = "id_status_driver", referencedColumnName = "id", nullable = false)
+    private StatusDriverEntity status;     
     
     public DriverEntity() {}
 
@@ -49,13 +54,14 @@ public class DriverEntity{
     }
 
     public DriverEntity(UserEntity user ,DddNumberEntity dddNumber, PhoneNumberEntity phoneNumber,
-            CpfEntity cpf, CnhEntity cnh, AddressEntity address) {
+            CpfEntity cpf, CnhEntity cnh, AddressEntity address, StatusDriverEntity status) {
         this.user = user;
         this.dddNumber = dddNumber;
         this.phoneNumber = phoneNumber;
         this.cpf = cpf;
         this.cnh = cnh;
         this.address = address;
+        this.status = status;
     }
 
     public Long getId() {
@@ -84,6 +90,10 @@ public class DriverEntity{
 
     public AddressEntity getAddress() {
         return address;
+    }
+
+    public StatusDriverEntity getStatus() {
+        return status;
     }
 
 

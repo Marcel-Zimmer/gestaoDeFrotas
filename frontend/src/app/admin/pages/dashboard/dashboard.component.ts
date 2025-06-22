@@ -8,7 +8,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button'; // Para os botões <button mat-icon-button>
 import { MatIconModule } from '@angular/material/icon';     // Para os ícones <mat-icon>
 import {Trip} from '../../../models/trip/trip.model';
-import { ApiResponseTrip } from '../../../models/api/api.response.model';
+import { ApiResponseTrip } from '../../../models/api/backend/api.response.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AgendamentoComponentComponent } from '../../components/agendamento-component/agendamento-component.component';

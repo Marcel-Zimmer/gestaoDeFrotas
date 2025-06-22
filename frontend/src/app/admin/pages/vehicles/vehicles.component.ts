@@ -12,7 +12,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { VeiculoService } from '../../services/vehicles/veiculo.service';
 import { VeiculoDialogComponent } from '../../components/veihcle-dialog/vehicle-dialog.component';
 import { Veiculo } from '../../../models/veiculo/veiculo.model';
-import { ApiResponseVehicle } from '../../../models/api/api.response.model';
+import { ApiResponseVehicle } from '../../../models/api/backend/api.response.model';
 
 @Component({
   selector: 'app-veiculos',

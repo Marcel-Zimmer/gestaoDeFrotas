@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponseVehicle } from '../../../models/api/api.response.model'
-import { VehicleRequest } from '../../../models/api/api.request.model'
+import { ApiResponseVehicle } from '../../../models/api/backend/api.response.model'
+import { VehicleRequest } from '../../../models/api/backend/api.request.model'
 
 @Injectable({ providedIn: 'root' })
 export class VeiculoService {

@@ -9,14 +9,16 @@ public class Driver extends User{
     private Cnh cnh;
     private PhoneNumber phoneNumber;
     private Address address;
+    private StatusDriver status;
 
     public Driver(String name, Cpf cpf, Cnh cnh, PhoneNumber phoneNumber, Address address,
-        String email, String password, boolean isSuperUser, boolean isAtive) {
+        String email, String password, boolean isSuperUser, boolean isAtive, StatusDriver status) {
         super(name, email, password, isSuperUser, isAtive);
         this.cpf = cpf;
         this.cnh = cnh;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.status = status;
     }   
 
     public String getValueCpf(){
@@ -46,4 +48,9 @@ public class Driver extends User{
     public String getValueDDDNumberDriver(){
         return phoneNumber.getDddValue();
     }
+
+    public StatusDriver getStatus() {
+        return status;
+    }
+    
 }

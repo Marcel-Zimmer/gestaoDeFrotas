@@ -1,29 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponseTrip} from '../../../models/api/api.response.model'
-import { AgendamentoRequest } from '../../../models/api/api.request.model'
+import { ApiResponseDriver, ApiResponseTrip} from '../../../models/api/backend/api.response.model'
+import { AgendamentoRequest } from '../../../models/api/backend/api.request.model'
+import { ApiCepResponse } from '../../../models/api/viacep/viacep.request.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgendamentoService {
   private http = inject(HttpClient);
-  // Endpoint para buscar todos os agendamentos (você precisa criar no seu backend)
-  private API_URL = 'http://localhost:8080/trip/schedules';
+  private API_URL_BACKEND = 'http://localhost:8080/trip';
+  private API_URL_VIACEP = 'https://viacep.com.br/ws/'
 
   getAgendamentos(): Observable<ApiResponseTrip> {
-    return this.http.get<ApiResponseTrip>(this.API_URL);
+    return this.http.get<ApiResponseTrip>(this.API_URL_BACKEND + "/schedules");
   }
 
   updateAgendamento(agendamento : AgendamentoRequest): Observable<ApiResponseTrip> {
     if (agendamento.id) {
-      return this.http.put<any>(`${this.API_URL}/update/${agendamento.id}`, agendamento);
+      return this.http.put<any>(`${this.API_URL_BACKEND}/update/${agendamento.id}`, agendamento);
     }
-    return this.http.post<ApiResponseTrip>(this.API_URL+"/register", agendamento);
+    return this.http.post<ApiResponseTrip>(this.API_URL_BACKEND+"/register", agendamento);
   }
 
   excluir(id:number): Observable<any> {
-    return this.http.delete<any>(`${this.API_URL}/${id}`);
+    return this.http.delete<any>(`${this.API_URL_BACKEND}/${id}`);
+  }
+
+  getAddress(cep:string): Observable<ApiCepResponse> {
+    return this.http.get<ApiCepResponse>(this.API_URL_VIACEP + cep + "/json")
+  }
+
+  getDrivers(): Observable<ApiResponseDriver>{
+     return this.http.get<ApiResponseDriver>("http://localhost:8080/driver/disponibleDrivers")
   }
 }
