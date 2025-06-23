@@ -100,7 +100,8 @@ public class DriverService {
         List<DriverResponse> response = new ArrayList<>(); 
 
         for (DriverEntity driver : drivers) {
-            DriverResponse driverResponse = new DriverResponse(driver.getId(),driver.getUser().getName(),driver.getCpf().getCpf(),driver.getCnh().getCnh(),driver.getUser().getEmail(),driver.getAddress());
+            DriverResponse driverResponse = new DriverResponse(driver.getId(),driver.getUser().getName(),driver.getCpf().getCpf(),driver.getCnh().getCnh(),
+            driver.getCnh().getDateExpiration(),driver.getUser().getEmail(),driver.getDddNumber().getDddNumber(),driver.getPhoneNumber().getPhoneNumber(),driver.getAddress());
              response.add(driverResponse);
         }
         return response;
@@ -111,7 +112,8 @@ public class DriverService {
         List<DriverResponse> response = new ArrayList<>(); 
 
         for (DriverEntity driver : drivers) {
-            DriverResponse driverResponse = new DriverResponse(driver.getId(),driver.getUser().getName(),driver.getCpf().getCpf(),driver.getCnh().getCnh(),driver.getUser().getEmail(),driver.getAddress());
+            DriverResponse driverResponse = new DriverResponse(driver.getId(),driver.getUser().getName(),driver.getCpf().getCpf(),driver.getCnh().getCnh(),
+            driver.getCnh().getDateExpiration(),driver.getUser().getEmail(),driver.getDddNumber().getDddNumber(),driver.getPhoneNumber().getPhoneNumber(),driver.getAddress());
              response.add(driverResponse);
         }
         return response;

@@ -1,0 +1,29 @@
+.settings-container {
+  padding: 24px;
+}
+
+.tab-content {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+
+  .cnh-field { flex: 2; }
+  .date-field { flex: 1; }
+  .form-field-large { flex: 2; }
+  .form-field-small { flex: 1; }
+}
+
+.main-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+}

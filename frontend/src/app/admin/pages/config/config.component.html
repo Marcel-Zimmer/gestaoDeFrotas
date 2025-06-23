@@ -1,0 +1,96 @@
+<div class="settings-container">
+  <h1>Configurações do Usuário</h1>
+
+  <form [formGroup]="userForm" (ngSubmit)="saveChanges()">
+
+    <mat-tab-group animationDuration="0ms">
+
+      <mat-tab label="Informações Pessoais">
+        <div class="tab-content">
+          <mat-form-field>
+            <mat-label>Nome Completo</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf">
+          </mat-form-field>
+          
+          <div class="form-row">
+            <mat-form-field class="cnh-field">
+              <mat-label>CNH</mat-label>
+              <input matInput formControlName="cnh">
+            </mat-form-field>
+
+            <mat-form-field class="date-field">
+              <mat-label>Data de Expiração</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="expirationDate" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Endereço">
+        <div class="tab-content">
+          <mat-form-field>
+            <mat-label>CEP</mat-label>
+            <input matInput formControlName="cep">
+          </mat-form-field>
+          
+          <mat-form-field>
+            <mat-label>Logradouro (Rua)</mat-label>
+            <input matInput formControlName="logradouro">
+          </mat-form-field>
+
+          <div class="form-row">
+            <mat-form-field class="form-field-large">
+              <mat-label>Cidade</mat-label>
+              <input matInput formControlName="localidade">
+            </mat-form-field>
+
+            <mat-form-field class="form-field-small">
+              <mat-label>Estado (UF)</mat-label>
+              <input matInput formControlName="uf">
+            </mat-form-field>
+          </div>
+          </div>
+      </mat-tab>
+
+      <mat-tab label="Alterar Senha">
+        <div class="tab-content">
+          <p>Deixe os campos em branco se não desejar alterar a senha.</p>
+          <mat-form-field>
+            <mat-label>Senha Atual</mat-label>
+            <input matInput type="password" formControlName="currentPassword">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Nova Senha</mat-label>
+            <input matInput type="password" formControlName="newPassword">
+          </mat-form-field>
+          
+          <mat-form-field>
+            <mat-label>Confirmar Nova Senha</mat-label>
+            <input matInput type="password" formControlName="confirmPassword">
+          </mat-form-field>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+
+    <div class="main-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">
+        Salvar Alterações
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -1,7 +1,13 @@
+import { ApiCepResponse } from "../api/viacep/viacep.request.model";
+
 export interface Driver{
   driverId:number, 
   nameDriver:string, 
   cpf : string,
   cnh : string,
-  email:string
+  cnhExpiration:string;
+  email:string;
+  ddd:string;
+  phoneNumber:string;
+  address:ApiCepResponse;
 }

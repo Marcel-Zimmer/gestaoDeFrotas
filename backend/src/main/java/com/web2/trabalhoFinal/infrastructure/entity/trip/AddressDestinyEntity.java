@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.infrastructure.entity.driver;
+package com.web2.trabalhoFinal.infrastructure.entity.trip;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "address_user")
-public class AddressEntity {
+@Table(name = "address_trip")
+public class AddressDestinyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,11 +44,11 @@ public class AddressEntity {
     @Column(name = "numberAddress")
     private  String numberAddress;
 
-    public AddressEntity(){
+    public AddressDestinyEntity(){
 
     }
 
-    public AddressEntity(String zipCode, String street, String complement, String unit, String neighborhood,
+    public AddressDestinyEntity(String zipCode, String street, String complement, String unit, String neighborhood,
             String city, String stateAbbreviation, String state, String region, String ibgeCode, String giaCode,
             String ddd, String siafiCode, String numberAddress) {
         this.zipCode = zipCode;

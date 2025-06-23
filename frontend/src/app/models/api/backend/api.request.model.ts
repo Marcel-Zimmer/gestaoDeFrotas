@@ -13,7 +13,22 @@ export interface AgendamentoRequest{
   id :number;
   idVehicle : number;
   idDriver : number;
-  date : string;
   justify : string;
-  status : string
+  status : string;
+  cep: string;
+  date : string;
+  logradouro:string;
+  complemento:string;
+  unidade:string;
+  bairro:string;
+  localidade:string;
+  uf:string;
+  estado:string;
+  regiao:string;
+  ibge:string;
+  gia:string;
+  ddd:string;
+  siafi:string;
+  numero:string;
+  
 }

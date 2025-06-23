@@ -13,15 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web2.trabalhoFinal.application.dto.ApiResponse;
-import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleRequestDto;
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleResponse;
-import com.web2.trabalhoFinal.application.dto.vehicle.VehicleRequestDto;
-import com.web2.trabalhoFinal.application.dto.vehicle.VehicleResponse;
 import com.web2.trabalhoFinal.application.mapper.TripMapper;
-import com.web2.trabalhoFinal.application.mapper.VehicleMapper;
 import com.web2.trabalhoFinal.domain.model.Error.ResourceNotFoundException;
-import com.web2.trabalhoFinal.domain.model.Vehicle.Vehicle;
 import com.web2.trabalhoFinal.domain.model.trip.Trip;
 import com.web2.trabalhoFinal.domain.service.TripService;
 

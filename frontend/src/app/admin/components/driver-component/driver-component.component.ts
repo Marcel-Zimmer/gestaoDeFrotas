@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core'
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+
 // Imports dos módulos do Angular Material para o formulário
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,10 +16,8 @@ import { Driver } from '../../../models/driver/driver.model';
 import { Veiculo } from '../../../models/veiculo/veiculo.model';
 
 
-
-
 @Component({
-  selector: 'app-agendamento-component',
+  selector: 'app-driver-component',
   standalone: true,
   imports: [
     CommonModule,
@@ -28,42 +27,46 @@ import { Veiculo } from '../../../models/veiculo/veiculo.model';
     MatInputModule,      // Para a diretiva matInput nos campos
     MatButtonModule,      // Para os botões mat-button
     MatSelectModule,
+    MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule    
   ],
-  templateUrl: './agendamento-component.component.html',
-  styleUrl: './agendamento-component.component.scss'
+    providers: [
+    provideNativeDateAdapter() // A LÓGICA da data agora é um provider
+  ],
+  templateUrl: './driver-component.component.html',
+  styleUrl: './driver-component.component.scss'
 })
-export class AgendamentoComponentComponent {
-  
+export class DriverComponentComponent {
+ 
   form: FormGroup;
   isEditMode: boolean;
   private agendamentoService = inject(AgendamentoService);
   private fb = inject(FormBuilder);
-  public dialogRef = inject(MatDialogRef<AgendamentoComponentComponent>);
-  public motoristas: Driver[] = []; 
-  public vehicles : Veiculo[] = [];
+  public dialogRef = inject(MatDialogRef<DriverComponentComponent>);
   
   ngOnInit(): void {
-    this.loadDrivers();
-    this.loadVehicles();
-    console.log(this.motoristas)
   }
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     // Se 'data' existe, estamos em modo de edição
     this.isEditMode = !!data;
-    
-    console.log(data)
 
     this.form = this.fb.group({
       id: [data?.tripId], 
-      idDriver: [data?.idDriver, Validators.required],
-      idVehicle:[data?.idVehicle, Validators.required],
-      justify: [data?.justify, Validators.required],
-      status: [data?.statusTrip, Validators.required],
+      name: [data?.idDriver, Validators.required],
+      email: [data?.idDriver, Validators.required],
+      cpf:[data?.idVehicle, Validators.required],
+      cnh: [data?.statusTrip, Validators.required],
+      expirationDate : [data?.date, [Validators.required, Validators.min(1950), Validators.max(new Date().getFullYear() + 1)]],
+      dddNumber:[data?.idDriver, Validators.required],
+      phoneNumber:[data?.idDriver, Validators.required],
+      isAtive:[true],
+      isSuperUser:[false],
+      statusDriver:["disponivel"],
+      password: ["Senha123@"],
+
       cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], 
-      date: [data?.date, [Validators.required, Validators.min(1950), Validators.max(new Date().getFullYear() + 1)]],
       logradouro: ['',Validators.required],
       unidade:[''],
       bairro: ['',Validators.required],
@@ -75,42 +78,9 @@ export class AgendamentoComponentComponent {
       gia:[''],
       ddd:[''],
       siafi:[''],
-      numero: ['', Validators.required],
-      complemento: [''] 
+      numberAdress: ['', Validators.required],
+      complemento: ['']       
     });
-  }
-
-  status = [
-    { value: 'AGENDADO', viewValue: 'Agendado' },
-    { value: 'EM_VIAGEM', viewValue: 'Em viagem' },
-    { value: 'EM_MANUTENÇAO', viewValue: 'Em manutenção' },
-    { value: 'EM_ABASTECIMENTO', viewValue: 'Em abastecimento' },
-    { value: 'FINALIZADO', viewValue: 'Finalizado' },
-    { value: 'CANCELADO', viewValue: 'Cancelado' }
-  ];
-
-  loadDrivers(){
-    this.agendamentoService.getDrivers().subscribe({
-
-      next: (response: ApiResponseDriver) => {
-        this.motoristas = response.data;
-      },
-      error: (erro) => {
-        console.error('Erro ao carregar veículos:', erro);
-      }
-    });
-  }
-
-  loadVehicles(){
-    this.agendamentoService.getVehicles().subscribe({
-
-      next: (response: ApiResponseVehicle) => {
-        this.vehicles = response.data;
-      },
-      error: (erro:any) => {
-        console.error('Erro ao carregar veículos:', erro);
-      }
-    });    
   }
 
   buscarCep(): void {
@@ -135,11 +105,10 @@ export class AgendamentoComponentComponent {
     }
   }
   save(): void {
-    
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      
     }
-    
+    this.dialogRef.close(this.form.value);
   }
 
   close(): void {

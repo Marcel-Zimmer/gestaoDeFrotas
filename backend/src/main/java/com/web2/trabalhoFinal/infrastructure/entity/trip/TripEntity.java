@@ -1,7 +1,6 @@
 package com.web2.trabalhoFinal.infrastructure.entity.trip;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.vehicle.VehicleEntity;
@@ -32,26 +31,26 @@ public class TripEntity {
     private DriverEntity driver;
 
     @ManyToOne
+    @JoinColumn(name = "id_destiny", referencedColumnName = "id", nullable = false)
+    private AddressDestinyEntity destiny;    
+
+    @ManyToOne
     @JoinColumn(name = "id_status", referencedColumnName = "id", nullable = false)
     private StatusTripEntity status;
 
     @Column(name = "date_trip", nullable = false)
-    private LocalDate date;
-
-    @Column(name = "time_trip", nullable = false)
-    private LocalTime time;
+    private LocalDateTime date;
 
     @Column(name= "justify", nullable = false)
     private String justify;
 
-    public TripEntity(VehicleEntity vehicleId, DriverEntity driverId, StatusTripEntity status, LocalDate date,
-            LocalTime time, String justify) {
+    public TripEntity(VehicleEntity vehicleId, DriverEntity driverId, StatusTripEntity status, LocalDateTime date, String justify, AddressDestinyEntity destiny) {
         this.vehicle = vehicleId;
         this.driver = driverId;
         this.status = status;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.date = date;
         this.justify = justify;
+        this.destiny = destiny;
     }
 
 
@@ -63,29 +62,37 @@ public class TripEntity {
         return id;
     }
 
+
     public VehicleEntity getVehicle() {
         return vehicle;
     }
+
 
     public DriverEntity getDriver() {
         return driver;
     }
 
+
+    public AddressDestinyEntity getDestiny() {
+        return destiny;
+    }
+
+
     public StatusTripEntity getStatus() {
         return status;
     }
 
-    public LocalDate getDate() {
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public LocalTime getTime() {
-        return time;
-    }
 
     public String getJustify() {
         return justify;
     }
+
+
 
     
 

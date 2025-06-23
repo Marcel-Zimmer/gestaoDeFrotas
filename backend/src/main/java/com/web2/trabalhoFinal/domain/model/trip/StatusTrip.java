@@ -3,17 +3,21 @@ package com.web2.trabalhoFinal.domain.model.trip;
 public class StatusTrip {
 
     public enum Status {
-        CANCELADO,
-        PENDENTE,
-        EM_TRANSITO,
-        FINALIZADO;
+        AGENDADO,
+        EM_VIAGEM,
+        EM_MANUTENCAO,
+        EM_ABASTECIMENTO,
+        FINALIZADO,
+        CANCELADO;
     }
     public Status fromString(String value) {
         return switch (value.toLowerCase()) {
-            case "cancelado"     -> Status.CANCELADO;
-            case "pendente"         -> Status.PENDENTE;
-            case "em transito"  -> Status.EM_TRANSITO;
+            case "agendado"     -> Status.AGENDADO;
+            case "em_viagem"         -> Status.EM_VIAGEM;
+            case "em_manutencao"  -> Status.EM_MANUTENCAO;
+            case "em_abastecimento"     -> Status.EM_ABASTECIMENTO;
             case "finalizado"     -> Status.FINALIZADO;
+            case "cancelado"     -> Status.CANCELADO;
             default -> throw new IllegalArgumentException("Status inválido: " + value);
         };
     }

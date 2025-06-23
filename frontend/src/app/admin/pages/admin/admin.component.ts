@@ -1,4 +1,3 @@
-// Imports que você já tinha
 import { AgendamentoService } from '../../services/agendamento/agendamento.service';
 import { Component, OnInit, inject } from '@angular/core';
 
@@ -7,15 +6,15 @@ import { CommonModule } from '@angular/common'; // Para pipes como 'date' e dire
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button'; // Para os botões <button mat-icon-button>
 import { MatIconModule } from '@angular/material/icon';     // Para os ícones <mat-icon>
-import {Trip} from '../../../models/trip/trip.model';
-import { ApiResponseTrip } from '../../../models/api/backend/api.response.model';
+import { ApiResponseDriver, ApiResponseTrip } from '../../../models/api/backend/api.response.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AgendamentoComponentComponent } from '../../components/agendamento-component/agendamento-component.component';
-
+import { Driver } from '../../../models/driver/driver.model';
+import { DriverComponentComponent } from '../../components/driver-component/driver-component.component';
+import { DriversService } from '../../services/drivers/drivers.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-admin',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,26 +24,24 @@ import { AgendamentoComponentComponent } from '../../components/agendamento-comp
     MatDialogModule,
     MatSnackBarModule
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  templateUrl: './admin.component.html',
+  styleUrl: './admin.component.scss'
 })
-
-export class DashboardComponent implements OnInit {
-  private agendamentoService = inject(AgendamentoService);
-  public dataSource = new MatTableDataSource<Trip>(); 
+export class AdminComponent {
+  private driverService = inject(DriversService);
+  public dataSource = new MatTableDataSource<Driver>(); 
   public dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
-    this.carregarAgendamentos();
+    this.loadDrivers();
   }
 
-  carregarAgendamentos(): void {
-    this.agendamentoService.getAgendamentos().subscribe({
+  loadDrivers(): void {
+    this.driverService.getDrivers().subscribe({
 
-      next: (response: ApiResponseTrip) => {
+      next: (response: ApiResponseDriver) => {
         this.dataSource.data = response.data;
-        console.log(this.dataSource.data )
       },
       error: (erro) => {
         console.error('Erro ao carregar veículos:', erro);
@@ -52,8 +49,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  dialogoAgendamento(agendamento?: Trip): void {
-    const dialogRef = this.dialog.open(AgendamentoComponentComponent, {
+  dialogoAgendamento(agendamento?: Driver): void {
+    const dialogRef = this.dialog.open(DriverComponentComponent, {
       width: '600px',
       disableClose: true, 
       data: agendamento 
@@ -63,9 +60,9 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       
       if (result) {
-        this.agendamentoService.updateAgendamento(result).subscribe({
+        this.driverService.updateDriver(result).subscribe({
           next: () => {
-            this.carregarAgendamentos(); 
+            this.loadDrivers(); // Recarrega a lista para mostrar o item novo/atualizado
             this.mostrarMensagemDeSucesso("Agendamento salvo com sucesso");
           },
           error: (erro:any) => {
@@ -76,12 +73,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * Método para excluir (inativar) um veículo.
+   * @param id O ID do veículo a ser excluído.
+   */
   excluirAgendamento(id: number): void {
     console.log(id)
+    // Usamos o 'confirm' do navegador para uma confirmação simples
     if (confirm('Tem certeza que deseja inativar este veículo?')) {
-      this.agendamentoService.excluir(id).subscribe({
+      this.driverService.excludeDriver(id).subscribe({
         next: () => {
-          this.carregarAgendamentos();
+          this.loadDrivers(); // Recarrega a lista para remover o item
           this.mostrarMensagemDeSucesso("Agendamento excluido com sucesso");
         },
         error: (erro :any) => {
@@ -106,3 +108,5 @@ export class DashboardComponent implements OnInit {
     });
   }  
 }
+
+

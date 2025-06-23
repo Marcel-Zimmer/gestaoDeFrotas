@@ -14,6 +14,7 @@ import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
 import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;
 import com.web2.trabalhoFinal.domain.model.Driver.Driver;
+import com.web2.trabalhoFinal.domain.model.Error.ResourceNotFoundException;
 import com.web2.trabalhoFinal.domain.service.DriverService;
 
 
@@ -36,7 +37,10 @@ public class DriverController {
             ApiResponse<DriverResponse> response = new ApiResponse<>(true, sucess,createDriver);
             return ResponseEntity.ok(response);    
 
-        }catch (Exception e) {
+        }catch (ResourceNotFoundException e) {
+            ApiResponse<DriverResponse> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);    
+        } catch (Exception e) {
             ApiResponse<DriverResponse> response = new ApiResponse<>(false, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

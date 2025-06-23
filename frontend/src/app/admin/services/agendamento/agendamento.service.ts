@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponseDriver, ApiResponseTrip} from '../../../models/api/backend/api.response.model'
+import { ApiResponseDriver, ApiResponseTrip, ApiResponseVehicle} from '../../../models/api/backend/api.response.model'
 import { AgendamentoRequest } from '../../../models/api/backend/api.request.model'
 import { ApiCepResponse } from '../../../models/api/viacep/viacep.request.model';
 
@@ -21,7 +21,8 @@ export class AgendamentoService {
     if (agendamento.id) {
       return this.http.put<any>(`${this.API_URL_BACKEND}/update/${agendamento.id}`, agendamento);
     }
-    return this.http.post<ApiResponseTrip>(this.API_URL_BACKEND+"/register", agendamento);
+    return this.http.post<ApiResponseTrip>(this.API_URL_BACKEND+"/schedule", agendamento);
+    
   }
 
   excluir(id:number): Observable<any> {
@@ -35,4 +36,9 @@ export class AgendamentoService {
   getDrivers(): Observable<ApiResponseDriver>{
      return this.http.get<ApiResponseDriver>("http://localhost:8080/driver/disponibleDrivers")
   }
+  
+  getVehicles(): Observable<ApiResponseVehicle>{
+    return this.http.get<ApiResponseVehicle>("http://localhost:8080/vehicle/vehicles")
+  }
+
 }

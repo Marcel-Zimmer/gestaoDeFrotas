@@ -1,19 +1,21 @@
 package com.web2.trabalhoFinal.application.dto.trip;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
 
 
 public class TripScheduleResponse {
     private Long tripId;
     private String justify;
-    private LocalDate date;
+    private LocalDateTime date;
     private String statusTrip;
     private String nameDriver;
     private String licencePlate;
     private String modelVehicle;
     private String typeVehicle;
 
-    public TripScheduleResponse(Long tripId, String justify, LocalDate date, String nameDriver, String statusTrip,
+    public TripScheduleResponse(Long tripId, String justify, LocalDateTime date, String nameDriver, String statusTrip,
             String licencePlate, String modelVehicle, String typeVehicle) {
         this.tripId = tripId;
         this.justify = justify;
@@ -37,7 +39,7 @@ public class TripScheduleResponse {
         return justify;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 

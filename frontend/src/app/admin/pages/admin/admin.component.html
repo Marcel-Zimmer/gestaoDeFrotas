@@ -1,0 +1,65 @@
+
+<div class="header">
+  <h2>Gerenciamento de Agendamentos</h2>
+  <button mat-raised-button color="primary" class="dialogTrip" (click)="dialogoAgendamento()">
+    <mat-icon>add</mat-icon>
+    Cadastrar Motorista
+  </button>
+</div>
+
+<mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="driver">
+    <mat-header-cell *matHeaderCellDef>Motorista</mat-header-cell>
+    <mat-cell *matCellDef="let driver">{{ driver.nameDriver }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="cpfDriver">
+    <mat-header-cell *matHeaderCellDef>Cpf</mat-header-cell>
+    <mat-cell *matCellDef="let driver">{{ driver.cpf }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="cnh">
+    <mat-header-cell *matHeaderCellDef>Cnh</mat-header-cell>
+    <mat-cell *matCellDef="let driver">
+        <div>
+        CNH: {{ driver.cnh }} <br>
+        EXPIRA EM: {{ driver.cnhExpiration | date: 'dd/MM/yyyy' }} <br>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let driver">{{ driver.email }}</mat-cell>
+  </ng-container>  
+  <ng-container matColumnDef="phoneNumber">
+    <mat-header-cell *matHeaderCellDef>Telefone</mat-header-cell>
+    <mat-cell *matCellDef="let driver">{{ driver.ddd + ' ' + driver.phoneNumber}}</mat-cell>
+  </ng-container>     
+  <ng-container matColumnDef="address">
+    <mat-header-cell *matHeaderCellDef>Endereço</mat-header-cell>
+    <mat-cell *matCellDef="let driver">       
+        RUA: {{ driver.address.street }} <br>
+        NUMERO: {{ driver.address.numberAddress}} <br>
+        CIDADE: {{ driver.address.city }} <br>
+        ESTADO: {{ driver.address.state }}</mat-cell>
+  </ng-container> 
+
+  <ng-container matColumnDef="acoes">
+    <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">
+      <button mat-icon-button color="primary" (click)="dialogoAgendamento(agendamento)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="excluirAgendamento(agendamento.tripId)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="dialogoAgendamento(agendamento)">
+        <mat-icon>edit</mat-icon>
+      </button>      
+    </mat-cell>
+  </ng-container>  
+
+  <mat-header-row *matHeaderRowDef="['driver','cpfDriver','cnh','email','phoneNumber','address','acoes']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['driver','cpfDriver','cnh','email','phoneNumber','address','acoes'];"></mat-row>
+</mat-table>
