@@ -2,6 +2,8 @@ package com.web2.trabalhoFinal.application.dto.trip;
 
 import java.time.LocalDateTime;
 
+import com.web2.trabalhoFinal.infrastructure.entity.trip.AddressDestinyEntity;
+
 
 
 
@@ -10,20 +12,25 @@ public class TripScheduleResponse {
     private String justify;
     private LocalDateTime date;
     private String statusTrip;
+    private Long idDriver;
+    private Long idVehicle;
     private String nameDriver;
     private String licencePlate;
     private String modelVehicle;
     private String typeVehicle;
+    private AddressDestinyEntity address;
 
-    public TripScheduleResponse(Long tripId, String justify, LocalDateTime date, String nameDriver, String statusTrip,
-            String licencePlate, String modelVehicle, String typeVehicle) {
-        this.tripId = tripId;
-        this.justify = justify;
+    public TripScheduleResponse(AddressDestinyEntity address,LocalDateTime date, Long idDriver, Long idVehicle, String justify, String licencePlate, String modelVehicle, String nameDriver, String statusTrip, Long tripId, String typeVehicle) {
+        this.address = address;
         this.date = date;
-        this.nameDriver = nameDriver;
-        this.statusTrip = statusTrip;
+        this.idDriver = idDriver;
+        this.idVehicle = idVehicle;
+        this.justify = justify;
         this.licencePlate = licencePlate;
         this.modelVehicle = modelVehicle;
+        this.nameDriver = nameDriver;
+        this.statusTrip = statusTrip;
+        this.tripId = tripId;
         this.typeVehicle = typeVehicle;
     }
 
@@ -43,12 +50,20 @@ public class TripScheduleResponse {
         return date;
     }
 
-    public String getNameDriver() {
-        return nameDriver;
-    }
-
     public String getStatusTrip() {
         return statusTrip;
+    }
+
+    public Long getIdDriver() {
+        return idDriver;
+    }
+
+    public Long getIdVehicle() {
+        return idVehicle;
+    }
+
+    public String getNameDriver() {
+        return nameDriver;
     }
 
     public String getLicencePlate() {
@@ -62,5 +77,11 @@ public class TripScheduleResponse {
     public String getTypeVehicle() {
         return typeVehicle;
     }
+
+    public AddressDestinyEntity getAddress() {
+        return address;
+    }
+
+
    
 }

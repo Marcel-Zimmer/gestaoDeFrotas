@@ -4,15 +4,16 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'
+
 // Imports dos módulos do Angular Material para o formulário
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AgendamentoService } from '../../services/agendamento/agendamento.service';
-import { ApiResponseDriver, ApiResponseVehicle } from '../../../models/api/backend/api.response.model';
 import { Driver } from '../../../models/driver/driver.model';
 import { Veiculo } from '../../../models/veiculo/veiculo.model';
+import { forkJoin } from 'rxjs';
 
 
 
@@ -43,41 +44,71 @@ export class AgendamentoComponentComponent {
   public dialogRef = inject(MatDialogRef<AgendamentoComponentComponent>);
   public motoristas: Driver[] = []; 
   public vehicles : Veiculo[] = [];
-  
-  ngOnInit(): void {
-    this.loadDrivers();
-    this.loadVehicles();
-    console.log(this.motoristas)
-  }
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    // Se 'data' existe, estamos em modo de edição
     this.isEditMode = !!data;
-    
-    console.log(data)
-
     this.form = this.fb.group({
-      id: [data?.tripId], 
-      idDriver: [data?.idDriver, Validators.required],
-      idVehicle:[data?.idVehicle, Validators.required],
-      justify: [data?.justify, Validators.required],
-      status: [data?.statusTrip, Validators.required],
+      id: [null],
+      idDriver: [null, Validators.required],
+      idVehicle: [null, Validators.required],
+      justify: ['', Validators.required],
+      status: ['AGENDADO', Validators.required], // Valor padrão para 'criar'
+      date: ['', Validators.required],
       cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], 
-      date: [data?.date, [Validators.required, Validators.min(1950), Validators.max(new Date().getFullYear() + 1)]],
-      logradouro: ['',Validators.required],
-      unidade:[''],
-      bairro: ['',Validators.required],
-      localidade: ['',Validators.required],
-      uf: ['',Validators.required],
-      estado:[''],
-      regiao:[''],
-      ibge:[''],
-      gia:[''],
-      ddd:[''],
-      siafi:[''],
+      logradouro: [null, Validators.required],
+      bairro: [null, Validators.required],
+      localidade: [null, Validators.required],
+      uf: [null, Validators.required],
       numero: ['', Validators.required],
-      complemento: [''] 
+      complemento: ['']
     });
+  }
+
+  ngOnInit(): void {
+    const sources = {
+      drivers: this.agendamentoService.getDrivers(),
+      vehicles: this.agendamentoService.getVehicles()
+    };
+
+    // 3. Use forkJoin para esperar por todas as respostas
+    forkJoin(sources).subscribe({
+      next: (responses) => {
+        // 'responses' é um objeto { drivers: ApiResponseDriver, vehicles: ApiResponseVehicle }
+
+        // 4. Primeiro, popule os arrays para os dropdowns
+        this.motoristas = responses.drivers.data;
+        this.vehicles = responses.vehicles.data;
+
+        // 5. AGORA, e somente agora, preencha o formulário se for modo de edição
+        if (this.isEditMode) {
+          this.preencherFormularioParaEdicao();
+        }
+      },
+      error: err => {
+        console.error('Erro ao carregar dados iniciais para o dialog', err);
+        // Mostrar uma mensagem de erro para o usuário aqui
+      }
+    });
+  }
+
+  preencherFormularioParaEdicao(): void {
+    this.form.patchValue({
+      id: this.data.tripId,
+      idDriver: this.data.idDriver,
+      idVehicle: this.data.idVehicle,
+      justify: this.data.justify,
+      status: this.data.statusTrip,
+      date: this.data.date,
+      cep:this.data.address.zipCode,
+      logradouro:this.data.address.street,
+      numero: this.data.address.numberAddress,
+      bairro:this.data.address.neighborhood,
+      localidade:this.data.address.city,
+      uf:this.data.address.stateAbbreviation,
+      complemento:this.data.address.complement,
+    });
+  
   }
 
   status = [
@@ -89,29 +120,6 @@ export class AgendamentoComponentComponent {
     { value: 'CANCELADO', viewValue: 'Cancelado' }
   ];
 
-  loadDrivers(){
-    this.agendamentoService.getDrivers().subscribe({
-
-      next: (response: ApiResponseDriver) => {
-        this.motoristas = response.data;
-      },
-      error: (erro) => {
-        console.error('Erro ao carregar veículos:', erro);
-      }
-    });
-  }
-
-  loadVehicles(){
-    this.agendamentoService.getVehicles().subscribe({
-
-      next: (response: ApiResponseVehicle) => {
-        this.vehicles = response.data;
-      },
-      error: (erro:any) => {
-        console.error('Erro ao carregar veículos:', erro);
-      }
-    });    
-  }
 
   buscarCep(): void {
     const cep = this.form.get('cep')?.value;
@@ -134,6 +142,7 @@ export class AgendamentoComponentComponent {
       });
     }
   }
+
   save(): void {
     
     if (this.form.valid) {

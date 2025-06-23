@@ -59,7 +59,6 @@ export class VeiculoDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     // Se 'data' existe, estamos em modo de edição
     this.isEditMode = !!data;
-
     this.form = this.fb.group({
       id: [data?.vehicleId], 
       licence: [data?.licencePlate, [Validators.required,Validators.minLength(7)]],

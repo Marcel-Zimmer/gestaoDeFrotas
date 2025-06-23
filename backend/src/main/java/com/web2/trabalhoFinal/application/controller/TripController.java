@@ -50,7 +50,7 @@ public class TripController {
     @GetMapping("/schedules")
     public ResponseEntity<ApiResponse<List<TripScheduleResponse>>> getAllSchedules(){   
         try {
-            List<TripScheduleResponse> schedules = tripService.getAllVehicles();
+            List<TripScheduleResponse> schedules = tripService.getAllSchedules();
             String successMessage = "Agendamentos recuperados";
             ApiResponse<List<TripScheduleResponse>> response = new ApiResponse<>(true, successMessage,schedules);
             return ResponseEntity.ok(response);

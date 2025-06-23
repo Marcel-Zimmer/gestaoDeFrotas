@@ -52,13 +52,12 @@ public class TripService {
         return new TripScheduleResponse(newTrip.getId());
     }
 
-    public List<TripScheduleResponse> getAllVehicles() {
+    public List<TripScheduleResponse> getAllSchedules() {
         List<TripEntity> schedules = tripRepository.findAllWithDetails();
         List<TripScheduleResponse> response = new ArrayList<>(); 
 
         for (TripEntity schedule : schedules) {
-            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getId(), schedule.getJustify(), schedule.getDate(), 
-            schedule.getDriver().getUser().getName(),schedule.getStatus().getStatus(), schedule.getVehicle().getLicencePlate(),schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle());
+            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle());
             response.add(scheduleResponse);
         }
         return response;
