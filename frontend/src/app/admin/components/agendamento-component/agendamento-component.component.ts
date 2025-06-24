@@ -53,7 +53,7 @@ export class AgendamentoComponentComponent {
       idDriver: [null, Validators.required],
       idVehicle: [null, Validators.required],
       justify: ['', Validators.required],
-      status: ['AGENDADO', Validators.required], // Valor padrão para 'criar'
+      status: ['AGENDADO', Validators.required], 
       date: ['', Validators.required],
       cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], 
       logradouro: [null, Validators.required],
@@ -114,8 +114,6 @@ export class AgendamentoComponentComponent {
   status = [
     { value: 'AGENDADO', viewValue: 'Agendado' },
     { value: 'EM_VIAGEM', viewValue: 'Em viagem' },
-    { value: 'EM_MANUTENÇAO', viewValue: 'Em manutenção' },
-    { value: 'EM_ABASTECIMENTO', viewValue: 'Em abastecimento' },
     { value: 'FINALIZADO', viewValue: 'Finalizado' },
     { value: 'CANCELADO', viewValue: 'Cancelado' }
   ];
@@ -148,6 +146,7 @@ export class AgendamentoComponentComponent {
     if (this.form.valid) {
       this.dialogRef.close(this.form.value);
     }
+    
     
   }
 

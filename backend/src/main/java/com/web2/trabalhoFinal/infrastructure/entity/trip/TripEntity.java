@@ -93,6 +93,41 @@ public class TripEntity {
     }
 
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public void setVehicle(VehicleEntity vehicle) {
+        this.vehicle = vehicle;
+    }
+
+
+    public void setDriver(DriverEntity driver) {
+        this.driver = driver;
+    }
+
+
+    public void setDestiny(AddressDestinyEntity destiny) {
+        this.destiny = destiny;
+    }
+
+
+    public void setStatus(StatusTripEntity status) {
+        this.status = status;
+    }
+
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+
+    public void setJustify(String justify) {
+        this.justify = justify;
+    }
+
+
 
     
 

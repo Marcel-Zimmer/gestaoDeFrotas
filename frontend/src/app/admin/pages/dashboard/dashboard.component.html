@@ -1,12 +1,59 @@
 
-<div class="header">
-  <h2>Gerenciamento de Agendamentos</h2>
-  <button mat-raised-button color="primary" class="dialogTrip" (click)="dialogoAgendamento()">
-    <mat-icon>add</mat-icon>
-    Cadastrar Agendamento
-  </button>
-</div>
+<div class="page-header" [formGroup]="filterForm">
 
+  <!-- Botão Novo Agendamento -->
+  <button mat-raised-button class="button-agendamento" color="primary" (click)="dialogoAgendamento()" >
+    <mat-icon>add</mat-icon>
+    Novo Agendamento
+  </button>
+
+  <div class = "filtros">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Data Inicial</mat-label>
+      <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Data Final -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Data Final</mat-label>
+      <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Motorista -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Motorista</mat-label>
+      <mat-select formControlName="driverId">
+        <mat-option *ngFor="let motorista of motoristas" [value]="motorista.driverId">
+          {{ motorista.nameDriver }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Status -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of statusOpcoes" [value]="status.value">
+          {{ status.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Botões de Ação -->
+  <button mat-flat-button color="primary" (click)="aplicarFiltros()">
+    <mat-icon>search</mat-icon>
+    Filtrar
+  </button>
+  <button mat-button (click)="limparFiltros()">
+    <mat-icon>clear</mat-icon>
+    Limpar
+  </button>
+
+</div>
 <mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="data">
     <mat-header-cell *matHeaderCellDef>Data Transporte</mat-header-cell>

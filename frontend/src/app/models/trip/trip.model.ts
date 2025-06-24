@@ -5,5 +5,5 @@ export interface Trip {
   idDriver:number;
   justify:string;
   date:String;
-  status:String;
+  statusTrip:String;
 }

@@ -18,4 +18,5 @@ public interface TripRepository extends JpaRepository<TripEntity, Long> {
            "JOIN FETCH v.vehicle " )
     List<TripEntity> findAllWithDetails();
 
+    TripEntity findById(long id);
 }

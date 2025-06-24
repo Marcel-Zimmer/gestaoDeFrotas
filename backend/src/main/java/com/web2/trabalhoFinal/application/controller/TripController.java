@@ -65,7 +65,7 @@ public class TripController {
     public ResponseEntity<ApiResponse<TripScheduleResponse>> updateVehicle (@PathVariable Long id,@RequestBody TripScheduleRequestDto dto) {
         try {
             Trip trip = TripMapper.toDomain(dto);
-            ApiResponse<TripScheduleResponse> response= tripService.updateVehicle(id,trip);
+            ApiResponse<TripScheduleResponse> response= tripService.updateTrip(id,trip);
             return ResponseEntity.status(HttpStatus.OK).body(response); 
 
         }catch (ResourceNotFoundException e) {
@@ -82,7 +82,7 @@ public class TripController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteVehicle(@PathVariable Long id) {
         try {
-            ApiResponse<Void> response = tripService.deleteVehicle(id);
+            ApiResponse<Void> response = tripService.deleteTrip(id);
             return ResponseEntity.ok(response);
         
         } catch (Exception e) {

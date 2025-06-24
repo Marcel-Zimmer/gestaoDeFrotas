@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.web2.trabalhoFinal.application.dto.ApiResponse;
 import com.web2.trabalhoFinal.application.dto.trip.TripScheduleResponse;
+import com.web2.trabalhoFinal.domain.model.Error.ResourceNotFoundException;
 import com.web2.trabalhoFinal.domain.model.trip.Trip;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.trip.AddressDestinyEntity;
@@ -63,14 +64,46 @@ public class TripService {
         return response;
     }
 
-    public ApiResponse<TripScheduleResponse> updateVehicle(Long id, Trip trip) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateVehicle'");
+    public ApiResponse<TripScheduleResponse> updateTrip(Long id, Trip trip) {
+
+
+        TripEntity tripToUpdate = tripRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("id inválido"));
+
+        VehicleEntity vehicle = vehicleRepository.findById(trip.getIdVehicle().getValue())
+        .orElseThrow(() -> new ResourceNotFoundException("id de veiculo inválido"));
+
+        DriverEntity driver  = driverRepository.findById(trip.getIdDriver().getValue())
+        .orElseThrow(() -> new ResourceNotFoundException("id de motorista inválido"));
+
+        StatusTripEntity statusTrip = statusTripRepository.findByStatus(trip.getStatus().getStatus());
+        if(statusTrip == null){
+            statusTrip = new StatusTripEntity(trip.getStatus().getStatus());
+            statusTripRepository.save(statusTrip);
+        } 
+
+        AddressDestinyEntity destiny = new AddressDestinyEntity(trip.getAddress().getZipCode(), trip.getAddress().getStreet(), trip.getAddress().getComplement(), trip.getAddress().getComplement(), trip.getAddress().getNeighborhood(),
+        trip.getAddress().getCity(), trip.getAddress().getStateAbbreviation(), trip.getAddress().getState(), trip.getAddress().getRegion(), trip.getAddress().getIbgeCode(), trip.getAddress().getGiaCode(), trip.getAddress().getDdd(), trip.getAddress().getSiafiCode(), trip.getAddress().getNumberAddress());
+        addressDestinyRepository.save(destiny);
+
+        tripToUpdate.setDate(trip.getDate());
+        tripToUpdate.setDestiny(destiny);
+        tripToUpdate.setDriver(driver);
+        tripToUpdate.setVehicle(vehicle);
+        tripToUpdate.setStatus(statusTrip);
+        tripToUpdate.setJustify(trip.getJustify().getJustify());
+        tripRepository.save(tripToUpdate);
+
+        String successMessage = "Agendamento atualizado";
+        ApiResponse<TripScheduleResponse> response = new ApiResponse<>(true, successMessage, new TripScheduleResponse(id));
+        return response;         
+
     }
 
-    public ApiResponse<Void> deleteVehicle(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteVehicle'");
+    public ApiResponse<Void> deleteTrip(Long id) {
+        tripRepository.deleteById(id);
+        String successMessage = "Agendamento deletado";
+        return new ApiResponse<>(true, successMessage, null);
     }
 
 }
