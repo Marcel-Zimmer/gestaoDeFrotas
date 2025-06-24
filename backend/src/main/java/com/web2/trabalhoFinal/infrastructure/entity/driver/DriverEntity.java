@@ -1,14 +1,19 @@
 package com.web2.trabalhoFinal.infrastructure.entity.driver;
 
 
+import com.web2.trabalhoFinal.domain.model.Driver.StatusDriver;
 import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,33 +24,17 @@ public class DriverEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "id_ddd_number", referencedColumnName = "id", nullable = false)
-    private DddNumberEntity dddNumber;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cnh_id", referencedColumnName = "id", nullable = false)
+    private CnhEntity cnh;
 
-    @ManyToOne
-    @JoinColumn(name = "id_phone_number", referencedColumnName = "id", nullable = false)
-    private PhoneNumberEntity phoneNumber;
-
-    @ManyToOne
-    @JoinColumn(name = "id_cpf", referencedColumnName = "id", nullable = false)
-    private CpfEntity cpf; 
-
-    @ManyToOne
-    @JoinColumn(name = "id_cnh", referencedColumnName = "id", nullable = false)
-    private CnhEntity cnh; 
-
-    @ManyToOne
-    @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
-    private AddressEntity address; 
-
-    @ManyToOne
-    @JoinColumn(name = "id_status_driver", referencedColumnName = "id", nullable = false)
-    private StatusDriverEntity status;     
+    @Enumerated(EnumType.STRING) 
+    @Column(name = "status", nullable = false)
+    private StatusDriver status;
     
     public DriverEntity() {}
 
@@ -53,14 +42,10 @@ public class DriverEntity{
         this.id = id;
     }
 
-    public DriverEntity(UserEntity user ,DddNumberEntity dddNumber, PhoneNumberEntity phoneNumber,
-            CpfEntity cpf, CnhEntity cnh, AddressEntity address, StatusDriverEntity status) {
+    public DriverEntity(Long id, UserEntity user, CnhEntity cnh, StatusDriver status) {
+        this.id = id;
         this.user = user;
-        this.dddNumber = dddNumber;
-        this.phoneNumber = phoneNumber;
-        this.cpf = cpf;
         this.cnh = cnh;
-        this.address = address;
         this.status = status;
     }
 
@@ -68,33 +53,34 @@ public class DriverEntity{
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public UserEntity getUser() {
         return user;
     }
 
-    public DddNumberEntity getDddNumber() {
-        return dddNumber;
-    }
-
-    public PhoneNumberEntity getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public CpfEntity getCpf() {
-        return cpf;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public CnhEntity getCnh() {
         return cnh;
     }
 
-    public AddressEntity getAddress() {
-        return address;
+    public void setCnh(CnhEntity cnh) {
+        this.cnh = cnh;
     }
 
-    public StatusDriverEntity getStatus() {
+    public StatusDriver getStatus() {
         return status;
     }
+
+    public void setStatus(StatusDriver status) {
+        this.status = status;
+    }
+
 
 
 }

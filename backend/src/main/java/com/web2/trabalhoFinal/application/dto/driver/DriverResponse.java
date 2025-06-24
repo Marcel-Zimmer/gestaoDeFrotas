@@ -2,7 +2,7 @@ package com.web2.trabalhoFinal.application.dto.driver;
 
 import java.time.LocalDate;
 
-import com.web2.trabalhoFinal.infrastructure.entity.driver.AddressEntity;
+import com.web2.trabalhoFinal.infrastructure.entity.user.AddressEntity;
 
 public class DriverResponse {
     private Long driverId;
@@ -11,19 +11,17 @@ public class DriverResponse {
     private String cnh;
     private LocalDate cnhExpiration;
     private String email;
-    private String ddd;
     private String phoneNumber;
     private AddressEntity address;
     
     public DriverResponse(Long driverId, String nameDriver, String cpf, String cnh, LocalDate cnhExpiration, String email,
-            String ddd, String phoneNumber, AddressEntity address) {
+        String phoneNumber, AddressEntity address) {
         this.driverId = driverId;
         this.nameDriver = nameDriver;
         this.cpf = cpf;
         this.cnh = cnh;
         this.cnhExpiration = cnhExpiration;
         this.email = email;
-        this.ddd = ddd;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
@@ -50,9 +48,7 @@ public class DriverResponse {
     public String getEmail() {
         return email;
     }
-    public String getDdd() {
-        return ddd;
-    }
+    
     public String getPhoneNumber() {
         return phoneNumber;
     }

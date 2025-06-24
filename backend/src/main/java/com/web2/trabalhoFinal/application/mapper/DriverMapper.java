@@ -1,18 +1,29 @@
 package com.web2.trabalhoFinal.application.mapper;
 
-import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
-import com.web2.trabalhoFinal.domain.model.Driver.Address;
-import com.web2.trabalhoFinal.domain.model.Driver.Cnh;
-import com.web2.trabalhoFinal.domain.model.Driver.Cpf;
-import com.web2.trabalhoFinal.domain.model.Driver.Driver;
-import com.web2.trabalhoFinal.domain.model.Driver.PhoneNumber;
-import com.web2.trabalhoFinal.domain.model.Driver.StatusDriver;
+import org.springframework.stereotype.Component;
 
+import com.web2.trabalhoFinal.application.dto.driver.DriverRequestDto;
+import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
+import com.web2.trabalhoFinal.domain.model.Driver.Cnh;
+import com.web2.trabalhoFinal.domain.model.Driver.Driver;
+import com.web2.trabalhoFinal.domain.model.User.Address;
+import com.web2.trabalhoFinal.domain.model.User.Cpf;
+import com.web2.trabalhoFinal.domain.model.User.Email;
+import com.web2.trabalhoFinal.domain.model.User.Name;
+import com.web2.trabalhoFinal.domain.model.User.Password;
+import com.web2.trabalhoFinal.domain.model.User.PhoneNumber;
+import com.web2.trabalhoFinal.infrastructure.entity.driver.CnhEntity;
+import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
+import com.web2.trabalhoFinal.infrastructure.entity.user.AddressEntity;
+import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
+
+
+@Component
 public class DriverMapper {
     public static Driver toDomain(DriverRequestDto dto) {
 
         return new Driver(
-            dto.name, 
+            new Name(dto.name), 
             new Cpf(dto.cpf),  
             new Cnh(dto.cnh, dto.expirationDate),  
             new PhoneNumber(dto.phoneNumber, dto.dddNumber),  
@@ -32,12 +43,68 @@ public class DriverMapper {
                 dto.siafiCode, 
                 dto.numberAddress
             ),  
-            dto.email,  
-            dto.password, 
-            dto.isSuperUser,
-            dto.isAtive,
-            new StatusDriver(dto.statusDriver)
+            new Email(dto.email),  
+            new Password(dto.password)
         );
     }
+    public static DriverEntity toEntity(Driver driverDomain) {
+        if (driverDomain == null) {
+            return null;
+        }
+        
+        CnhEntity cnhEntity = new CnhEntity(
+            driverDomain.getCnh().getValue(),
+            driverDomain.getCnh().getExpirationDate()
+        );
+        
+        AddressEntity addressEntity = new AddressEntity(
+                driverDomain.getAddress().getZipCode(), 
+                driverDomain.getAddress().getStreet(), 
+                driverDomain.getAddress().getComplement(), 
+                driverDomain.getAddress().getUnit(), 
+                driverDomain.getAddress().getNeighborhood(), 
+                driverDomain.getAddress().getCity(), 
+                driverDomain.getAddress().getStateAbbreviation(), 
+                driverDomain.getAddress().getState(), 
+                driverDomain.getAddress().getRegion(), 
+                driverDomain.getAddress().getIbgeCode(), 
+                driverDomain.getAddress().getGiaCode(), 
+                driverDomain.getAddress().getDdd(), 
+                driverDomain.getAddress().getSiafiCode(), 
+                driverDomain.getAddress().getNumberAddress()
+        );
+        UserEntity userEntity = new UserEntity(
+            driverDomain.getName().getValue(),
+            driverDomain.getEmail().getValue(),
+            driverDomain.getPassword().getHashedValue(),
+            driverDomain.getCpf().getValue(),
+            driverDomain.getPhoneNumber().getPhoneValue(),
+            addressEntity,
+            driverDomain.isSuperUser(),
+            driverDomain.isAtive()
+        );
+
+        DriverEntity driverEntity = new DriverEntity();
+        driverEntity.setUser(userEntity);
+        driverEntity.setCnh(cnhEntity);
+        driverEntity.setStatus(driverDomain.getStatus()); 
+
+        return driverEntity;
+    }  
+    public static DriverResponse toResponseDto(DriverEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        return new DriverResponse(
+            entity.getId(),
+            entity.getUser().getName(),
+            entity.getUser().getCpf(), 
+            entity.getCnh().getCnh(),
+            entity.getCnh().getDateExpiration(),
+            entity.getUser().getEmail(),
+            entity.getUser().getPhoneNumber(),
+            entity.getUser().getAddress()
+        );
+    }     
 }           
 

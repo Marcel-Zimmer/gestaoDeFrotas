@@ -16,14 +16,14 @@ public class LoginService {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();    
 
     public LoginResponse loginUser(User user) throws Exception{
-        UserEntity userFind = userRepository.findByEmail(user.getEmail());
+        UserEntity userFind = userRepository.findByEmail(user.getEmail().getValue());
         if(userFind == null){
             throw new BadCredentialsException("Usuário ou senha incorreta");
         }
         if (!passwordEncoder.matches(user.getPasswordRaw(), userFind.getPassword())) {
             throw new BadCredentialsException("Usuário ou senha incorreta");
         }
-         return new LoginResponse(true, "login bem sucedido", userFind.getId(), userFind.isSuperUser());
+         return new LoginResponse(true, "login bem sucedido", userFind.getId(), userFind.isAdmin());
     }
 
 }

@@ -9,6 +9,6 @@ import com.web2.trabalhoFinal.infrastructure.entity.driver.CnhEntity;
 @Repository
 public interface CnhRepository extends JpaRepository<CnhEntity, Long> {
 
-    public CnhEntity findByCnh(String value);
+    public boolean existsByCnh(String value);
 
 }

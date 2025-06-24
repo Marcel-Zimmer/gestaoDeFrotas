@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.domain.model.Driver;
+package com.web2.trabalhoFinal.domain.model.User;
 
 public class PhoneNumber {
 
@@ -41,10 +41,7 @@ public class PhoneNumber {
     }    
 
     public String getPhoneValue() {
-        return phoneNumber;
+        return dddNumber+phoneNumber;
     }
-
-    public String getDddValue() {
-        return dddNumber;
-    }
+    
 }

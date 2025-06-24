@@ -1,4 +1,4 @@
-package com.web2.trabalhoFinal.infrastructure.entity.driver;
+package com.web2.trabalhoFinal.infrastructure.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

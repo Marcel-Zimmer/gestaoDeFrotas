@@ -10,16 +10,22 @@ public class User {
     private boolean isSuperUser;
     private boolean isAtive;
     private String passwordRaw;
+    private Address address;
+    private Cpf cpf;
+    private PhoneNumber phoneNumber;
 
     public User(){}
     
-    public User(String name, String email, String password, boolean isSuperUser, boolean isAtive) {
+    public User(Name name, Email email, Password password, boolean isSuperUser, boolean isAtive, PhoneNumber phoneNumber, Address address, Cpf cpf) {
 
-        this.name = new Name(name);
-        this.email = new Email(email);
-        this.password = new Password(password);
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.isSuperUser = isSuperUser;
         this.isAtive = isAtive;
+        this.address = address;
+        this.cpf = cpf;
+        this.phoneNumber = phoneNumber;
     }
 
     public User(String email, String password){
@@ -27,27 +33,41 @@ public class User {
         this.passwordRaw = password;
     }
 
-    public String getName(){
-        return name.getValue();
+    public Name getName() {
+        return name;
     }
 
-    public String getEmail(){
-        return email.getValue();
+    public Email getEmail() {
+        return email;
     }
-    
-    public Password getPassword(){
+
+    public Password getPassword() {
         return password;
     }
 
     public boolean isSuperUser() {
         return isSuperUser;
     }
-    
+
     public boolean isAtive() {
         return isAtive;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Cpf getCpf() {
+        return cpf;
+    }
+
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public String getPasswordRaw() {
         return passwordRaw;
     }
+
     
 }
