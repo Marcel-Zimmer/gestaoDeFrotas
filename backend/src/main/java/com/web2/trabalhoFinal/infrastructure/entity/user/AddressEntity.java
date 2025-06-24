@@ -127,5 +127,65 @@ public class AddressEntity {
         return numberAddress;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setStateAbbreviation(String stateAbbreviation) {
+        this.stateAbbreviation = stateAbbreviation;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setIbgeCode(String ibgeCode) {
+        this.ibgeCode = ibgeCode;
+    }
+
+    public void setGiaCode(String giaCode) {
+        this.giaCode = giaCode;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
+    public void setSiafiCode(String siafiCode) {
+        this.siafiCode = siafiCode;
+    }
+
+    public void setNumberAddress(String numberAddress) {
+        this.numberAddress = numberAddress;
+    }
+
     
 }

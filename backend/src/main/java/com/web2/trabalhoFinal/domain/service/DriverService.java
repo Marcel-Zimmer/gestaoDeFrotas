@@ -5,11 +5,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web2.trabalhoFinal.application.dto.ApiResponse;
 import com.web2.trabalhoFinal.application.dto.driver.DriverResponse;
 import com.web2.trabalhoFinal.application.mapper.DriverMapper;
 import com.web2.trabalhoFinal.domain.model.Driver.Driver;
 import com.web2.trabalhoFinal.domain.model.Driver.StatusDriver;
+import com.web2.trabalhoFinal.domain.model.Error.BusinessRuleException;
 import com.web2.trabalhoFinal.domain.model.Error.DuplicateResourceException;
+import com.web2.trabalhoFinal.domain.model.Error.ResourceNotFoundException;
 import com.web2.trabalhoFinal.infrastructure.entity.driver.DriverEntity;
 import com.web2.trabalhoFinal.infrastructure.repository.driver.CnhRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.driver.DriverRepository;
@@ -42,6 +45,7 @@ public class DriverService {
         DriverEntity savedDriver = driverRepository.save(driverEntity);
         return new DriverResponse(savedDriver.getId());
     }
+
     public List<DriverResponse> getAllDrivers() {
         List<DriverEntity> drivers = driverRepository.findAllWithDetails();
 
@@ -51,10 +55,42 @@ public class DriverService {
     }
 
     public List<DriverResponse> getAllDisponibleDrivers() {
-        List<DriverEntity> availableDrivers = driverRepository.findByStatusWithDetails(StatusDriver.DISPONIVEL);
+        List<DriverEntity> availableDrivers = driverRepository.findActiveAndAvailableWithDetails();
 
         return availableDrivers.stream()
                                .map(DriverMapper::toResponseDto)
                                .collect(Collectors.toList());
+    }
+
+    @Transactional 
+    public DriverResponse updateDriver(Long id, Driver driver){
+        DriverEntity driverEntity = driverRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado."));
+
+        if (!driverEntity.getCnh().getCnh().equals(driver.getCnh().getValue())) {
+            if (cnhRepository.existsByCnh(driver.getCnh().getValue())) {
+                throw new DuplicateResourceException("A CNH " + driver.getCnh().getValue() + " já está cadastrada para outro motorista.");
+            }
+        }
+        if (!driverEntity.getUser().getCpf().equals(driver.getCpf().getValue())) {
+            if (userRepository.existsByCpf(driver.getCpf().getValue())) {
+                throw new DuplicateResourceException("O cpf " + driver.getCpf().getValue() + " já está cadastrada para outro motorista.");
+            }
+        }
+        DriverMapper.updateFromDomain(driver, driverEntity);   
+        return DriverMapper.toResponseDto(driverEntity);     
+    }
+
+    @Transactional
+    public ApiResponse<Void> deleteDriver(Long id) {
+        DriverEntity driverEntity = driverRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado."));
+            
+        if (driverEntity.getStatus() == StatusDriver.EM_VIAGEM) {
+            throw new BusinessRuleException("Não é possível inativar um motorista que está em viagem.");
+        }        
+        driverEntity.getUser().setActive(false);
+        String successMessage = "Motorista inativado";
+        return new ApiResponse<>(true, successMessage, null);
     }
 }

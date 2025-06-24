@@ -105,6 +105,51 @@ public class DriverMapper {
             entity.getUser().getPhoneNumber(),
             entity.getUser().getAddress()
         );
-    }     
+    }
+    /**
+     * Atualiza uma entidade DriverEntity existente com dados de um objeto de domínio Driver.
+     * @param driverDomain O objeto de domínio com os novos dados.
+     * @param entity A entidade que foi CARREGADA do banco.
+     */
+    public static void updateFromDomain(Driver driverDomain, DriverEntity entity) {
+        // Pega as referências para facilitar a leitura
+        UserEntity user = entity.getUser();
+        AddressEntity address = user.getAddress(); // O endereço está no User, não no DriverEntity
+        CnhEntity cnh = entity.getCnh();
+
+        // --- Atualização do UserEntity ---
+        if (driverDomain.getName() != null) {
+            user.setName(driverDomain.getName().getValue());
+        }
+
+        if (driverDomain.getEmail() != null) {
+            user.setEmail(driverDomain.getEmail().getValue()); // CORRIGIDO
+        }
+
+        if (driverDomain.getCpf() != null) { // Validação de duplicidade deve ser feita no SERVICE
+            user.setCpf(driverDomain.getCpf().getValue());
+        }
+        
+        if (driverDomain.getPhoneNumber() != null) {
+            user.setPhoneNumber(driverDomain.getPhoneNumber().getPhoneValue());
+        }
+
+        // --- Atualização do AddressEntity ---
+        if (driverDomain.getAddress() != null) {
+            Address newAddress = driverDomain.getAddress(); // Objeto de valor do endereço
+            address.setZipCode(newAddress.getZipCode());
+            address.setStreet(newAddress.getStreet());
+            address.setComplement(newAddress.getComplement());
+            address.setNumberAddress(newAddress.getNumberAddress());
+            // ... etc para todos os outros campos do endereço
+        }
+
+        // --- Atualização do CnhEntity ---
+        if (driverDomain.getCnh() != null) { // Validação de duplicidade deve ser feita no SERVICE
+            Cnh newCnh = driverDomain.getCnh(); // Objeto de valor da CNH
+            cnh.setCnh(newCnh.getValue()); // Supondo que o setter seja setCnhNumber
+            cnh.setDateExpiration(newCnh.getExpirationDate());
+        }
+    }  
 }           
 

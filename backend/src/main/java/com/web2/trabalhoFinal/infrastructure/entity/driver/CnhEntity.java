@@ -43,5 +43,17 @@ public class CnhEntity {
     public LocalDate getDateExpiration() {
         return dateExpiration;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
+    }
+
+    public void setDateExpiration(LocalDate dateExpiration) {
+        this.dateExpiration = dateExpiration;
+    }
  
 }

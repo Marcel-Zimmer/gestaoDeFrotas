@@ -19,4 +19,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     public boolean existsByCpf(String value);
 
+
 }
