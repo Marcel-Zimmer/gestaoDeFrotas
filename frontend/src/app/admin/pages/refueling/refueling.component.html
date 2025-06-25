@@ -1,0 +1,52 @@
+
+  <button mat-raised-button class="button-agendamento" color="primary" (click)="dialogoRefueling()" >
+    <mat-icon>add</mat-icon>
+    Novo Abastecimento
+  </button>
+
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef>Data Abastecimento</mat-header-cell>
+    <mat-cell *matCellDef="let refueling">{{ refueling.refuelingDate | date: 'dd/MM/yyyy' : 'America/Sao_Paulo' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="vehicle">
+    <mat-header-cell *matHeaderCellDef>Veiculo</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.nameDriver }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="driver">
+    <mat-header-cell *matHeaderCellDef>Motorista</mat-header-cell>
+    <mat-cell *matCellDef="let refueling">{{ refueling.nameDriver }}</mat-cell>
+  </ng-container>
+
+<ng-container matColumnDef="type">
+  <mat-header-cell *matHeaderCellDef>Combustivel</mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    {{ getFuelTypeViewValue(element.typeRefueling) }}
+  </mat-cell>
+</ng-container>
+
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Preço</mat-header-cell>
+    <mat-cell *matCellDef="let refueling">{{ refueling.priceRefueling }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="mileage">
+    <mat-header-cell *matHeaderCellDef>Quilometragem</mat-header-cell>
+    <mat-cell *matCellDef="let refueling">{{ refueling.currentMileage }}</mat-cell>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="acoes">
+    <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+    <mat-cell *matCellDef="let agendamento">
+      <button mat-icon-button color="warn" (click)="excluirAgendamento(agendamento.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['date','vehicle', 'driver','type', 'price', 'mileage', 'acoes']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['date','vehicle', 'driver','type', 'price', 'mileage', 'acoes'];"></mat-row>
+</mat-table>

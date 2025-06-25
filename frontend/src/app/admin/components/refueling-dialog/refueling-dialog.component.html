@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Registrar Novo Abastecimento</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Veículo</mat-label>
+      <mat-select formControlName="idVehicle">
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">
+          {{ vehicle.modelVehicle }} - Placa: {{ vehicle.licencePlate }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('idVehicle')?.hasError('required')">Veículo é obrigatório.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Motorista Responsável</mat-label>
+      <mat-select formControlName="idDriver">
+        <mat-option *ngFor="let driver of motoristas" [value]="driver.driverId">
+          {{ driver.nameDriver }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('idDriver')?.hasError('required')">Motorista é obrigatório.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data do Abastecimento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.get('date')?.hasError('required')">Data é obrigatória.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de Combustível</mat-label>
+      <mat-select formControlName="typeRefueling">
+        <mat-option *ngFor="let fuel of fuelTypes" [value]="fuel.value">
+          {{ fuel.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('typeRefueling')?.hasError('required')">Tipo é obrigatório.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Valor Total (R$)</mat-label>
+      <input matInput type="number" formControlName="price" placeholder="Ex: 150.75">
+      <mat-error *ngIf="form.get('price')?.hasError('required')">Valor é obrigatório.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Quilometragem Atual</mat-label>
+      <input matInput type="number" formControlName="currentMileage" placeholder="Ex: 125000">
+      <mat-error *ngIf="form.get('currentMileage')?.hasError('required')">Quilometragem é obrigatória.</mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Salvar</button>
+</mat-dialog-actions>

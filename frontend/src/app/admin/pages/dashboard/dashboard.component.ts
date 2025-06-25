@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit {
   
   // Variáveis para popular os dropdowns de filtro
   public motoristas: Driver[] = [];
+  
   public statusOpcoes = [
     { value: 'AGENDADO', viewValue: 'Agendado' },
     { value: 'EM_VIAGEM', viewValue: 'Em viagem' },

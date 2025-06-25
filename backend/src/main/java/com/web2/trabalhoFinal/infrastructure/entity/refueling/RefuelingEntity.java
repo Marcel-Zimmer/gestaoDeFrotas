@@ -3,7 +3,6 @@ package com.web2.trabalhoFinal.infrastructure.entity.refueling;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 import com.web2.trabalhoFinal.infrastructure.entity.vehicle.VehicleEntity;
 
 import jakarta.persistence.Column;
@@ -30,9 +29,8 @@ public class RefuelingEntity {
     @JoinColumn(name = "id_type_refueling", referencedColumnName = "id", nullable = false)
     private TypeRefuelingEntity typeRefueling;
 
-    @ManyToOne
-    @JoinColumn(name = "id_driver", referencedColumnName = "id", nullable = false)
-    private UserEntity userEntity; 
+    @Column(name = "name_driver", nullable = false)
+    private String nameDriver; 
     
     @Column(name = "date_refueling", nullable = false)
     private LocalDate refuelingDate;
@@ -45,11 +43,11 @@ public class RefuelingEntity {
 
     public RefuelingEntity() {}
 
-    public RefuelingEntity(VehicleEntity vehicle, TypeRefuelingEntity typeRefueling, UserEntity userEntity,
+    public RefuelingEntity(VehicleEntity vehicle, TypeRefuelingEntity typeRefueling, String nameDriver,
             LocalDate refuelingDate, BigDecimal priceRefueling, Double currentMileage) {
         this.vehicle = vehicle;
         this.typeRefueling = typeRefueling;
-        this.userEntity = userEntity;
+        this.nameDriver = nameDriver;
         this.refuelingDate = refuelingDate;
         this.priceRefueling = priceRefueling;
         this.currentMileage = currentMileage;
@@ -59,28 +57,58 @@ public class RefuelingEntity {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public VehicleEntity getVehicle() {
         return vehicle;
+    }
+
+    public void setVehicle(VehicleEntity vehicle) {
+        this.vehicle = vehicle;
     }
 
     public TypeRefuelingEntity getTypeRefueling() {
         return typeRefueling;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public void setTypeRefueling(TypeRefuelingEntity typeRefueling) {
+        this.typeRefueling = typeRefueling;
+    }
+
+    public String getNameDriver() {
+        return nameDriver;
+    }
+
+    public void setNameDriver(String nameDriver) {
+        this.nameDriver = nameDriver;
     }
 
     public LocalDate getRefuelingDate() {
         return refuelingDate;
     }
 
+    public void setRefuelingDate(LocalDate refuelingDate) {
+        this.refuelingDate = refuelingDate;
+    }
+
     public BigDecimal getPriceRefueling() {
         return priceRefueling;
+    }
+
+    public void setPriceRefueling(BigDecimal priceRefueling) {
+        this.priceRefueling = priceRefueling;
     }
 
     public Double getCurrentMileage() {
         return currentMileage;
     }
+
+    public void setCurrentMileage(Double currentMileage) {
+        this.currentMileage = currentMileage;
+    }
+
+
          
 }

@@ -7,6 +7,7 @@ import { LayoutComponent as AdminLayoutComponent } from './admin/layout/layout.c
 import { DashboardComponent as AdminDashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { AdminComponent } from './admin/pages/admin/admin.component';
 import { ConfigComponent } from './admin/pages/config/config.component';
+import { RefuelingComponent } from './admin/pages/refueling/refueling.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
       { path: 'motoristas', component: DriversComponent }, // Exemplo para o futuro
       { path: 'administradores', component:AdminComponent},
       { path: 'configuracoes', component: ConfigComponent },
+      { path: 'refueling', component: RefuelingComponent },
     ]
   },
 

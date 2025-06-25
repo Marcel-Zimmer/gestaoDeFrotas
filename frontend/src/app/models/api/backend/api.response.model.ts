@@ -1,4 +1,5 @@
 import { Driver } from '../../driver/driver.model';
+import { Refueling } from '../../refueling/refueling.mdel';
 import { Trip } from '../../trip/trip.model';
 import { Veiculo } from '../../veiculo/veiculo.model'; // Importe seu modelo de veículo
 
@@ -17,4 +18,10 @@ export interface ApiResponseDriver{
   success: boolean;
   message : string;
   data: Driver[]; 
+}
+
+export interface ApiResponseRefueling{
+  success: boolean;
+  message : string;
+  data: Refueling[];   
 }

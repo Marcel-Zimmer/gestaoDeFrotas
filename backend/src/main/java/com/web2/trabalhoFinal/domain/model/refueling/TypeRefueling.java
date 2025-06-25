@@ -14,11 +14,11 @@ public class TypeRefueling {
     }
     public Refueling fromString(String value) {
             return switch (value.toLowerCase()) {
-                case "gasolina comum"     -> Refueling.GASOLINA_COMUM;
-                case "gasolina aditivada"         -> Refueling.GASOLINA_ADITIVADA;
+                case "gasolina_comum"     -> Refueling.GASOLINA_COMUM;
+                case "gasolina_aditivada"         -> Refueling.GASOLINA_ADITIVADA;
                 case "etanol"  -> Refueling.ETANOL;
-                case "diesel comum"     -> Refueling.DIESEL_COMUM;
-                case "diesel s10"     -> Refueling.DIESEL_S10;
+                case "diesel_comum"     -> Refueling.DIESEL_COMUM;
+                case "diesel_s10"     -> Refueling.DIESEL_S10;
                 case "gnv"     -> Refueling.GNV;
                 case "eletricidade"     -> Refueling.ELETRICIDADE;
                 case "biodisel"     -> Refueling.BIODIESEL;

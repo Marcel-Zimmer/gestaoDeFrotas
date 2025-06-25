@@ -1,0 +1,16 @@
+// Em refueling-dialog.component.scss
+
+// Classe para o container do formulário
+.dialog-form {
+  display: flex;
+  flex-direction: column; // A mágica principal: empilha os itens em uma coluna
+
+  // Opcional, mas recomendado: adiciona um pequeno espaço entre os campos
+  gap: 10px; 
+}
+
+// Opcional, mas recomendado: Garante que todos os campos de formulário 
+// ocupem toda a largura disponível dentro do layout de coluna.
+mat-form-field {
+  width: 100%;
+}
