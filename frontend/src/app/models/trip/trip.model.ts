@@ -4,6 +4,11 @@ export interface Trip {
   idVehicle:number;
   idDriver:number;
   justify:string;
-  date:String;
-  statusTrip:String;
+  date:string;
+  statusTrip:string;
+  nameDriver:string;
+  licencePlate:string;
+  modelVehicle:string;
+  typeVehicle:string;
+  address:any;
 }

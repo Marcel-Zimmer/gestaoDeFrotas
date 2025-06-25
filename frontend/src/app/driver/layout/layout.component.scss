@@ -1,0 +1,35 @@
+.sidenav-container {
+  // Faz o container ocupar 100% da altura da janela
+  height: 100vh;
+}
+
+.sidenav {
+  // Largura do menu lateral
+  width: 240px;
+}
+
+.sidenav .mat-toolbar {
+  // Deixa a barra de menu do Sidenav com a mesma cor de fundo
+  background: inherit;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidenav-toolbar {
+  padding-left: 16px;
+}
+
+.mat-nav-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px; // Espaço entre o ícone e o texto
+  padding-left: 16px;
+}
+
+.logout-button {
+  cursor: pointer; // Mostra a "mãozinha" ao passar o mouse sobre o botão de sair
+}
+
+.content {
+  // Espaçamento interno para o conteúdo das páginas não ficar colado nas bordas
+  padding: 24px;
+}

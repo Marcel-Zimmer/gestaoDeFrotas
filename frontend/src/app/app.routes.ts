@@ -3,11 +3,15 @@ import { LoginComponent } from './auth/login/login.component';
 import { VeiculosComponent } from './admin/pages/vehicles/vehicles.component';
 import {DriversComponent} from './admin/pages/drivers/drivers.component';
 import { adminGuard } from './auth/admin.guard'; // Importe o guarda
-import { LayoutComponent as AdminLayoutComponent } from './admin/layout/layout.component'; // Renomeie para evitar conflito
+import { LayoutComponent as AdminLayoutComponent } from './admin/layout/layout.component';
+import { LayoutComponent as DriverLayoutComponent } from './driver/layout/layout.component';
 import { DashboardComponent as AdminDashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { AdminComponent } from './admin/pages/admin/admin.component';
 import { ConfigComponent } from './admin/pages/config/config.component';
 import { RefuelingComponent } from './admin/pages/refueling/refueling.component';
+import { DashboardComponent  as DriverDashboardComponent} from './driver/pages/dashboard/dashboard.component';
+import { HistoryComponent } from './driver/pages/history/history.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,7 +32,14 @@ export const routes: Routes = [
       { path: 'refueling', component: RefuelingComponent },
     ]
   },
+  {
+    path: 'driver',
+    component: DriverLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'trips', pathMatch: 'full' }, 
+      { path: 'dashboard', component: DriverDashboardComponent },
+      { path: 'history', component: HistoryComponent } 
+    ]
+  },
 
-  // Futuramente, aqui teremos as rotas do motorista
-  // { path: 'motorista', component: MotoristaLayoutComponent, canActivate: [motoristaGuard], children: [...] }
 ];

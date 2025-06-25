@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Finalizar Viagem</h2>
+<mat-dialog-content>
+  <p>Informe a quilometragem final do veículo para encerrar a viagem.</p>
+  <form [formGroup]="form" class="dialog-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Quilometragem Final</mat-label>
+      <input matInput type="number" formControlName="quilometragemFinal" required>
+      <mat-error *ngIf="form.get('quilometragemFinal')?.hasError('required')">Campo obrigatório.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Observações de Encerramento (opcional)</mat-label>
+      <textarea matInput formControlName="observacoesRetorno" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="accent" (click)="save()" [disabled]="form.invalid">Confirmar Finalização</button>
+</mat-dialog-actions>

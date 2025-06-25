@@ -1,0 +1,61 @@
+<div class="history-container">
+  <h1>Histórico de Viagens</h1>
+  <p>Aqui estão todas as suas viagens finalizadas.</p>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Filtrar viagens...</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex: Curitiba" #input>
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div *ngIf="isLoading; else tableContent" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-template #tableContent>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Data da Viagem</th>
+          <td mat-cell *matCellDef="let row">{{ row.date | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="destination">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Destino</th>
+          <td mat-cell *matCellDef="let row">{{ row.address.city }} / {{ row.address.stateAbbreviation }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="vehicle">
+          <th mat-header-cell *matHeaderCellDef>Veículo</th>
+          <td mat-cell *matCellDef="let row">{{ row.modelVehicle }} ({{ row.licencePlate }})</td>
+        </ng-container>
+
+        <ng-container matColumnDef="startMileage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Km Inicial</th>
+          <td mat-cell *matCellDef="let row">{{ row.startMileage | number }} km</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endMileage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Km Final</th>
+          <td mat-cell *matCellDef="let row">{{ row.endMileage | number }} km</td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalMileage">
+          <th mat-header-cell *matHeaderCellDef>Km Percorridos</th>
+          <td mat-cell *matCellDef="let row">{{ (row.endMileage - row.startMileage) | number }} km</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6">Nenhum dado encontrado para o filtro "{{ input.value }}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+  </ng-template>
+
+</div>

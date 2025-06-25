@@ -41,4 +41,18 @@ export class AgendamentoService {
     return this.http.get<ApiResponseVehicle>("http://localhost:8080/vehicle/vehicles")
   }
 
+  getMySchedules(): Observable<ApiResponseTrip>{
+    return this.http.get<ApiResponseTrip>(this.API_URL_BACKEND + "/schedules");
+  }
+  startTrip(id:number, data:any): Observable<ApiResponseTrip>{
+    return this.http.get<ApiResponseTrip>(this.API_URL_BACKEND + "/schedules");
+  }
+  finalizarViagem(id:number, data:any): Observable<ApiResponseTrip>{
+    return this.http.get<ApiResponseTrip>(this.API_URL_BACKEND + "/schedules");
+  }
+  getMyHistory(): Observable<ApiResponseTrip>{
+    return this.http.get<ApiResponseTrip>(this.API_URL_BACKEND + "/schedules");
+  }
+
+
 }

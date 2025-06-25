@@ -1,0 +1,51 @@
+<div class="dashboard-container">
+  <h1>Meus Agendamentos</h1>
+  <p>Aqui estão suas próximas viagens e as que estão em andamento.</p>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && agendamentos.length === 0" class="empty-state">
+    <mat-icon>inbox</mat-icon>
+    <p>Você não possui nenhum agendamento no momento.</p>
+  </div>
+
+  <div *ngIf="!isLoading && agendamentos.length > 0" class="cards-container">
+    <mat-card *ngFor="let agendamento of agendamentos" class="schedule-card">
+      <mat-card-header>
+        <mat-card-title>Destino: {{ agendamento.address.city }}</mat-card-title>
+        <mat-card-subtitle>Veículo: {{ agendamento.modelVehicle }} - Placa: {{ agendamento.licencePlate}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-row">
+          <mat-icon>event</mat-icon>
+          <span>Data de Saída: <strong>{{ agendamento.date | date:'dd/MM/yyyy HH:mm' }}</strong></span>
+        </div>
+        <div class="info-row">
+          <mat-icon>flag</mat-icon>
+          <span>Status: <strong>{{ agendamento.statusTrip | titlecase }}</strong></span>
+        </div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions align="end">
+        
+        <button *ngIf="agendamento.statusTrip === 'AGENDADO'" mat-raised-button color="primary" (click)="iniciarViagem(agendamento.Id)">
+          <mat-icon>play_arrow</mat-icon>
+          Iniciar Viagem
+        </button>
+
+        <button *ngIf="agendamento.statusTrip === 'EM_USO'" mat-raised-button color="accent" (click)="finalizarViagem(agendamento.Id)">
+          <mat-icon>check_circle</mat-icon>
+          Finalizar Viagem
+        </button>
+
+        <button *ngIf="agendamento.statusTrip !== 'AGENDADO' && agendamento.statusTrip !== 'EM_USO'" mat-button (click)="visualizarDetalhes(agendamento)">
+          <mat-icon>visibility</mat-icon>
+          Ver Detalhes
+        </button>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

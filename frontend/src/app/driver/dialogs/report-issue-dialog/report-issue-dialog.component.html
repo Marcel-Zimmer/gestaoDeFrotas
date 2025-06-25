@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Relatar Ocorrência</h2>
+<mat-dialog-content>
+  <p>Selecione o veículo e descreva o problema encontrado.</p>
+  <form [formGroup]="form" class="dialog-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Veículo</mat-label>
+      <mat-select formControlName="idVehicle" required>
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">
+          {{ vehicle.modelVehicle }} - Placa: {{ vehicle.licencePlate }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('idVehicle')?.hasError('required')">Selecione um veículo.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descrição do Problema</mat-label>
+      <textarea matInput formControlName="descricao" rows="5" required minlength="10"></textarea>
+      <mat-error *ngIf="form.get('descricao')?.hasError('required')">A descrição é obrigatória.</mat-error>
+      <mat-error *ngIf="form.get('descricao')?.hasError('minlength')">Descreva com mais detalhes (mín. 10 caracteres).</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="save()" [disabled]="form.invalid">Enviar Relatório</button>
+</mat-dialog-actions>

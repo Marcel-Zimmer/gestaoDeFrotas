@@ -1,0 +1,44 @@
+.dashboard-container {
+  padding: 24px;
+}
+
+.loading-spinner, .empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  color: #888;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Espaço entre os cards */
+}
+
+.schedule-card {
+  flex: 1 1 300px; /* Faz os cards se ajustarem ao tamanho da tela */
+  min-width: 300px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  mat-icon {
+    color: #666;
+  }
+}
+
+mat-card-actions {
+  padding: 16px !important;
+}

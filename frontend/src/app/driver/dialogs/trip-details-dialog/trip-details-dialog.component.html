@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Detalhes da Viagem para {{ trip.address.city }}</h2>
+
+<mat-dialog-content class="details-content">
+  <div class="detail-section">
+    <h3><mat-icon>assignment</mat-icon> Dados Gerais</h3>
+    <p><strong>Status:</strong> {{ trip.statusTrip | titlecase }}</p>
+    <p><strong>Data Agendada:</strong> {{ trip.date | date:'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Justificativa:</strong> {{ trip.justify }}</p>
+  </div>
+  
+  <mat-divider></mat-divider>
+  
+  <div class="detail-section">
+    <h3><mat-icon>person</mat-icon> Motorista</h3>
+    <p><strong>Nome:</strong> {{ trip.nameDriver }}</p>
+  </div>
+  
+  <mat-divider></mat-divider>
+
+  <div class="detail-section">
+    <h3><mat-icon>directions_car</mat-icon> Veículo</h3>
+    <p><strong>Modelo:</strong> {{ trip.modelVehicle }} ({{ trip.typeVehicle }})</p>
+    <p><strong>Placa:</strong> {{ trip.licencePlate }}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+  
+  <div class="detail-section">
+    <h3><mat-icon>place</mat-icon> Destino</h3>
+    <p>{{ trip.address.street }}, {{ trip.address.numberAddress }}</p>
+    <p>{{ trip.address.neighborhood }} - {{ trip.address.city }}/{{ trip.address.stateAbbreviation }}</p>
+    <p><strong>CEP:</strong> {{ trip.address.zipCode }}</p>
+  </div>
+
+  </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()">Fechar</button>
+</mat-dialog-actions>

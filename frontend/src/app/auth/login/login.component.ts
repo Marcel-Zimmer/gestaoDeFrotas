@@ -47,20 +47,26 @@ login() {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           // A LÓGICA DE PÓS-LOGIN FICA AQUI, NO COMPONENTE!
-          console.log('Login bem-sucedido!', response);
+          
 
           // 1. Salva os dados no localStorage
           //localStorage.setItem('usuario_logado', JSON.stringify(response));
 
           // 2. Avisa o usuário
-          alert('Login realizado com sucesso!');
-          this.router.navigate(['/admin']);
-          // 3. Redireciona o usuário com base no perfil
-          if (response.superUser) {
+          if(response.sucess){
+            alert('Login realizado com sucesso!');
+            console.log('Login bem-sucedido!', response);
+            if (response.superUser) {
+              this.router.navigate(['/admin']);
+            } 
             
-          } else if (!response.superUser) {
-            this.router.navigate(['/motorista']);
           }
+          this.router.navigate(['/driver']);
+          alert('Usuario ou senha incorretos!');
+          
+          
+          // 3. Redireciona o usuário com base no perfil
+
         },
         error: (err) => {
           // O tratamento de erro também é responsabilidade do componente
