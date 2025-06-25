@@ -22,15 +22,15 @@ export class AdminService {
     return this.http.get<ApiCepResponse>(this.API_URL_VIACEP + cep + "/json")
   }
 
-  updateAdministrator(driver:Driver): Observable<ApiResponseDriver>{
+  updateAdministrator(driver:any): Observable<ApiResponseDriver>{
     console.log(driver)
-    if (driver.driverId) {
-      return this.http.put<ApiResponseDriver>(`${this.API_URL_BACKEND}/update/${driver.driverId}`, driver);
+    if (driver.administradorId) {
+      return this.http.put<ApiResponseDriver>(`${this.API_URL_BACKEND}/update/${driver.administradorId}`, driver);
     }
     return this.http.post<ApiResponseDriver>(this.API_URL_BACKEND+"/register", driver);
   }
   
-  excludeAdministrator(teste:any): Observable<ApiResponseDriver>{
-    return this.http.get<ApiResponseDriver>(this.API_URL_BACKEND + "/drivers");
+  excludeAdministrator(id:number): Observable<ApiResponseDriver>{
+    return this.http.delete<ApiResponseDriver>(this.API_URL_BACKEND + "/" + id);
   }
 }

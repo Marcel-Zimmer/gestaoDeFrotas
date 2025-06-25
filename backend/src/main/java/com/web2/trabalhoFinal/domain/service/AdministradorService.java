@@ -33,12 +33,13 @@ public class AdministradorService {
         }
 
         UserEntity administradorEntity = AdministradorMapper.toEntity(administrador);
+        administradorEntity.setAdmin(true);
         UserEntity savedAdministrador = userRepository.save(administradorEntity);
         return new AdministradorResponse(savedAdministrador.getId());
     }
 
     public List<AdministradorResponse> getAllAdministradores() {
-        List<UserEntity> administradores = userRepository.findAll();
+        List<UserEntity> administradores = userRepository.findByIsAdmin(true);
 
         return administradores.stream()
                       .map(AdministradorMapper::toResponseDto)
@@ -63,8 +64,9 @@ public class AdministradorService {
     public ApiResponse<Void> deleteAdministrador(Long id) {
         UserEntity administradorEntity = userRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado."));
-       
+
         administradorEntity.setActive(!administradorEntity.isActive());
+        userRepository.save(administradorEntity);
         String successMessage = "Administrador inativado";
         return new ApiResponse<>(true, successMessage, null);
     }

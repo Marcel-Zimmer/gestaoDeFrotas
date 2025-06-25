@@ -93,7 +93,7 @@ public class DriverService {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado."));
 
-        DriverEntity driverEntity = driverRepository.findByUserId(user.getId()); // Supondo que você criou este método
+        DriverEntity driverEntity = driverRepository.findByUserId(user.getId());
         
         // <<< ADICIONE ESTA VERIFICAÇÃO! >>>
         if (driverEntity == null) {

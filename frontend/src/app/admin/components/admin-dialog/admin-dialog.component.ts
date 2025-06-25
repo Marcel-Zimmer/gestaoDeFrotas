@@ -2,8 +2,6 @@ import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 
 // Imports dos módulos do Angular Material para o formulário
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,13 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AgendamentoService } from '../../services/agendamento/agendamento.service';
-import { ApiResponseDriver, ApiResponseVehicle } from '../../../models/api/backend/api.response.model';
-import { Driver } from '../../../models/driver/driver.model';
-import { Veiculo } from '../../../models/veiculo/veiculo.model';
 
 
 @Component({
-  selector: 'app-driver-component',
+  selector: 'app-admin-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,26 +22,16 @@ import { Veiculo } from '../../../models/veiculo/veiculo.model';
     MatInputModule,      // Para a diretiva matInput nos campos
     MatButtonModule,      // Para os botões mat-button
     MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule    
   ],
-    providers: [
-    provideNativeDateAdapter() // A LÓGICA da data agora é um provider
-  ],
-  templateUrl: './driver-component.component.html',
-  styleUrl: './driver-component.component.scss'
+  templateUrl: './admin-dialog.component.html',
+  styleUrl: './admin-dialog.component.scss'
 })
-export class DriverComponentComponent {
- 
+export class AdminDialogComponent {
   form: FormGroup;
   isEditMode: boolean;
-  private agendamentoService = inject(AgendamentoService);
   private fb = inject(FormBuilder);
-  public dialogRef = inject(MatDialogRef<DriverComponentComponent>);
-  
-  ngOnInit(): void {
-  }
+  private agendamentoService = inject(AgendamentoService);
+  public dialogRef = inject(MatDialogRef<AdminDialogComponent>);
 
 constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     // Esta parte está correta
@@ -60,22 +45,17 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.form = this.fb.group({
         // Use '??' para fornecer um valor padrão caso o da esquerda seja nulo/indefinido
-        driverId: [data?.driverId ?? null], 
-        name: [data?.nameDriver ?? '', Validators.required],
+        administradorId: [data?.administradorId ?? null], 
+        name: [data?.nameAdministrador ?? '', Validators.required],
         email: [data?.email ?? '', [Validators.required, Validators.email]], // Adicionei o validador de email
         cpf:[data?.cpf ?? '', Validators.required],
-        cnh: [data?.cnh ?? '', Validators.required],
         password: ['', [this.passwordStrengthValidator()]],
-        expirationDate : [data?.cnhExpiration ?? null, [Validators.required]], // Ajuste conforme necessário
         
         dddNumber: [ddd, Validators.required],
         phoneNumber: [numero, Validators.required],
         
         isAtive: [{ value: data?.isAtive ?? true, disabled: true }],
-        isSuperUser: [data?.isSuperUser ?? false],
-
-        // --- CORREÇÃO PRINCIPAL PARA O ENDEREÇO ---
-        // Use o encadeamento opcional em toda a cadeia: data?.address?.<propriedade>
+        isSuperUser: [data?.isSuperUser ?? true],
         
         zipCode: [data?.address?.zipCode ?? '', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         street: [data?.address?.street ?? '', Validators.required],           // era 'logradouro'
@@ -93,7 +73,6 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
         numberAddress: [data?.address?.numberAddress ?? '', Validators.required], // era 'numberAdress'
     });
 }
-
   buscarCep(): void {
     const cep = this.form.get('zipCode')?.value;
     if (cep && cep.length === 8) {
@@ -124,6 +103,7 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   close(): void {
+    // Apenas fecha o dialog, sem retornar dados
     this.dialogRef.close();
   }
   passwordStrengthValidator(): ValidatorFn {
@@ -148,5 +128,5 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
       // A chave 'passwordStrength' poderá ser usada no HTML para mostrar a mensagem de erro.
       return !passwordIsValid ? { passwordStrength: true } : null;
     };
-  }  
+  }    
 }

@@ -84,7 +84,8 @@ public class AdministradorMapper {
             entity.getCpf(),
             entity.getEmail(),
             entity.getPhoneNumber(),
-            entity.getAddress()
+            entity.getAddress(),
+            entity.isActive()
         );
     }  
     public static void updateFromDomain(Administrador driverDomain, UserEntity user) {
@@ -115,7 +116,16 @@ public class AdministradorMapper {
             address.setStreet(newAddress.getStreet());
             address.setComplement(newAddress.getComplement());
             address.setNumberAddress(newAddress.getNumberAddress());
-            // ... etc para todos os outros campos do endereço
+            address.setUnit(newAddress.getUnit());
+            address.setNeighborhood(newAddress.getNeighborhood());
+            address.setCity(newAddress.getCity());
+            address.setStateAbbreviation(newAddress.getStateAbbreviation());
+            address.setState(newAddress.getState());
+            address.setRegion(newAddress.getRegion());
+            address.setIbgeCode(newAddress.getIbgeCode());
+            address.setGiaCode(newAddress.getGiaCode());
+            address.setDdd(newAddress.getDdd());
+            address.setSiafiCode(newAddress.getSiafiCode());
         }
     }         
 }  

@@ -10,15 +10,17 @@ public class AdministradorResponse {
     private String email;
     private String phoneNumber;
     private AddressEntity address;
+    private Boolean isAtive;
     
     public AdministradorResponse(Long administradorId, String nameAdministrador, String cpf, String email,
-            String phoneNumber, AddressEntity address) {
+            String phoneNumber, AddressEntity address,Boolean isAtive) {
         this.administradorId = administradorId;
         this.nameAdministrador = nameAdministrador;
         this.cpf = cpf;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.isAtive = isAtive;
     }
 
     public AdministradorResponse(Long administradorId) {
@@ -47,6 +49,10 @@ public class AdministradorResponse {
 
     public AddressEntity getAddress() {
         return address;
+    }
+
+    public Boolean getIsAtive() {
+        return isAtive;
     }
 
     

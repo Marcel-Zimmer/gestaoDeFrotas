@@ -10,7 +10,7 @@ import { ApiResponseDriver, ApiResponseTrip } from '../../../models/api/backend/
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Driver } from '../../../models/driver/driver.model';
-import { DriverComponentComponent } from '../../components/driver-component/driver-component.component';
+import { AdminDialogComponent } from '../../components/admin-dialog/admin-dialog.component';
 import { AdminService } from '../../services/admin/admin.service';
 
 @Component({
@@ -44,13 +44,13 @@ export class AdminComponent {
         this.dataSource.data = response.data;
       },
       error: (erro) => {
-        console.error('Erro ao carregar veículos:', erro);
+        console.error('Erro ao carregar administradores:', erro);
       }
     });
   }
 
   dialogoAgendamento(agendamento?: Driver): void {
-    const dialogRef = this.dialog.open(DriverComponentComponent, {
+    const dialogRef = this.dialog.open(AdminDialogComponent, {
       width: '600px',
       disableClose: true, 
       data: agendamento 
@@ -63,7 +63,7 @@ export class AdminComponent {
         this.adminService.updateAdministrator(result).subscribe({
           next: () => {
             this.loadDrivers(); // Recarrega a lista para mostrar o item novo/atualizado
-            this.mostrarMensagemDeSucesso("Agendamento salvo com sucesso");
+            this.mostrarMensagemDeSucesso("Administrador salvo com sucesso");
           },
           error: (erro:any) => {
             this.mostrarMensagemDeErro("Erro ao salvar : " + erro.error.message);
@@ -80,11 +80,11 @@ export class AdminComponent {
   excluirAgendamento(id: number): void {
     console.log(id)
     // Usamos o 'confirm' do navegador para uma confirmação simples
-    if (confirm('Tem certeza que deseja inativar este veículo?')) {
+    if (confirm('Tem certeza que deseja inativar este administrador?')) {
       this.adminService.excludeAdministrator(id).subscribe({
         next: () => {
           this.loadDrivers(); // Recarrega a lista para remover o item
-          this.mostrarMensagemDeSucesso("Agendamento excluido com sucesso");
+          this.mostrarMensagemDeSucesso("Administrador inativado com sucesso");
         },
         error: (erro :any) => {
           this.mostrarMensagemDeErro(erro.message);
