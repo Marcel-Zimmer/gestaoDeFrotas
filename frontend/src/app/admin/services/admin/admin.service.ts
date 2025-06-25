@@ -8,21 +8,21 @@ import { Driver } from '../../../models/driver/driver.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DriversService {
+export class AdminService {
 
   private http = inject(HttpClient);
-  private API_URL_BACKEND = 'http://localhost:8080/driver';
+  private API_URL_BACKEND = 'http://localhost:8080/administrador';
   private API_URL_VIACEP = 'https://viacep.com.br/ws/'
 
-  getDrivers(): Observable<ApiResponseDriver> {
-    return this.http.get<ApiResponseDriver>(this.API_URL_BACKEND + "/drivers");
+  getAdministrators(): Observable<ApiResponseDriver> {
+    return this.http.get<ApiResponseDriver>(this.API_URL_BACKEND + "/administradores");
   }
 
   getAddress(cep:string): Observable<ApiCepResponse> {
     return this.http.get<ApiCepResponse>(this.API_URL_VIACEP + cep + "/json")
   }
 
-  updateDriver(driver:Driver): Observable<ApiResponseDriver>{
+  updateAdministrator(driver:Driver): Observable<ApiResponseDriver>{
     console.log(driver)
     if (driver.driverId) {
       return this.http.put<ApiResponseDriver>(`${this.API_URL_BACKEND}/update/${driver.driverId}`, driver);
@@ -30,7 +30,7 @@ export class DriversService {
     return this.http.post<ApiResponseDriver>(this.API_URL_BACKEND+"/register", driver);
   }
   
-  excludeDriver(id:number): Observable<ApiResponseDriver>{
-    return this.http.delete<ApiResponseDriver>(this.API_URL_BACKEND + "/"+id);
+  excludeAdministrator(teste:any): Observable<ApiResponseDriver>{
+    return this.http.get<ApiResponseDriver>(this.API_URL_BACKEND + "/drivers");
   }
 }

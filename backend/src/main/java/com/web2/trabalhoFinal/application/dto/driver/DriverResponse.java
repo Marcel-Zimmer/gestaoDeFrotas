@@ -13,9 +13,10 @@ public class DriverResponse {
     private String email;
     private String phoneNumber;
     private AddressEntity address;
+    private Boolean isAtive;
     
     public DriverResponse(Long driverId, String nameDriver, String cpf, String cnh, LocalDate cnhExpiration, String email,
-        String phoneNumber, AddressEntity address) {
+        String phoneNumber, AddressEntity address, boolean isAtive) {
         this.driverId = driverId;
         this.nameDriver = nameDriver;
         this.cpf = cpf;
@@ -24,6 +25,7 @@ public class DriverResponse {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.isAtive = isAtive;
     }
 
     public DriverResponse(Long driverId) {
@@ -55,9 +57,11 @@ public class DriverResponse {
     public AddressEntity getAddress() {
         return address;
     }
+
+    public Boolean getIsAtive() {
+        return isAtive;
+    }
     
-
-
 
 
 }

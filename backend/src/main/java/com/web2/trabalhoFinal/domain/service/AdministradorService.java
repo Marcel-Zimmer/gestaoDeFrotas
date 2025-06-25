@@ -64,7 +64,7 @@ public class AdministradorService {
         UserEntity administradorEntity = userRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado."));
        
-        administradorEntity.setActive(false);
+        administradorEntity.setActive(!administradorEntity.isActive());
         String successMessage = "Administrador inativado";
         return new ApiResponse<>(true, successMessage, null);
     }

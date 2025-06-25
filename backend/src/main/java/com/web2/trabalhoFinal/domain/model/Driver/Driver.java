@@ -20,6 +20,11 @@ public class Driver extends User{
         this.status = StatusDriver.DISPONIVEL;
     }
 
+    public Driver(Name name, Cpf cpf, Cnh cnh, PhoneNumber phoneNumber, Address address, Email email) {
+        super(name, email, false, true,phoneNumber, address,cpf);
+        this.cnh = cnh;
+    }
+
     public Cnh getCnh() {
         return cnh;
     }

@@ -63,7 +63,7 @@ public class AdministradorController {
         }
     }
     
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse<AdministradorResponse>> updateAdministrador (@PathVariable Long id,@RequestBody AdministradorRequestDto dto) {
         try {
             Administrador administrador = AdministradorMapper.toDomain(dto);
@@ -80,7 +80,7 @@ public class AdministradorController {
         }
 
     }
-     @DeleteMapping("delete/{id}")
+     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteAdministrador(@PathVariable Long id) {
         try {
             ApiResponse<Void> response = administradorService.deleteAdministrador(id);

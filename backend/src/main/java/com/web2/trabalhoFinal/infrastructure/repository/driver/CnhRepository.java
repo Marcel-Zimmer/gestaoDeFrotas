@@ -11,4 +11,6 @@ public interface CnhRepository extends JpaRepository<CnhEntity, Long> {
 
     public boolean existsByCnh(String value);
 
+    public CnhEntity findByCnh(String value);
+
 }

@@ -28,6 +28,16 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(Name name, Email email, boolean isSuperUser, boolean isAtive, PhoneNumber phoneNumber, Address address, Cpf cpf) {
+        this.name = name;
+        this.email = email;
+        this.isSuperUser = isSuperUser;
+        this.isAtive = isAtive;
+        this.address = address;
+        this.cpf = cpf;
+        this.phoneNumber = phoneNumber;
+    }
+
     public User(String email, String password){
         this.email= new Email(email);
         this.passwordRaw = password;

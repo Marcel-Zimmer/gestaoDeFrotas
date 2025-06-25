@@ -12,6 +12,7 @@ public class DriverRequestDto {
     public String dddNumber;
     public String email;
     public String password;
+
     public String zipCode;
     public String street;
     public String complement;

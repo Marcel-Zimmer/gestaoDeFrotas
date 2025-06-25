@@ -44,12 +44,13 @@ export class DriversComponent {
         this.dataSource.data = response.data;
       },
       error: (erro) => {
-        console.error('Erro ao carregar veículos:', erro);
+        console.error('Erro ao carregar motoristas:', erro);
       }
     });
+    console.log(this.dataSource)
   }
 
-  dialogoAgendamento(agendamento?: Driver): void {
+  dialogDriver(agendamento?: Driver): void {
     const dialogRef = this.dialog.open(DriverComponentComponent, {
       width: '600px',
       disableClose: true, 
@@ -63,7 +64,7 @@ export class DriversComponent {
         this.driverService.updateDriver(result).subscribe({
           next: () => {
             this.loadDrivers(); // Recarrega a lista para mostrar o item novo/atualizado
-            this.mostrarMensagemDeSucesso("Agendamento salvo com sucesso");
+            this.mostrarMensagemDeSucesso("Motorista salvo com sucesso");
           },
           error: (erro:any) => {
             this.mostrarMensagemDeErro("Erro ao salvar : " + erro.error.message);
@@ -77,14 +78,14 @@ export class DriversComponent {
    * Método para excluir (inativar) um veículo.
    * @param id O ID do veículo a ser excluído.
    */
-  excluirAgendamento(id: number): void {
+  excluirDriver(id: number): void {
     console.log(id)
     // Usamos o 'confirm' do navegador para uma confirmação simples
-    if (confirm('Tem certeza que deseja inativar este veículo?')) {
+    if (confirm('Tem certeza que deseja inativar este motorista?')) {
       this.driverService.excludeDriver(id).subscribe({
         next: () => {
           this.loadDrivers(); // Recarrega a lista para remover o item
-          this.mostrarMensagemDeSucesso("Agendamento excluido com sucesso");
+          this.mostrarMensagemDeSucesso("Motorista excluido com sucesso");
         },
         error: (erro :any) => {
           this.mostrarMensagemDeErro(erro.message);

@@ -20,13 +20,13 @@ public class UserEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "password_hash", nullable = false)
     private String password;
 
-    @Column(name = "cpf", nullable = false, unique = true, length = 11)
+    @Column(name = "cpf", nullable = false)
     private String cpf;
 
     @Column(name = "phone_number", nullable = false) 
@@ -52,6 +52,9 @@ public class UserEntity {
         this.address = address;
         this.isAdmin = isAdmin;
         this.isActive = isActive;
+    }
+
+    public UserEntity() {
     }
 
     public Long getId() {
@@ -122,8 +125,8 @@ public class UserEntity {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 
 

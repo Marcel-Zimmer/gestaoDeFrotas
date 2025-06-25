@@ -21,7 +21,7 @@ import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 @Component
 public class DriverMapper {
     public static Driver toDomain(DriverRequestDto dto) {
-
+        if(!dto.password.equalsIgnoreCase("")){
         return new Driver(
             new Name(dto.name), 
             new Cpf(dto.cpf),  
@@ -44,9 +44,33 @@ public class DriverMapper {
                 dto.numberAddress
             ),  
             new Email(dto.email),  
-            new Password(dto.password)
-        );
+            new Password(dto.password));
+        }
+        return new Driver(
+            new Name(dto.name), 
+            new Cpf(dto.cpf),  
+            new Cnh(dto.cnh, dto.expirationDate),  
+            new PhoneNumber(dto.phoneNumber, dto.dddNumber),  
+            new Address(
+                dto.zipCode, 
+                dto.street, 
+                dto.complement, 
+                dto.unit, 
+                dto.neighborhood, 
+                dto.city, 
+                dto.stateAbbreviation, 
+                dto.state, 
+                dto.region, 
+                dto.ibgeCode, 
+                dto.giaCode, 
+                dto.ddd, 
+                dto.siafiCode, 
+                dto.numberAddress
+            ),  
+            new Email(dto.email));
+
     }
+
     public static DriverEntity toEntity(Driver driverDomain) {
         if (driverDomain == null) {
             return null;
@@ -96,14 +120,15 @@ public class DriverMapper {
             return null;
         }
         return new DriverResponse(
-            entity.getId(),
+            entity.getUser().getId(),
             entity.getUser().getName(),
             entity.getUser().getCpf(), 
             entity.getCnh().getCnh(),
             entity.getCnh().getDateExpiration(),
             entity.getUser().getEmail(),
             entity.getUser().getPhoneNumber(),
-            entity.getUser().getAddress()
+            entity.getUser().getAddress(),
+            entity.getUser().isActive()
         );
     }
     /**
@@ -141,7 +166,16 @@ public class DriverMapper {
             address.setStreet(newAddress.getStreet());
             address.setComplement(newAddress.getComplement());
             address.setNumberAddress(newAddress.getNumberAddress());
-            // ... etc para todos os outros campos do endereço
+            address.setUnit(newAddress.getUnit());
+            address.setNeighborhood(newAddress.getNeighborhood());
+            address.setCity(newAddress.getCity());
+            address.setStateAbbreviation(newAddress.getStateAbbreviation());
+            address.setState(newAddress.getState());
+            address.setRegion(newAddress.getRegion());
+            address.setIbgeCode(newAddress.getIbgeCode());
+            address.setGiaCode(newAddress.getGiaCode());
+            address.setDdd(newAddress.getDdd());
+            address.setSiafiCode(newAddress.getSiafiCode());
         }
 
         // --- Atualização do CnhEntity ---

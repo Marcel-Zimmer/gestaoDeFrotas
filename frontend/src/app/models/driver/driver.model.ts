@@ -10,4 +10,6 @@ export interface Driver{
   ddd:string;
   phoneNumber:string;
   address:ApiCepResponse;
+  isAtive:boolean;
+  isSuperUser:boolean;
 }

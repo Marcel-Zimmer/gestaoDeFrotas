@@ -11,7 +11,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Driver } from '../../../models/driver/driver.model';
 import { DriverComponentComponent } from '../../components/driver-component/driver-component.component';
-import { DriversService } from '../../services/drivers/drivers.service';
+import { AdminService } from '../../services/admin/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -28,7 +28,7 @@ import { DriversService } from '../../services/drivers/drivers.service';
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
-  private driverService = inject(DriversService);
+  private adminService = inject(AdminService);
   public dataSource = new MatTableDataSource<Driver>(); 
   public dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
@@ -38,7 +38,7 @@ export class AdminComponent {
   }
 
   loadDrivers(): void {
-    this.driverService.getDrivers().subscribe({
+    this.adminService.getAdministrators().subscribe({
 
       next: (response: ApiResponseDriver) => {
         this.dataSource.data = response.data;
@@ -60,7 +60,7 @@ export class AdminComponent {
     dialogRef.afterClosed().subscribe(result => {
       
       if (result) {
-        this.driverService.updateDriver(result).subscribe({
+        this.adminService.updateAdministrator(result).subscribe({
           next: () => {
             this.loadDrivers(); // Recarrega a lista para mostrar o item novo/atualizado
             this.mostrarMensagemDeSucesso("Agendamento salvo com sucesso");
@@ -81,7 +81,7 @@ export class AdminComponent {
     console.log(id)
     // Usamos o 'confirm' do navegador para uma confirmação simples
     if (confirm('Tem certeza que deseja inativar este veículo?')) {
-      this.driverService.excludeDriver(id).subscribe({
+      this.adminService.excludeAdministrator(id).subscribe({
         next: () => {
           this.loadDrivers(); // Recarrega a lista para remover o item
           this.mostrarMensagemDeSucesso("Agendamento excluido com sucesso");

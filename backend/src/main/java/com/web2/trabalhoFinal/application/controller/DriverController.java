@@ -78,6 +78,7 @@ public class DriverController {
      
     @PutMapping("update/{id}")
     public ResponseEntity<ApiResponse<DriverResponse>> updateDriver (@PathVariable Long id,@RequestBody DriverRequestDto dto) {
+   
         try {
             Driver driver = DriverMapper.toDomain(dto);
             DriverResponse responseDriver = driverService.updateDriver(id, driver);
