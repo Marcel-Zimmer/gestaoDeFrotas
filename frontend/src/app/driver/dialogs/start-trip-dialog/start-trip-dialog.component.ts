@@ -33,10 +33,10 @@ export class StartTripDialogComponent {
   private agendamentoService = inject(AgendamentoService);
 
   // Recebe o ID do agendamento do componente que abriu o dialog
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any) {
     this.form = this.fb.group({
-      quilometragemSaida: [null, [Validators.required, Validators.min(0)]],
-      observacoes: [''] // Campo opcional
+      startMileage: [null, [Validators.required, Validators.min(0)]],
+      startObservations: [''] // Campo opcional
     });
   }
 
@@ -47,7 +47,6 @@ export class StartTripDialogComponent {
 
     this.agendamentoService.startTrip(this.data.id, this.form.value).subscribe({
       next: () => {
-        // Fecha o dialog e retorna 'true' para indicar sucesso e atualizar a lista.
         this.dialogRef.close(true);
       },
       error: (err) => console.error('Erro ao iniciar viagem', err)

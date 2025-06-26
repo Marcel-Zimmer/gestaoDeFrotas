@@ -5,17 +5,15 @@ public class StatusVehicle {
 
     public enum Status {
         DISPONIVEL,
-        EM_USO,
+        EM_VIAGEM,
         EM_MANUTENCAO,
-        DESATIVADO;
     }
 
     public Status fromString(String value) {
             return switch (value.toLowerCase()) {
                 case "disponivel"     -> Status.DISPONIVEL;
-                case "em uso"         -> Status.EM_USO;
-                case "em manutenção"  -> Status.EM_MANUTENCAO;
-                case "desativado"     -> Status.DESATIVADO;
+                case "em_viagem"         -> Status.EM_VIAGEM;
+                case "em_manutencao"  -> Status.EM_MANUTENCAO;
                 default -> throw new IllegalArgumentException("Status inválido: " + value);
         };
     }

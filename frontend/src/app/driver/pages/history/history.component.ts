@@ -52,7 +52,10 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   loadHistory(): void {
     this.isLoading = true;
-    this.agendamentoService.getMyHistory().subscribe({ // Supondo que exista este método no serviço
+    const userIdString = localStorage.getItem('userId');
+    const userId = userIdString ? parseInt(userIdString, 10) : null;
+    if(userId != null){
+    this.agendamentoService.getMyHistory(userId).subscribe({ // Supondo que exista este método no serviço
       next: (response) => {
         this.dataSource.data = response.data;
         this.isLoading = false;
@@ -63,6 +66,8 @@ export class HistoryComponent implements OnInit, AfterViewInit {
         // Mostrar mensagem de erro
       }
     });
+    }
+
   }
 
   // Este método é chamado depois que a view do componente é inicializada.

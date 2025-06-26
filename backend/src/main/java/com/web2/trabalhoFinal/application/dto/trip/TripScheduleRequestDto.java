@@ -22,5 +22,11 @@ public class TripScheduleRequestDto {
     public String ddd;
     public String siafi;
     public String numero;
+    public LocalDateTime actualDepartureTime;
+    public LocalDateTime actualArrivalTime;
+    public Double startMileage;
+    public Double endMileage;
+    public String startObservations;
+    public String endObservations;    
 
 }

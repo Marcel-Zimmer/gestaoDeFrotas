@@ -8,7 +8,6 @@ public class StatusTrip {
         EM_MANUTENCAO,
         EM_ABASTECIMENTO,
         FINALIZADO,
-        CANCELADO;
     }
     public Status fromString(String value) {
         return switch (value.toLowerCase()) {
@@ -17,7 +16,6 @@ public class StatusTrip {
             case "em_manutencao"  -> Status.EM_MANUTENCAO;
             case "em_abastecimento"     -> Status.EM_ABASTECIMENTO;
             case "finalizado"     -> Status.FINALIZADO;
-            case "cancelado"     -> Status.CANCELADO;
             default -> throw new IllegalArgumentException("Status inválido: " + value);
         };
     }

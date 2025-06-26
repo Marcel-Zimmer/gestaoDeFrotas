@@ -60,12 +60,74 @@ public class TripController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<List<TripScheduleResponse>>> getSchedulesByUserId(@PathVariable Long id){   
+        try {
+            List<TripScheduleResponse> schedules = tripService.getSchedulesByUserId(id);
+            String successMessage = "Agendamentos por id recuperados";
+            ApiResponse<List<TripScheduleResponse>> response = new ApiResponse<>(true, successMessage,schedules);
+            return ResponseEntity.ok(response);
+
+         } catch (Exception e) {
+            ApiResponse<List<TripScheduleResponse>> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/history/{id}")
+    public ResponseEntity<ApiResponse<List<TripScheduleResponse>>> getHistoty(@PathVariable Long id){   
+        try {
+            List<TripScheduleResponse> schedules = tripService.getHistoty(id);
+            String successMessage = "Agendamentos finalizado por id recuperados";
+            ApiResponse<List<TripScheduleResponse>> response = new ApiResponse<>(true, successMessage,schedules);
+            return ResponseEntity.ok(response);
+
+         } catch (Exception e) {
+            ApiResponse<List<TripScheduleResponse>> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }    
 
     @PutMapping("update/{id}")
-    public ResponseEntity<ApiResponse<TripScheduleResponse>> updateVehicle (@PathVariable Long id,@RequestBody TripScheduleRequestDto dto) {
+    public ResponseEntity<ApiResponse<TripScheduleResponse>> updateTrip (@PathVariable Long id,@RequestBody TripScheduleRequestDto dto) {
         try {
             Trip trip = TripMapper.toDomain(dto);
             ApiResponse<TripScheduleResponse> response= tripService.updateTrip(id,trip);
+            return ResponseEntity.status(HttpStatus.OK).body(response); 
+
+        }catch (ResourceNotFoundException e) {
+            ApiResponse<TripScheduleResponse> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);    
+
+        } catch (Exception e) {
+            ApiResponse<TripScheduleResponse> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+    }
+
+    @PutMapping("start/{id}")
+    public ResponseEntity<ApiResponse<TripScheduleResponse>> startTrip (@PathVariable Long id,@RequestBody TripScheduleRequestDto dto) {
+        try {
+            Trip trip = TripMapper.startTrip(dto);
+            ApiResponse<TripScheduleResponse> response= tripService.startTrip(id,trip);
+            return ResponseEntity.status(HttpStatus.OK).body(response); 
+
+        }catch (ResourceNotFoundException e) {
+            ApiResponse<TripScheduleResponse> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);    
+
+        } catch (Exception e) {
+            ApiResponse<TripScheduleResponse> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+    }
+    @PutMapping("end/{id}")
+    public ResponseEntity<ApiResponse<TripScheduleResponse>> endTrip (@PathVariable Long id,@RequestBody TripScheduleRequestDto dto) {
+        try {
+            Trip trip = TripMapper.endTrip(dto);
+            ApiResponse<TripScheduleResponse> response= tripService.endTrip(id,trip);
             return ResponseEntity.status(HttpStatus.OK).body(response); 
 
         }catch (ResourceNotFoundException e) {

@@ -33,8 +33,8 @@ export class EndTripDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
     this.form = this.fb.group({
-      quilometragemFinal: [null, [Validators.required, Validators.min(0)]],
-      observacoesRetorno: ['']
+      endMileage: [null, [Validators.required, Validators.min(0)]],
+      endObservations: ['']
     });
   }
 

@@ -30,12 +30,12 @@
       <mat-divider></mat-divider>
       <mat-card-actions align="end">
         
-        <button *ngIf="agendamento.statusTrip === 'AGENDADO'" mat-raised-button color="primary" (click)="iniciarViagem(agendamento.Id)">
+        <button *ngIf="agendamento.statusTrip === 'AGENDADO'" mat-raised-button color="primary" (click)="iniciarViagem(agendamento.tripId)">
           <mat-icon>play_arrow</mat-icon>
           Iniciar Viagem
         </button>
 
-        <button *ngIf="agendamento.statusTrip === 'EM_USO'" mat-raised-button color="accent" (click)="finalizarViagem(agendamento.Id)">
+        <button *ngIf="agendamento.statusTrip === 'EM_VIAGEM'" mat-raised-button color="accent" (click)="finalizarViagem(agendamento.tripId)">
           <mat-icon>check_circle</mat-icon>
           Finalizar Viagem
         </button>

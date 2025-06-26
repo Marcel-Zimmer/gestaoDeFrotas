@@ -47,18 +47,22 @@ export class DashboardComponent implements OnInit {
   }
 
   loadAgendamentos(): void {
-    this.isLoading = true;
-    this.agendamentoService.getMySchedules().subscribe({
-      next: (response) => {
-        this.agendamentos = response.data; 
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Erro ao carregar agendamentos', err);
-        this.isLoading = false;
-        // Aqui você pode mostrar uma mensagem de erro para o usuário
-      }
-    });
+    const userIdString = localStorage.getItem('userId');
+    const userId = userIdString ? parseInt(userIdString, 10) : null;
+    if(userId!=null){
+      this.isLoading = true;
+      this.agendamentoService.getMySchedules(userId).subscribe({
+        next: (response) => {
+          this.agendamentos = response.data; 
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Erro ao carregar agendamentos', err);
+          this.isLoading = false;
+        }
+      });
+    }
+   
   }
 
   // Ação para RF005

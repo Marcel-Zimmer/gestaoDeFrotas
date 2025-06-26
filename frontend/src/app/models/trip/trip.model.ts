@@ -1,6 +1,6 @@
 
 export interface Trip {
-  Id: number;
+  tripId: number;
   idVehicle:number;
   idDriver:number;
   justify:string;
