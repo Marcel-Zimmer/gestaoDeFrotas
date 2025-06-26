@@ -10,10 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip'; 
 
 // Seus Serviços e Modelos
 import { AgendamentoService } from '../../../admin/services/agendamento/agendamento.service';
-import { Trip } from '../../../models/trip/trip.model'; // Supondo que você tenha este modelo
+import { Trip } from '../../../models/trip/trip.model'; 
 
 // Os dialogs que serão abertos pelas ações
 import { StartTripDialogComponent } from '../../dialogs/start-trip-dialog/start-trip-dialog.component';
@@ -29,7 +30,8 @@ import { TripDetailsDialogComponent } from '../../dialogs/trip-details-dialog/tr
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule 
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -44,6 +46,7 @@ export class DashboardComponent implements OnInit {
   // Propriedades do componente
   public agendamentos: Trip[] = [];
   public isLoading = true;
+  public busyDriverIds = new Set<number>();
 
   ngOnInit(): void {
     this.loadAgendamentos();
@@ -57,7 +60,14 @@ export class DashboardComponent implements OnInit {
           this.isLoading = true;
           this.agendamentoService.getMySchedules(userId).subscribe({
             next: (response) => {
-              this.agendamentos = response.data; 
+              this.agendamentos = response.data;
+              this.busyDriverIds.clear();
+              this.agendamentos.forEach(agendamento => {
+                // Supondo que 'agendamento.driverId' exista no seu modelo Trip
+                if (agendamento.statusTrip === 'EM_VIAGEM' && agendamento.idDriver) {
+                  this.busyDriverIds.add(agendamento.idDriver); 
+                }
+              });
               this.isLoading = false;
             },
             error: (err) => {
@@ -82,7 +92,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Ação para RF006
   finalizarViagem(agendamentoId: number): void {
     const dialogRef = this.dialog.open(EndTripDialogComponent, {
       width: '400px',
@@ -101,5 +110,22 @@ export class DashboardComponent implements OnInit {
       width: '600px',
       data: agendamento 
     });
+  }
+
+  // Função para "traduzir" o status para um texto mais amigável
+  public getStatusViewValue(status: string): string {
+    switch (status) {
+      case 'AGENDADO':
+        return 'Agendado';
+      case 'EM_VIAGEM':
+        return 'Em Viagem';
+      case 'FINALIZADO':
+        return 'Finalizado';
+      case 'CANCELADO':
+        return 'Cancelado';
+      default:
+        // Retorna o próprio status em TitleCase como um fallback
+        return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase().replace(/_/g, ' ');
+    }
   }
 }

@@ -31,11 +31,11 @@
     <div class="form-row">
       <mat-form-field class="cnh-field">
         <mat-label>DDD</mat-label>
-        <input matInput formControlName="dddNumber" type = "number" maxlength="2">
+        <input matInput formControlName="dddNumber"  maxlength="2" mask="00" [dropSpecialCharacters]="true">
       </mat-form-field>
       <mat-form-field class="date-field">
         <mat-label>TELEFONE</mat-label>
-        <input matInput type = "number" formControlName="phoneNumber" maxlength="9">
+        <input matInput  formControlName="phoneNumber" maxlength="10" mask="0000-00000" [dropSpecialCharacters]="true">
       </mat-form-field>
     </div>
 

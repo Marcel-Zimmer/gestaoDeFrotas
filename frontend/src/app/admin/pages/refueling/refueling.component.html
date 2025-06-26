@@ -12,7 +12,7 @@
 
   <ng-container matColumnDef="vehicle">
     <mat-header-cell *matHeaderCellDef>Veiculo</mat-header-cell>
-    <mat-cell *matCellDef="let agendamento">{{ agendamento.nameDriver }}</mat-cell>
+    <mat-cell *matCellDef="let agendamento">{{ agendamento.vehicle.licencePlate }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="driver">

@@ -24,23 +24,33 @@
         </div>
         <div class="info-row">
           <mat-icon>flag</mat-icon>
-          <span>Status: <strong>{{ agendamento.statusTrip | titlecase }}</strong></span>
+          <span>Status: <strong>{{ getStatusViewValue(agendamento.statusTrip) }}</strong></span>
         </div>
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions align="end">
         
-        <button *ngIf="agendamento.statusTrip === 'AGENDADO'" mat-raised-button color="primary" (click)="iniciarViagem(agendamento.tripId)">
+        <!-- Botão de Iniciar Viagem -->
+        <button 
+            *ngIf="agendamento.statusTrip === 'AGENDADO'" 
+            mat-raised-button 
+            color="primary" 
+            (click)="iniciarViagem(agendamento.tripId)"
+            [disabled]="busyDriverIds.has(agendamento.idDriver)"
+            matTooltip="O motorista desta viagem já está em um percurso ativo."
+            [matTooltipDisabled]="!busyDriverIds.has(agendamento.idDriver)">
           <mat-icon>play_arrow</mat-icon>
           Iniciar Viagem
         </button>
 
+        <!-- Botão de Finalizar Viagem -->
         <button *ngIf="agendamento.statusTrip === 'EM_VIAGEM'" mat-raised-button color="accent" (click)="finalizarViagem(agendamento.tripId)">
           <mat-icon>check_circle</mat-icon>
           Finalizar Viagem
         </button>
 
-        <button *ngIf="agendamento.statusTrip !== 'AGENDADO' && agendamento.statusTrip !== 'EM_USO'" mat-button (click)="visualizarDetalhes(agendamento)">
+        <!-- MUDANÇA PRINCIPAL: Botão de Ver Detalhes agora está sempre visível -->
+        <button mat-button (click)="visualizarDetalhes(agendamento)">
           <mat-icon>visibility</mat-icon>
           Ver Detalhes
         </button>

@@ -3,10 +3,27 @@
 <mat-dialog-content>
   <form [formGroup]="form" class="dialog-form">
 
-    <mat-form-field>
-      <mat-label>Data e horário de inicio</mat-label>
-      <input matInput type = "datetime-local" formControlName="date">
-    </mat-form-field>
+    <!-- INÍCIO DA MUDANÇA: Campos de Data e Hora separados -->
+    <div class="form-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Data de início</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="appointmentDate" placeholder="Escolha a data">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.get('appointmentDate')?.hasError('required')">
+          Data é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Horário de início</mat-label>
+        <input matInput type="time" formControlName="appointmentTime" placeholder="HH:mm">
+        <mat-error *ngIf="form.get('appointmentTime')?.hasError('required')">
+          Horário é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- FIM DA MUDANÇA -->
    
     <mat-form-field>
       <mat-label>Justificativa</mat-label>
@@ -28,7 +45,7 @@
           <mat-option *ngFor="let motorista of motoristas" [value]="motorista.driverId">
           {{motorista.nameDriver }}
           </mat-option>
-      </mat-select>
+        </mat-select>
     </mat-form-field> 
 
     <mat-form-field>
