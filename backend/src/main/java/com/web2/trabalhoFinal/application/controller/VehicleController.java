@@ -65,6 +65,19 @@ public class VehicleController {
         }
         
     }
+    @GetMapping("/disponibleVehicles")
+    public ResponseEntity<ApiResponse<List<VehicleResponse>>> getDisponiblesVehicles() {
+        try {
+            List<VehicleResponse> vehicles = vehicleService.getDisponiblesVehicles();
+            String successMessage = "Veiculos recuperados";
+            ApiResponse<List<VehicleResponse>> response = new ApiResponse<>(true, successMessage,vehicles);
+            return ResponseEntity.ok(response);
+         } catch (Exception e) {
+            ApiResponse<List<VehicleResponse>> response = new ApiResponse<>(false, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        
+    }    
 
     @PutMapping("update/{id}")
     public ResponseEntity<ApiResponse<VehicleResponse>> updateVehicle (@PathVariable Long id,@RequestBody VehicleRequestDto dto) {

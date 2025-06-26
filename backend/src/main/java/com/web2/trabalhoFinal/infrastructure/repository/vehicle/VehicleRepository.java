@@ -20,4 +20,12 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
     VehicleEntity findByLicencePlate(String licence);
 
+    @Query("SELECT v FROM VehicleEntity v " +
+           "JOIN FETCH v.modelVehicleEntity " +
+           "JOIN FETCH v.typeVehicleEntity " +
+           "JOIN FETCH v.yearVehicleEntity " +
+           "JOIN FETCH v.statusVehicleEntity s " +   
+           "WHERE s.statusVehicle = 'DISPONIVEL'")  
+    List<VehicleEntity> findAllAvailableWithDetails();
+
 }

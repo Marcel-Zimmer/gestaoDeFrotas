@@ -19,8 +19,13 @@ public class TripScheduleResponse {
     private String modelVehicle;
     private String typeVehicle;
     private AddressDestinyEntity address;
+    private Double startMileage;
+    private Double endMileage;
+    private String startObservations;
+    private String endObservations;        
 
-    public TripScheduleResponse(AddressDestinyEntity address,LocalDateTime date, Long idDriver, Long idVehicle, String justify, String licencePlate, String modelVehicle, String nameDriver, String statusTrip, Long tripId, String typeVehicle) {
+    public TripScheduleResponse(AddressDestinyEntity address,LocalDateTime date, Long idDriver, Long idVehicle, String justify, String licencePlate, String modelVehicle, 
+    String nameDriver, String statusTrip, Long tripId, String typeVehicle, Double startMileage, Double endMileage, String startObservations, String endObservations) {
         this.address = address;
         this.date = date;
         this.idDriver = idDriver;
@@ -32,6 +37,10 @@ public class TripScheduleResponse {
         this.statusTrip = statusTrip;
         this.tripId = tripId;
         this.typeVehicle = typeVehicle;
+        this.startMileage = startMileage;
+        this.endMileage = endMileage;
+        this.startObservations = startObservations;
+        this.endObservations = endObservations;
     }
 
     public TripScheduleResponse(Long tripId) {
@@ -81,6 +90,24 @@ public class TripScheduleResponse {
     public AddressDestinyEntity getAddress() {
         return address;
     }
+
+    public Double getStartMileage() {
+        return startMileage;
+    }
+
+    public Double getEndMileage() {
+        return endMileage;
+    }
+
+    public String getStartObservations() {
+        return startObservations;
+    }
+
+    public String getEndObservations() {
+        return endObservations;
+    }
+
+
 
 
    

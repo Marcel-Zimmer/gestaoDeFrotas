@@ -31,17 +31,33 @@
 }
 
 /* Deixa a tabela com largura total */
-mat-table {
+.mat-table { // Corrigido de 'mat-table' para '.mat-table' se for uma classe
   width: 100%;
 }
 
-/* Alinha as colunas de números à direita, uma boa prática de UI */
+/* * ALINHAMENTO PARA AS COLUNAS NUMÉRICAS
+ * Selecionamos todas as colunas que queremos alinhar à direita.
+ * O Angular Material adiciona a classe .mat-column-[nomeDaColuna] em cada <th> e <td>.
+ */
 .mat-column-startMileage,
 .mat-column-endMileage,
 .mat-column-totalMileage {
-  text-align: right;
   
+  // Para as CÉLULAS DE CABEÇALHO (<th>)
   .mat-header-cell {
+    // Usa Flexbox para alinhar o conteúdo (o título) à direita
     justify-content: flex-end;
+    // Adiciona um espaço à direita para não colar na borda da tabela
+    padding-right: 16px;
+  }
+
+  // Para as CÉLULAS DE DADOS (<td>)
+  .mat-cell {
+    // Alinha o texto à direita
+    text-align: right;
+    // Usa Flexbox para garantir o alinhamento (caso a célula tenha mais que texto)
+    justify-content: flex-end;
+    // Adiciona o mesmo espaço para alinhar com o cabeçalho
+    padding-right: 16px;
   }
 }

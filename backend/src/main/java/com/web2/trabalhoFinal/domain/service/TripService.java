@@ -72,7 +72,7 @@ public class TripService {
         List<TripScheduleResponse> response = new ArrayList<>(); 
 
         for (TripEntity schedule : schedules) {
-            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getUser().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle());
+            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getUser().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle(),schedule.getStartMileage(),schedule.getEndMileage(),schedule.getStartObservations(),schedule.getEndObservations());
             response.add(scheduleResponse);
         }
         return response;
@@ -127,7 +127,7 @@ public class TripService {
         List<TripScheduleResponse> response = new ArrayList<>(); 
 
         for (TripEntity schedule : schedules) {
-            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getUser().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle());
+            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getUser().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle(),schedule.getStartMileage(),schedule.getEndMileage(),schedule.getStartObservations(),schedule.getEndObservations());
             response.add(scheduleResponse);
         }
         return response;
@@ -200,7 +200,7 @@ public class TripService {
         List<TripScheduleResponse> response = new ArrayList<>(); 
 
         for (TripEntity schedule : schedules) {
-            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getUser().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle());
+            TripScheduleResponse scheduleResponse = new TripScheduleResponse(schedule.getDestiny(),schedule.getDate(), schedule.getDriver().getUser().getId(), schedule.getVehicle().getId(), schedule.getJustify(), schedule.getVehicle().getLicencePlate(), schedule.getVehicle().getModelVehicleEntity().getModelVehicle(), schedule.getDriver().getUser().getName(), schedule.getStatus().getStatus(), schedule.getId(), schedule.getVehicle().getTypeVehicleEntity().getTypeVehicle(),schedule.getStartMileage(),schedule.getEndMileage(),schedule.getStartObservations(),schedule.getEndObservations());
             response.add(scheduleResponse);
         }
         return response;

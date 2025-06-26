@@ -69,7 +69,7 @@ export class AgendamentoComponentComponent {
   ngOnInit(): void {
     const sources = {
       drivers: this.agendamentoService.getDrivers(),
-      vehicles: this.agendamentoService.getVehicles()
+      vehicles: this.agendamentoService.getDisponibleVeicles()
     };
 
     // 3. Use forkJoin para esperar por todas as respostas

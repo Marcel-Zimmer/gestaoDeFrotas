@@ -83,6 +83,18 @@ public class VehicleService {
         return response;
     }
 
+    public List<VehicleResponse> getDisponiblesVehicles(){
+        List<VehicleEntity> vehicles = vehicleRepository.findAllAvailableWithDetails();
+        List<VehicleResponse> response = new ArrayList<>(); 
+
+        for (VehicleEntity vehicle : vehicles) {
+            VehicleResponse vehicleResponse = new VehicleResponse(vehicle.getId(), 
+            vehicle.getLicencePlate(), vehicle.getModelVehicleEntity().getModelVehicle(), vehicle.getTypeVehicleEntity().getTypeVehicle(),
+             vehicle.getYearVehicleEntity().getYearVehicle(), String.valueOf(vehicle.getCurrentMileage()), vehicle.getStatusVehicleEntity().getStatusVehicle());
+             response.add(vehicleResponse);
+        }
+        return response;
+    }    
     public ApiResponse<VehicleResponse> updateVehicle(Long id, Vehicle vehicle) {
         VehicleEntity vehicleEntity = vehicleRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("id inválido"));

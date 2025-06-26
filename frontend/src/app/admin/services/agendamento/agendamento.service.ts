@@ -41,6 +41,10 @@ export class AgendamentoService {
     return this.http.get<ApiResponseVehicle>("http://localhost:8080/vehicle/vehicles")
   }
 
+  getDisponibleVeicles(): Observable<ApiResponseVehicle>{
+    return this.http.get<ApiResponseVehicle>("http://localhost:8080/vehicle/disponibleVehicles ")
+  }
+
   getMySchedules(userId:number): Observable<ApiResponseTrip>{
     return this.http.get<ApiResponseTrip>(`${this.API_URL_BACKEND}/${userId}`);
   }

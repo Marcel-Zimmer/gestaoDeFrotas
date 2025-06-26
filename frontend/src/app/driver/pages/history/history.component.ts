@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 // Imports do Angular Material para a tabela
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -38,6 +39,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   // Fonte de dados da tabela
   dataSource = new MatTableDataSource<Trip>();
   isLoading = true;
+  private platformId = inject(PLATFORM_ID);
 
   // Acessa os componentes de paginação e ordenação do template
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,22 +54,22 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   loadHistory(): void {
     this.isLoading = true;
-    const userIdString = localStorage.getItem('userId');
-    const userId = userIdString ? parseInt(userIdString, 10) : null;
-    if(userId != null){
-    this.agendamentoService.getMyHistory(userId).subscribe({ // Supondo que exista este método no serviço
-      next: (response) => {
-        this.dataSource.data = response.data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Erro ao carregar histórico', err);
-        this.isLoading = false;
-        // Mostrar mensagem de erro
+    if (isPlatformBrowser(this.platformId)) {
+      const userIdString = localStorage.getItem('userId');
+      const userId = userIdString ? parseInt(userIdString, 10) : null;
+      if(userId != null){
+        this.agendamentoService.getMyHistory(userId).subscribe({ 
+          next: (response) => {
+            this.dataSource.data = response.data;
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('Erro ao carregar histórico', err);
+            this.isLoading = false;
+          }
+        });
       }
-    });
     }
-
   }
 
   // Este método é chamado depois que a view do componente é inicializada.
@@ -86,4 +88,5 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  
 }

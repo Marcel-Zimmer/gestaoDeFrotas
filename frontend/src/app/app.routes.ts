@@ -32,11 +32,12 @@ export const routes: Routes = [
       { path: 'refueling', component: RefuelingComponent },
     ]
   },
+  //ROTAS MOTORISTA
   {
     path: 'driver',
     component: DriverLayoutComponent,
     children: [
-      { path: '', redirectTo: 'trips', pathMatch: 'full' }, 
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
       { path: 'dashboard', component: DriverDashboardComponent },
       { path: 'history', component: HistoryComponent } 
     ]
