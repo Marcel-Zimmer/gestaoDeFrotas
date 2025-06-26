@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 // Imports do Angular Material
 import { MatCardModule } from '@angular/material/card';
@@ -37,6 +39,7 @@ export class DashboardComponent implements OnInit {
   // Injeção de dependências
   private agendamentoService = inject(AgendamentoService);
   private dialog = inject(MatDialog);
+  private platformId = inject(PLATFORM_ID);
 
   // Propriedades do componente
   public agendamentos: Trip[] = [];
@@ -47,22 +50,23 @@ export class DashboardComponent implements OnInit {
   }
 
   loadAgendamentos(): void {
-    const userIdString = localStorage.getItem('userId');
-    const userId = userIdString ? parseInt(userIdString, 10) : null;
-    if(userId!=null){
-      this.isLoading = true;
-      this.agendamentoService.getMySchedules(userId).subscribe({
-        next: (response) => {
-          this.agendamentos = response.data; 
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Erro ao carregar agendamentos', err);
-          this.isLoading = false;
+      if (isPlatformBrowser(this.platformId)) {
+        const userIdString = localStorage.getItem('userId');
+        const userId = userIdString ? parseInt(userIdString, 10) : null;  
+        if(userId!=null){
+          this.isLoading = true;
+          this.agendamentoService.getMySchedules(userId).subscribe({
+            next: (response) => {
+              this.agendamentos = response.data; 
+              this.isLoading = false;
+            },
+            error: (err) => {
+              console.error('Erro ao carregar agendamentos', err);
+              this.isLoading = false;
+            }
+          });
         }
-      });
-    }
-   
+      }
   }
 
   // Ação para RF005

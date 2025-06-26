@@ -2,6 +2,7 @@ import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 // Imports dos módulos do Angular Material para o formulário
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,13 +17,17 @@ import { AgendamentoService } from '../../services/agendamento/agendamento.servi
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule, // Essencial para FormGroups
-    MatDialogModule,     // Para as diretivas mat-dialog-title, content, etc.
-    MatFormFieldModule,  // Para <mat-form-field>
-    MatInputModule,      // Para a diretiva matInput nos campos
-    MatButtonModule,      // Para os botões mat-button
+    ReactiveFormsModule, 
+    MatDialogModule,     
+    MatFormFieldModule, 
+    MatInputModule,      
+    MatButtonModule,     
     MatSelectModule,
+    NgxMaskDirective 
   ],
+    providers: [
+    provideNgxMask() 
+  ],  
   templateUrl: './admin-dialog.component.html',
   styleUrl: './admin-dialog.component.scss'
 })
@@ -34,43 +39,37 @@ export class AdminDialogComponent {
   public dialogRef = inject(MatDialogRef<AdminDialogComponent>);
 
 constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    // Esta parte está correta
     console.log(data)
     this.isEditMode = !!data;
-
-    // Lógica do telefone pode ser um pouco mais segura e concisa
     const phoneNumber = data?.phoneNumber || ''; // Garante que phoneNumber seja uma string
     const ddd = phoneNumber.slice(0, 2);
     const numero = phoneNumber.slice(2);
 
     this.form = this.fb.group({
-        // Use '??' para fornecer um valor padrão caso o da esquerda seja nulo/indefinido
         administradorId: [data?.administradorId ?? null], 
         name: [data?.nameAdministrador ?? '', Validators.required],
-        email: [data?.email ?? '', [Validators.required, Validators.email]], // Adicionei o validador de email
+        email: [data?.email ?? '', [Validators.required, Validators.email]], 
         cpf:[data?.cpf ?? '', Validators.required],
-        password: ['', [this.passwordStrengthValidator()]],
-        
+        password: ['', [this.passwordStrengthValidator()]],       
         dddNumber: [ddd, Validators.required],
         phoneNumber: [numero, Validators.required],
-        
         isAtive: [{ value: data?.isAtive ?? true, disabled: true }],
         isSuperUser: [data?.isSuperUser ?? true],
         
         zipCode: [data?.address?.zipCode ?? '', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-        street: [data?.address?.street ?? '', Validators.required],           // era 'logradouro'
-        complement: [data?.address?.complement ?? ''],                         // era 'complemento'
-        unit: [data?.address?.unit ?? ''],                                     // era 'unidade'
-        neighborhood: [data?.address?.neighborhood ?? '', Validators.required], // era 'bairro'
-        city: [data?.address?.city ?? '', Validators.required],                 // era 'localidade'
-        stateAbbreviation: [data?.address?.uf ?? '', Validators.required],      // era 'uf'
-        state: [data?.address?.state ?? ''],                                   // era 'estado'
-        region: [data?.address?.region ?? ''],                                 // era 'regiao'
-        ibgeCode: [data?.address?.ibgeCode ?? ''],                             // era 'ibge'
-        giaCode: [data?.address?.giaCode ?? ''],                               // era 'gia'
-        ddd: [data?.address?.ddd ?? ''],                                       // DDD do endereço, vindo do CEP
-        siafiCode: [data?.address?.siafiCode ?? ''],                           // era 'siafi'
-        numberAddress: [data?.address?.numberAddress ?? '', Validators.required], // era 'numberAdress'
+        street: [data?.address?.street ?? ''],          
+        complement: [data?.address?.complement ?? ''],                         
+        unit: [data?.address?.unit ?? ''],                                     
+        neighborhood: [data?.address?.neighborhood ?? ''], 
+        city: [data?.address?.city ?? ''],                 
+        stateAbbreviation: [data?.address?.uf ?? ''],      
+        state: [data?.address?.state ?? ''],                                   
+        region: [data?.address?.region ?? ''],                                
+        ibgeCode: [data?.address?.ibgeCode ?? ''],                             
+        giaCode: [data?.address?.giaCode ?? ''],                              
+        ddd: [data?.address?.ddd ?? ''],                                       
+        siafiCode: [data?.address?.siafiCode ?? ''],                           
+        numberAddress: [data?.address?.numberAddress ?? '', Validators.required], 
     });
 }
   buscarCep(): void {
@@ -80,7 +79,7 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
         this.form.patchValue({
           zipCode:cep,
           street: dadosDoEndereco.logradouro,           // <-- Mapeamento
-          complement: "",       // <-- Mapeamento
+          complement: "",                                // <-- Mapeamento
           unit: dadosDoEndereco.unidade,                 // <-- Mapeamento
           neighborhood: dadosDoEndereco.bairro,         // <-- Mapeamento
           city: dadosDoEndereco.localidade,              // <-- Mapeamento
@@ -103,7 +102,6 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   close(): void {
-    // Apenas fecha o dialog, sem retornar dados
     this.dialogRef.close();
   }
   passwordStrengthValidator(): ValidatorFn {

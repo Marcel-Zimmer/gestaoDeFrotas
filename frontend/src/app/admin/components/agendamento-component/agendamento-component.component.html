@@ -43,8 +43,8 @@
     <h2>Destino</h2>
     <mat-form-field>
       <mat-label>CEP</mat-label>
-      <input matInput formControlName="cep" maxlength="8" (blur)="buscarCep()">
-      <mat-hint>Digite os 8 dígitos, sem traço.</mat-hint>
+      <input matInput formControlName="cep" maxlength="9" (blur)="buscarCep()" mask="00000-000" [dropSpecialCharacters]="true">
+      <mat-hint>Digite os 8 dígitos.</mat-hint>
     </mat-form-field>
 
     <mat-form-field>

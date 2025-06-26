@@ -6,7 +6,6 @@ import { forkJoin } from 'rxjs';
 // Models e Services
 import { AgendamentoService } from '../../services/agendamento/agendamento.service';
 import { Trip } from '../../../models/trip/trip.model';
-import { ApiResponseDriver, ApiResponseTrip } from '../../../models/api/backend/api.response.model';
 import { Driver } from '../../../models/driver/driver.model';
 
 // Angular Material
@@ -142,7 +141,6 @@ export class DashboardComponent implements OnInit {
     this.dialog.open(AgendamentoComponentComponent, {
       width: '600px',
       disableClose: false, // Pode fechar clicando fora
-      // A MÁGICA ESTÁ AQUI: passamos os dados E um 'aviso' de que é apenas visualização
       data: { 
         tripData: agendamento, 
         viewOnly: true 
@@ -188,9 +186,9 @@ export class DashboardComponent implements OnInit {
   }
   mostrarMensagemDeSucesso(mensagem: string): void {
     this.snackBar.open(mensagem, 'Fechar', {
-      duration: 3000, // A mensagem some após 3 segundos
-      horizontalPosition: 'center', // Posição horizontal (pode ser 'start', 'center', 'end', 'left', 'right')
-      verticalPosition: 'bottom', // Posição vertical (pode ser 'top' ou 'bottom')
+      duration: 3000, 
+      horizontalPosition: 'center', 
+      verticalPosition: 'bottom', 
     });
   }
 

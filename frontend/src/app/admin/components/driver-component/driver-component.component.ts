@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, A
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 // Imports dos módulos do Angular Material para o formulário
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,9 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AgendamentoService } from '../../services/agendamento/agendamento.service';
-import { ApiResponseDriver, ApiResponseVehicle } from '../../../models/api/backend/api.response.model';
-import { Driver } from '../../../models/driver/driver.model';
-import { Veiculo } from '../../../models/veiculo/veiculo.model';
+
 
 
 @Component({
@@ -21,18 +20,20 @@ import { Veiculo } from '../../../models/veiculo/veiculo.model';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule, // Essencial para FormGroups
-    MatDialogModule,     // Para as diretivas mat-dialog-title, content, etc.
-    MatFormFieldModule,  // Para <mat-form-field>
-    MatInputModule,      // Para a diretiva matInput nos campos
-    MatButtonModule,      // Para os botões mat-button
+    ReactiveFormsModule, 
+    MatDialogModule,     
+    MatFormFieldModule,  
+    MatInputModule,      
+    MatButtonModule,      
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule    
+    MatNativeDateModule,
+    NgxMaskDirective   
   ],
     providers: [
-    provideNativeDateAdapter() // A LÓGICA da data agora é um provider
+    provideNativeDateAdapter(),
+    provideNgxMask() 
   ],
   templateUrl: './driver-component.component.html',
   styleUrl: './driver-component.component.scss'
@@ -49,48 +50,39 @@ export class DriverComponentComponent {
   }
 
 constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    // Esta parte está correta
     console.log(data)
     this.isEditMode = !!data;
-
-    // Lógica do telefone pode ser um pouco mais segura e concisa
-    const phoneNumber = data?.phoneNumber || ''; // Garante que phoneNumber seja uma string
+    const phoneNumber = data?.phoneNumber || ''; 
     const ddd = phoneNumber.slice(0, 2);
     const numero = phoneNumber.slice(2);
 
     this.form = this.fb.group({
-        // Use '??' para fornecer um valor padrão caso o da esquerda seja nulo/indefinido
         driverId: [data?.driverId ?? null], 
         name: [data?.nameDriver ?? '', Validators.required],
-        email: [data?.email ?? '', [Validators.required, Validators.email]], // Adicionei o validador de email
+        email: [data?.email ?? '', [Validators.required, Validators.email]], 
         cpf:[data?.cpf ?? '', Validators.required],
         cnh: [data?.cnh ?? '', Validators.required],
         password: ['', [this.passwordStrengthValidator()]],
-        expirationDate : [data?.cnhExpiration ?? null, [Validators.required]], // Ajuste conforme necessário
-        
+        expirationDate : [data?.cnhExpiration ?? null, [Validators.required]],
         dddNumber: [ddd, Validators.required],
         phoneNumber: [numero, Validators.required],
-        
         isAtive: [{ value: data?.isAtive ?? true, disabled: true }],
         isSuperUser: [data?.isSuperUser ?? false],
-
-        // --- CORREÇÃO PRINCIPAL PARA O ENDEREÇO ---
-        // Use o encadeamento opcional em toda a cadeia: data?.address?.<propriedade>
         
         zipCode: [data?.address?.zipCode ?? '', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-        street: [data?.address?.street ?? '', Validators.required],           // era 'logradouro'
-        complement: [data?.address?.complement ?? ''],                         // era 'complemento'
-        unit: [data?.address?.unit ?? ''],                                     // era 'unidade'
-        neighborhood: [data?.address?.neighborhood ?? '', Validators.required], // era 'bairro'
-        city: [data?.address?.city ?? '', Validators.required],                 // era 'localidade'
-        stateAbbreviation: [data?.address?.uf ?? '', Validators.required],      // era 'uf'
-        state: [data?.address?.state ?? ''],                                   // era 'estado'
-        region: [data?.address?.region ?? ''],                                 // era 'regiao'
-        ibgeCode: [data?.address?.ibgeCode ?? ''],                             // era 'ibge'
-        giaCode: [data?.address?.giaCode ?? ''],                               // era 'gia'
-        ddd: [data?.address?.ddd ?? ''],                                       // DDD do endereço, vindo do CEP
-        siafiCode: [data?.address?.siafiCode ?? ''],                           // era 'siafi'
-        numberAddress: [data?.address?.numberAddress ?? '', Validators.required], // era 'numberAdress'
+        street: [data?.address?.street ?? '', Validators.required],           
+        complement: [data?.address?.complement ?? ''],                         
+        unit: [data?.address?.unit ?? ''],                                     
+        neighborhood: [data?.address?.neighborhood ?? '', Validators.required], 
+        city: [data?.address?.city ?? '', Validators.required],                 
+        stateAbbreviation: [data?.address?.uf ?? '', Validators.required],      
+        state: [data?.address?.state ?? ''],                                   
+        region: [data?.address?.region ?? ''],                                 
+        ibgeCode: [data?.address?.ibgeCode ?? ''],                            
+        giaCode: [data?.address?.giaCode ?? ''],                               
+        ddd: [data?.address?.ddd ?? ''],                                       
+        siafiCode: [data?.address?.siafiCode ?? ''],                           
+        numberAddress: [data?.address?.numberAddress ?? '', Validators.required], 
     });
 }
 
@@ -101,7 +93,7 @@ constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
         this.form.patchValue({
           zipCode:cep,
           street: dadosDoEndereco.logradouro,           // <-- Mapeamento
-          complement: "",       // <-- Mapeamento
+          complement: "",                                // <-- Mapeamento
           unit: dadosDoEndereco.unidade,                 // <-- Mapeamento
           neighborhood: dadosDoEndereco.bairro,         // <-- Mapeamento
           city: dadosDoEndereco.localidade,              // <-- Mapeamento

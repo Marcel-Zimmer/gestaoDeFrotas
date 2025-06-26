@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 // Imports dos módulos do Angular Material para o formulário
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,15 +24,19 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule, // Essencial para FormGroups
-    MatDialogModule,     // Para as diretivas mat-dialog-title, content, etc.
-    MatFormFieldModule,  // Para <mat-form-field>
-    MatInputModule,      // Para a diretiva matInput nos campos
-    MatButtonModule,      // Para os botões mat-button
+    ReactiveFormsModule, 
+    MatDialogModule,     
+    MatFormFieldModule,  
+    MatInputModule,     
+    MatButtonModule,      
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxMaskDirective
   ],
+  providers: [
+    provideNgxMask() 
+  ],  
   templateUrl: './agendamento-component.component.html',
   styleUrl: './agendamento-component.component.scss'
 })
@@ -72,23 +77,16 @@ export class AgendamentoComponentComponent {
       vehicles: this.agendamentoService.getDisponibleVeicles()
     };
 
-    // 3. Use forkJoin para esperar por todas as respostas
     forkJoin(sources).subscribe({
       next: (responses) => {
-        // 'responses' é um objeto { drivers: ApiResponseDriver, vehicles: ApiResponseVehicle }
-
-        // 4. Primeiro, popule os arrays para os dropdowns
         this.motoristas = responses.drivers.data;
         this.vehicles = responses.vehicles.data;
-
-        // 5. AGORA, e somente agora, preencha o formulário se for modo de edição
         if (this.isEditMode) {
           this.preencherFormularioParaEdicao();
         }
       },
       error: err => {
         console.error('Erro ao carregar dados iniciais para o dialog', err);
-        // Mostrar uma mensagem de erro para o usuário aqui
       }
     });
   }
