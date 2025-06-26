@@ -20,6 +20,8 @@ import com.web2.trabalhoFinal.infrastructure.repository.vehicle.TypeVehicleRepos
 import com.web2.trabalhoFinal.infrastructure.repository.vehicle.VehicleRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.vehicle.YearVehicleRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class VehicleService {
 
@@ -125,8 +127,17 @@ public class VehicleService {
         return response; 
     }
 
+    @Transactional
     public ApiResponse<Void> deleteVehicle(Long id) {
-        vehicleRepository.deleteById(id);
+        VehicleEntity vehicle = vehicleRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("id inválido"));;
+
+        StatusVehicleEntity statusVehicleEntity = statusVehicleRepository.findByStatusVehicle("INATIVO");
+        if(statusVehicleEntity == null){
+            statusVehicleEntity = new StatusVehicleEntity("INATIVO");
+            statusVehicleRepository.save(statusVehicleEntity);
+        } 
+        vehicle.setStatusVehicleEntity(statusVehicleEntity);
         String successMessage = "Veiculo deletado";
         return new ApiResponse<>(true, successMessage, null);
     }

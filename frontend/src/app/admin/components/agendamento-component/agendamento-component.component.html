@@ -23,19 +23,21 @@
     </mat-form-field>  
 
     <mat-form-field>
-      <mat-select formControlName="idDriver">
-        <mat-option *ngFor="let motorista of motoristas" [value]="motorista.driverId">
-        {{motorista.nameDriver }}
-        </mat-option>
+      <mat-label>Motorista</mat-label>
+        <mat-select formControlName="idDriver">
+          <mat-option *ngFor="let motorista of motoristas" [value]="motorista.driverId">
+          {{motorista.nameDriver }}
+          </mat-option>
       </mat-select>
     </mat-form-field> 
 
     <mat-form-field>
-      <mat-select formControlName="idVehicle">
-        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">
-        {{ 'TIPO:'+vehicle.typeVehicle  + ' - ' + 'MODELO:'+vehicle.modelVehicle + ' - ' + 'PLACA:'+vehicle.licencePlate + ' - ' + 'ANO:'+vehicle.yearVehicle + ' - ' + 'QUILOMETRAGEM:'+vehicle.currentMileage}}
-        </mat-option>
-      </mat-select>
+      <mat-label>Veiculo</mat-label>
+        <mat-select formControlName="idVehicle">
+          <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">
+          {{ 'TIPO:'+vehicle.typeVehicle  + ' - ' + 'MODELO:'+vehicle.modelVehicle + ' - ' + 'PLACA:'+vehicle.licencePlate}}
+          </mat-option>
+        </mat-select>
     </mat-form-field> 
  
     <h2>Destino</h2>

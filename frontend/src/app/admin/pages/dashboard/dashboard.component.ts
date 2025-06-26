@@ -137,6 +137,18 @@ export class DashboardComponent implements OnInit {
     this.filterForm.reset();
     this.dataSource.data = this.originalAgendamentos;
   }
+  
+  dialogoVisualizacao(agendamento?: Trip): void {
+    this.dialog.open(AgendamentoComponentComponent, {
+      width: '600px',
+      disableClose: false, // Pode fechar clicando fora
+      // A MÁGICA ESTÁ AQUI: passamos os dados E um 'aviso' de que é apenas visualização
+      data: { 
+        tripData: agendamento, 
+        viewOnly: true 
+      }
+    });
+  }
 
   dialogoAgendamento(agendamento?: Trip): void {
     const dialogRef = this.dialog.open(AgendamentoComponentComponent, {
@@ -145,7 +157,6 @@ export class DashboardComponent implements OnInit {
       data: agendamento 
     });
 
-    // Escuta o evento de fechamento do dialog
     dialogRef.afterClosed().subscribe(result => {
       
       if (result) {
