@@ -13,4 +13,8 @@ public class Administrador extends User{
     public Administrador(Name name, Email email, Password password, boolean par, boolean par1, PhoneNumber phoneNumber, Address address, Cpf cpf) {
         super(name, email, password, false, true,phoneNumber, address,cpf);
     }
+
+    public Administrador(Name name, Email email, boolean b, boolean b0, PhoneNumber phoneNumber, Address address, Cpf cpf) {
+         super(name, email, false, true,phoneNumber, address,cpf);
+    }
 }

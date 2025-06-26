@@ -78,9 +78,13 @@ export class AdminComponent {
    * @param id O ID do veículo a ser excluído.
    */
   excluirAgendamento(id: number): void {
-    console.log(id)
-    // Usamos o 'confirm' do navegador para uma confirmação simples
-    if (confirm('Tem certeza que deseja inativar este administrador?')) {
+    const userIdString = localStorage.getItem('userId');
+    const userId = userIdString ? parseInt(userIdString, 10) : null;
+
+    if(id===userId){
+      confirm('Não é possível excluir a si mesmo');
+    }
+    else if(confirm('Tem certeza que deseja inativar este administrador?')) {
       this.adminService.excludeAdministrator(id).subscribe({
         next: () => {
           this.loadDrivers(); // Recarrega a lista para remover o item

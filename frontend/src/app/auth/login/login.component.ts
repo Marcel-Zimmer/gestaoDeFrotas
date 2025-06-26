@@ -53,16 +53,20 @@ login() {
           //localStorage.setItem('usuario_logado', JSON.stringify(response));
 
           // 2. Avisa o usuário
-          if(response.sucess){
+          if(response.success){
             alert('Login realizado com sucesso!');
             console.log('Login bem-sucedido!', response);
             if (response.superUser) {
               this.router.navigate(['/admin']);
-            } 
-            
+            } else{
+              this.router.navigate(['/driver']);
+            }
+            localStorage.setItem('userId', response.userId.toString());
+          }else{
+            alert('Usuario ou senha incorretos!');
           }
-          this.router.navigate(['/driver']);
-          alert('Usuario ou senha incorretos!');
+          
+          
           
           
           // 3. Redireciona o usuário com base no perfil

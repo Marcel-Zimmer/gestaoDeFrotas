@@ -18,7 +18,7 @@ public class LoginService {
     public LoginResponse loginUser(User user) throws Exception{
         UserEntity userFind = userRepository.findByEmail(user.getEmail().getValue());
         if(userFind == null){
-            throw new BadCredentialsException("Usuário ou senha incorreta");
+            throw new BadCredentialsException("Usuário incorreta");
         }
         if (!passwordEncoder.matches(user.getPasswordRaw(), userFind.getPassword())) {
             throw new BadCredentialsException("Usuário ou senha incorreta");

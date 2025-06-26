@@ -14,10 +14,11 @@ import com.web2.trabalhoFinal.infrastructure.entity.user.UserEntity;
 public class AdministradorMapper {
     public static Administrador toDomain(AdministradorRequestDto dto) {
 
+        if(!dto.password.equalsIgnoreCase("")){
         return new Administrador(
             new Name(dto.name), 
             new Email(dto.email), 
-            new Password("Ufpr2025!"), 
+            new Password(dto.password), 
             true, 
             true, 
             new PhoneNumber(dto.phoneNumber,dto.ddd), 
@@ -38,6 +39,32 @@ public class AdministradorMapper {
                     dto.numberAddress
                 ),  
             new Cpf(dto.cpf));
+        }
+
+        return new Administrador(
+            new Name(dto.name), 
+            new Email(dto.email),  
+            true, 
+            true, 
+            new PhoneNumber(dto.phoneNumber,dto.ddd), 
+            new Address(
+                    dto.zipCode, 
+                    dto.street, 
+                    dto.complement, 
+                    dto.unit, 
+                    dto.neighborhood, 
+                    dto.city, 
+                    dto.stateAbbreviation, 
+                    dto.state, 
+                    dto.region, 
+                    dto.ibgeCode, 
+                    dto.giaCode, 
+                    dto.ddd, 
+                    dto.siafiCode, 
+                    dto.numberAddress
+                ),  
+            new Cpf(dto.cpf));        
+
     }
     
     public static UserEntity toEntity(Administrador administrador) {
@@ -107,6 +134,9 @@ public class AdministradorMapper {
         
         if (driverDomain.getPhoneNumber() != null) {
             user.setPhoneNumber(driverDomain.getPhoneNumber().getPhoneValue());
+        }
+        if(driverDomain.getPassword() != null){
+            user.setPassword(driverDomain.getPassword().getHashedValue());
         }
 
         // --- Atualização do AddressEntity ---
