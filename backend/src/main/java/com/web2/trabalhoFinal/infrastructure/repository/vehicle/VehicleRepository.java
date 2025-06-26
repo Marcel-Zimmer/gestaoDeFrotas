@@ -28,4 +28,5 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
            "WHERE s.statusVehicle = 'DISPONIVEL'")  
     List<VehicleEntity> findAllAvailableWithDetails();
 
+
 }

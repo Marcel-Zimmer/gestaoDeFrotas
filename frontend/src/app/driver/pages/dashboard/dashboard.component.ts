@@ -69,16 +69,15 @@ export class DashboardComponent implements OnInit {
       }
   }
 
-  // Ação para RF005
   iniciarViagem(agendamentoId: number): void {
     const dialogRef = this.dialog.open(StartTripDialogComponent, {
       width: '400px',
-      data: { id: agendamentoId } // Passa o ID para o dialog
+      data: { id: agendamentoId } 
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { // Se o dialog retornou sucesso
-        this.loadAgendamentos(); // Atualiza a lista
+      if (result) { 
+        this.loadAgendamentos(); 
       }
     });
   }
@@ -97,11 +96,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Ação para RF007
   visualizarDetalhes(agendamento: Trip): void {
     this.dialog.open(TripDetailsDialogComponent, {
       width: '600px',
-      data: agendamento // Passa o objeto inteiro para o dialog
+      data: agendamento 
     });
   }
 }

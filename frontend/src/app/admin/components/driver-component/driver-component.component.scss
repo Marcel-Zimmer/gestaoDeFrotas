@@ -4,19 +4,16 @@
     border-radius: 4px 4px 0 0;
 }
 
-// Estilo para o contêiner do formulário (controla o espaçamento vertical)
 .dialog-form {
   display: flex;
   flex-direction: column;
   gap: 15px; // Espaçamento entre os campos
 }
 
-// ESTA É A NOVA REGRA: Garante que todos os campos tenham a mesma largura
 .dialog-form mat-form-field {
   width: 100%;
 }
 
-// Estilo para o fundo cinza dos campos (que já tínhamos)
 :host ::ng-deep .dialog-form .mat-form-field {
   .mat-mdc-form-field-flex {
     background-color: rgba(0, 0, 0, 0.04);
@@ -24,7 +21,6 @@
   }
 }
 
-// Estilo para os botões do dialog (que já tínhamos)
 .dialog-actions-center {
   display: flex;
   justify-content: center;
@@ -33,14 +29,14 @@
 
 .form-row {
   display: flex;
-  align-items: center; // Alinha os campos verticalmente (bom para inputs e selects)
+  align-items: center; 
   gap: 16px;
 }
 
 .cnh-field {
-  flex-grow: 10; /* Diz para este campo crescer O DOBRO do outro */
+  flex-grow: 10; 
 }
 
 .date-field {
-  flex-grow: 1; /* Diz para este campo crescer 1 parte */
+  flex-grow: 1; 
 }

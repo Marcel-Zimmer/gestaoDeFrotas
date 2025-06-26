@@ -13,12 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-layout',
   standalone: true,
   imports: [
-    // Módulos Essenciais do Angular
     CommonModule,
-    RouterOutlet, // Para renderizar as rotas filhas (dashboard, etc.)
-    RouterLink,   // Para os links do menu
-
-    // Módulos do Angular Material
+    RouterOutlet,
+    RouterLink,   
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
@@ -34,7 +31,7 @@ export class LayoutComponent {
 
   logout(): void {
     // 1. Limpa os dados do usuário do armazenamento local
-    localStorage.removeItem('usuario_logado');
+    localStorage.removeItem('userId');
 
     // 2. Redireciona o usuário para a tela de login
     this.router.navigate(['/login']);

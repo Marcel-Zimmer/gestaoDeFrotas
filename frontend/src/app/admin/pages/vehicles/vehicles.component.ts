@@ -32,11 +32,7 @@ import { ApiResponseVehicle } from '../../../models/api/backend/api.response.mod
 
 export class VeiculosComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
-  // Array que guardará os dados para a tabela
   public dataSource = new MatTableDataSource<Veiculo>(); 
-  
-  // Define as colunas que a tabela irá exibir e a ordem delas.
-  // Deve corresponder exatamente aos 'matColumnDef' no seu HTML.
   public displayedColumns: string[] = ['placa', 'modelo', 'tipo', 'ano', 'quilometragem', 'status', 'acoes'];
 
   // Injeção de dependências da forma moderna
@@ -109,8 +105,8 @@ export class VeiculosComponent implements OnInit {
   mostrarMensagemDeSucesso(mensagem: string): void {
     this.snackBar.open(mensagem, 'Fechar', {
       duration: 3000, // A mensagem some após 3 segundos
-      horizontalPosition: 'center', // Posição horizontal (pode ser 'start', 'center', 'end', 'left', 'right')
-      verticalPosition: 'bottom', // Posição vertical (pode ser 'top' ou 'bottom')
+      horizontalPosition: 'center', 
+      verticalPosition: 'bottom', 
     });
   }
 
@@ -118,7 +114,7 @@ export class VeiculosComponent implements OnInit {
     this.snackBar.open(mensagem, 'OK', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      panelClass: ['snackbar-error'] // (Opcional) Classe CSS para estilizar o erro
+      panelClass: ['snackbar-error'] 
     });
   }
 }  

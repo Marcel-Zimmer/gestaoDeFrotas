@@ -47,7 +47,6 @@ export class RefuelingComponent {
   public dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  // Fonte de dados para a sua tabela Material
   public dataSource = new MatTableDataSource<Refueling>();
   public refuelings: Refueling[] = [];
 
@@ -56,7 +55,6 @@ export class RefuelingComponent {
   }
 
   loadInitialData(): void {
-    // Definimos as fontes de dados com nomes consistentes (plural)
     const sources = {
       refuelings: this.refuelingService.getRefuelings(),
     };
@@ -98,20 +96,9 @@ public getFuelTypeViewValue(backendValue: string): string {
 
     // Escuta o evento de fechamento do dialog
     dialogRef.afterClosed().subscribe(result => {
-      
-      // A variável 'result' aqui será 'true' se o salvamento DENTRO do dialog deu certo,
-      // ou undefined/null se o usuário apenas clicou em "Cancelar".
-
-      console.log('Dialog foi fechado. Resultado recebido:', result);
-
-      // A única responsabilidade aqui é atualizar a tela se a operação foi um sucesso.
       if (result === true) {
-        
-        // NÃO chame o serviço de salvar de novo. O dialog já fez isso!
-        
-        // Apenas exiba a mensagem de sucesso e recarregue os dados da sua tabela.
         this.mostrarMensagemDeSucesso("Abastecimento salvo com sucesso!");
-        this.loadInitialData(); // ou o nome do seu método que recarrega a tabela
+        this.loadInitialData(); 
       }
     });
   }
@@ -131,9 +118,9 @@ public getFuelTypeViewValue(backendValue: string): string {
   }
   mostrarMensagemDeSucesso(mensagem: string): void {
     this.snackBar.open(mensagem, 'Fechar', {
-      duration: 3000, // A mensagem some após 3 segundos
-      horizontalPosition: 'center', // Posição horizontal (pode ser 'start', 'center', 'end', 'left', 'right')
-      verticalPosition: 'bottom', // Posição vertical (pode ser 'top' ou 'bottom')
+      duration: 3000, 
+      horizontalPosition: 'center', 
+      verticalPosition: 'bottom', 
     });
   }
 
@@ -141,7 +128,7 @@ public getFuelTypeViewValue(backendValue: string): string {
     this.snackBar.open(mensagem, 'OK', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      panelClass: ['snackbar-error'] // (Opcional) Classe CSS para estilizar o erro
+      panelClass: ['snackbar-error'] 
     });
   }  
 }

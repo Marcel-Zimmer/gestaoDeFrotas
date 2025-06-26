@@ -15,12 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-layout',
   standalone: true,
   imports: [
-    // Módulos Essenciais do Angular
     CommonModule,
-    RouterOutlet, // Para renderizar as rotas filhas (dashboard, etc.)
-    RouterLink,   // Para os links do menu
-
-    // Módulos do Angular Material
+    RouterOutlet, 
+    RouterLink,   
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
@@ -31,7 +28,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
-  // Injeta o Router para usarmos na função de logout
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
@@ -51,21 +47,17 @@ abrirDialogOcorrencia(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     
-    // Apenas executa a lógica se o 'result' for verdadeiro (ou seja, o botão 'Enviar' foi clicado)
     if (result) {
       this.mostrarMensagemDeSucesso("Ocorrência registrada com sucesso!");
       
-      // Se você tiver uma tabela de ocorrências nesta tela, aqui seria o lugar
-      // para recarregá-la, chamando um método como this.loadOcorrencias();
     }
-    // Se o resultado não for 'true' (ex: o usuário cancelou), nada acontece.
   });
 }
   mostrarMensagemDeSucesso(mensagem: string): void {
     this.snackBar.open(mensagem, 'Fechar', {
       duration: 3000, // A mensagem some após 3 segundos
-      horizontalPosition: 'center', // Posição horizontal (pode ser 'start', 'center', 'end', 'left', 'right')
-      verticalPosition: 'bottom', // Posição vertical (pode ser 'top' ou 'bottom')
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
     });
   }    
 }

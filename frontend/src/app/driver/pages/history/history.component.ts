@@ -72,8 +72,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Este método é chamado depois que a view do componente é inicializada.
-  // É o lugar certo para conectar o dataSource com o paginator e o sort.
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

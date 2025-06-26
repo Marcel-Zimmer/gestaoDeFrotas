@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router'; // 1. IMPORTAR AQUI
+import { RouterOutlet } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
-  standalone: true, // 2. GARANTIR QUE ESTÁ 'true'
-  imports: [CommonModule, RouterOutlet], // 3. ADICIONAR NOS IMPORTS
+  standalone: true, 
+  imports: [CommonModule, RouterOutlet], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

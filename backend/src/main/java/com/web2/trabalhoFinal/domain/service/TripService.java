@@ -24,6 +24,7 @@ import com.web2.trabalhoFinal.infrastructure.repository.trip.AddressDestinyRepos
 import com.web2.trabalhoFinal.infrastructure.repository.trip.StatusTripRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.trip.TripRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.user.UserRepository;
+import com.web2.trabalhoFinal.infrastructure.repository.vehicle.StatusVehicleRepository;
 import com.web2.trabalhoFinal.infrastructure.repository.vehicle.VehicleRepository;
 
 import jakarta.transaction.Transactional;
@@ -47,6 +48,10 @@ public class TripService {
 
     @Autowired 
     private UserRepository userRepository;
+
+    @Autowired
+    private StatusVehicleRepository statusVehicleRepository;   
+
     public TripScheduleResponse registerTrip(Trip trip) {
         VehicleEntity vehicle = vehicleRepository.getReferenceById(trip.getIdVehicle().getValue());
         UserEntity userId = userRepository.findById(trip.getIdDriver().getValue())
@@ -144,18 +149,23 @@ public class TripService {
         
         VehicleEntity vehicle = tripToUpdate.getVehicle();
         DriverEntity driver = tripToUpdate.getDriver();
-        StatusVehicleEntity statusVehicle = vehicle.getStatusVehicleEntity();
-
         String newStatus = "EM_VIAGEM";
+        StatusVehicleEntity statusVehicle = statusVehicleRepository.findByStatusVehicle(newStatus);
+        if(statusVehicle == null){
+            statusVehicle = new StatusVehicleEntity(newStatus);
+            statusVehicleRepository.save(statusVehicle);
+        }
+
+
+        
         StatusTripEntity status = statusTripRepository.findByStatus(newStatus);
         if(status == null){
             status  = new StatusTripEntity(newStatus);
             statusTripRepository.save(status);
         }        
         tripToUpdate.setStatus(status);
-        statusVehicle.setStatusVehicle(newStatus);
         driver.setStatus(StatusDriver.EM_VIAGEM);
-
+        vehicle.setStatusVehicleEntity(statusVehicle);
         tripToUpdate.setActualDepartureTime(LocalDateTime.now()); 
         tripToUpdate.setStartMileage(trip.getStartMileage());
         tripToUpdate.setStartObservations(trip.getStartObservations());
@@ -173,18 +183,23 @@ public class TripService {
 
         VehicleEntity vehicle = tripToUpdate.getVehicle();
         DriverEntity driver = tripToUpdate.getDriver();
-        StatusVehicleEntity statusVehicle = vehicle.getStatusVehicleEntity();
-
         String newStatus = "FINALIZADO";
+        
+        StatusVehicleEntity statusVehicle = statusVehicleRepository.findByStatusVehicle("DISPONIVEL");
+        if(statusVehicle == null){
+            statusVehicle = new StatusVehicleEntity(newStatus);
+            statusVehicleRepository.save(statusVehicle);
+        }
+
+        
         StatusTripEntity status = statusTripRepository.findByStatus(newStatus);
         if(status == null){
             status  = new StatusTripEntity(newStatus);
             statusTripRepository.save(status);
         }        
         tripToUpdate.setStatus(status);
-        statusVehicle.setStatusVehicle("DISPONIVEL");
         driver.setStatus(StatusDriver.DISPONIVEL);
-
+        vehicle.setStatusVehicleEntity(statusVehicle);
         tripToUpdate.setActualArrivalTime(LocalDateTime.now()); 
         tripToUpdate.setEndMileage(trip.getEndMileage());
         tripToUpdate.setEndObservations(trip.getEndObservations());

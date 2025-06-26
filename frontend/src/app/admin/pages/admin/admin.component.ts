@@ -2,10 +2,10 @@ import { AgendamentoService } from '../../services/agendamento/agendamento.servi
 import { Component, OnInit, inject } from '@angular/core';
 
 // Imports NECESSÁRIOS para o template
-import { CommonModule } from '@angular/common'; // Para pipes como 'date' e diretivas como *ngIf
+import { CommonModule } from '@angular/common'; 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button'; // Para os botões <button mat-icon-button>
-import { MatIconModule } from '@angular/material/icon';     // Para os ícones <mat-icon>
+import { MatButtonModule } from '@angular/material/button'; 
+import { MatIconModule } from '@angular/material/icon';     
 import { ApiResponseDriver, ApiResponseTrip } from '../../../models/api/backend/api.response.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -99,8 +99,8 @@ export class AdminComponent {
   mostrarMensagemDeSucesso(mensagem: string): void {
     this.snackBar.open(mensagem, 'Fechar', {
       duration: 3000, // A mensagem some após 3 segundos
-      horizontalPosition: 'center', // Posição horizontal (pode ser 'start', 'center', 'end', 'left', 'right')
-      verticalPosition: 'bottom', // Posição vertical (pode ser 'top' ou 'bottom')
+      horizontalPosition: 'center', 
+      verticalPosition: 'bottom', 
     });
   }
 
@@ -108,7 +108,7 @@ export class AdminComponent {
     this.snackBar.open(mensagem, 'OK', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      panelClass: ['snackbar-error'] // (Opcional) Classe CSS para estilizar o erro
+      panelClass: ['snackbar-error'] 
     });
   }  
 }

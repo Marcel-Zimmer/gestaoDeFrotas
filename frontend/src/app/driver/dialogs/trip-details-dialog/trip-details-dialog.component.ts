@@ -19,7 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     MatIconModule,
     MatDividerModule,
-    DatePipe // Adicione DatePipe aqui
+    DatePipe 
   ],
   templateUrl: './trip-details-dialog.component.html',
   styleUrls: ['./trip-details-dialog.component.scss']

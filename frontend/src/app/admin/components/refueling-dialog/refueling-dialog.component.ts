@@ -13,12 +13,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 // Serviços e Modelos
-import { DriversService } from '../../services/drivers/drivers.service'; // Sugestão: Usar serviços dedicados
+import { DriversService } from '../../services/drivers/drivers.service'; 
 import { VeiculoService} from '../../services/vehicles/veiculo.service';
 import { RefuelingService } from '../../services/refueling/refueling.service';
 import { Driver } from '../../../models/driver/driver.model';
 import { Veiculo } from '../../../models/veiculo/veiculo.model';
-import { Refueling } from '../../../models/refueling/refueling.mdel';
 
 
 @Component({
@@ -68,7 +67,7 @@ export class RefuelingDialogComponent implements OnInit {
   constructor() {
     this.form = this.fb.group({
       idVehicle: [null, Validators.required],
-      idDriver: [null, Validators.required], // Vamos pegar o ID do motorista para encontrar o nome
+      idDriver: [null, Validators.required], 
       date: [new Date(), Validators.required],
       typeRefueling: [null, Validators.required],
       price: [null, [Validators.required, Validators.min(0)]],

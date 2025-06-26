@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar' : 'Registrar Nova' }} Manutenção</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Veículo</mat-label>
+      <mat-select formControlName="idVehicle" required>
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">
+          {{ vehicle.modelVehicle }} - Placa: {{ vehicle.licencePlate }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Veículo é obrigatório.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de Manutenção</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option *ngFor="let type of maintenanceTypes" [value]="type.value">
+          {{ type.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Tipo é obrigatório.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Data da Manutenção</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>Data é obrigatória.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Custo (R$)</mat-label>
+      <input matInput type="number" formControlName="price" placeholder="Ex: 350.50" required>
+      <mat-error>Custo é obrigatório.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Quilometragem</mat-label>
+      <input matInput type="number" formControlName="currentMileage" placeholder="Ex: 130000" required>
+      <mat-error>Quilometragem é obrigatória.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Descrição do Serviço</mat-label>
+      <textarea matInput formControlName="description" rows="4" required></textarea>
+      <mat-error>Descrição é obrigatória.</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Salvar</button>
+</mat-dialog-actions>

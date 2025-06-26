@@ -1,30 +1,62 @@
 package com.web2.trabalhoFinal.application.dto.maintenance;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import com.web2.trabalhoFinal.infrastructure.entity.vehicle.VehicleEntity;
+
+
+
 public class MaintenanceResponse {
-    private boolean success;
-    private String message;
-    private Long maintenanceId;
-    
-    public MaintenanceResponse(boolean success, String message, Long maintenanceId) {
-        this.success = success;
-        this.message = message;
-        this.maintenanceId = maintenanceId;
+    private Long id;
+    private VehicleEntity vehicle;
+    private LocalDate date;
+    private BigDecimal price;
+    private Double currentMileage;
+    private String description;
+    private String type;
+
+    public MaintenanceResponse(Long id, VehicleEntity vehicle, LocalDate date, BigDecimal price, Double currentMileage,
+            String description, String type) {
+        this.id = id;
+        this.vehicle = vehicle;
+        this.date = date;
+        this.price = price;
+        this.currentMileage = currentMileage;
+        this.description = description;
+        this.type = type;
     }
 
-    public MaintenanceResponse(boolean success, String message) {
-        this.success = success;
-        this.message = message;
+    public MaintenanceResponse(Long id) {
+        this.id = id;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public Long getId() {
+        return id;
     }
 
-    public String getMessage() {
-        return message;
+    public VehicleEntity getVehicle() {
+        return vehicle;
     }
 
-    public Long getMaintenanceId() {
-        return maintenanceId;
+    public LocalDate getDate() {
+        return date;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Double getCurrentMileage() {
+        return currentMileage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getType() {
+        return type;
+    }
+        
 }

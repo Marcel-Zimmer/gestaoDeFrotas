@@ -16,11 +16,11 @@ import { MatSelectModule } from '@angular/material/select';
   // Lista de todas as dependências que o TEMPLATE deste componente usa
   imports: [
     CommonModule,
-    ReactiveFormsModule, // Essencial para FormGroups
-    MatDialogModule,     // Para as diretivas mat-dialog-title, content, etc.
-    MatFormFieldModule,  // Para <mat-form-field>
-    MatInputModule,      // Para a diretiva matInput nos campos
-    MatButtonModule,      // Para os botões mat-button
+    ReactiveFormsModule, 
+    MatDialogModule,     
+    MatFormFieldModule,  
+    MatInputModule,      
+    MatButtonModule,      
     MatSelectModule,
   ],
   templateUrl: './vehicle-dialog.component.html',
@@ -33,7 +33,6 @@ export class VeiculoDialogComponent {
 
   status = [
     { value: 'DISPONIVEL', viewValue: 'Disponível' },
-    { value: 'EM_MANUTENCAO', viewValue: 'Em Manutenção' },
     { value: 'EM_USO', viewValue: 'Em uso' },
     { value: 'INATIVO', viewValue: 'Inativo' }
   ];
@@ -57,7 +56,6 @@ export class VeiculoDialogComponent {
   public dialogRef = inject(MatDialogRef<VeiculoDialogComponent>);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    // Se 'data' existe, estamos em modo de edição
     this.isEditMode = !!data;
     this.form = this.fb.group({
       id: [data?.vehicleId], 

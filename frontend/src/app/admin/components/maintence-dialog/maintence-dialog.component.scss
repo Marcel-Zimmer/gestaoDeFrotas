@@ -1,0 +1,20 @@
+/*
+ * Organiza os campos do formulário do dialog em uma coluna vertical.
+ */
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+
+  // Cria um espaçamento vertical de 15px entre cada campo do formulário
+  gap: 15px; 
+}
+
+/* Opcional: Garante que os campos de formulário ocupem toda a largura do dialog */
+.dialog-form mat-form-field {
+  width: 100%;
+}
+
+// Opcional: Garante que as ações (botões) estejam alinhadas à direita
+mat-dialog-actions {
+  justify-content: flex-end;
+}

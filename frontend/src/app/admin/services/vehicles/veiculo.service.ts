@@ -24,7 +24,6 @@ export class VeiculoService {
     return this.http.post<ApiResponseVehicle>(this.API_URL+"/register", vehicle);
   }
 
-  // Lembre-se que o requisito é INATIVAR, não deletar. O backend deve fazer a lógica.
   excluir(id: number): Observable<any> {
     return this.http.delete<any>(`${this.API_URL}/${id}`);
   }

@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResponseDriver, ApiResponseTrip, ApiResponseVehicle} from '../../../models/api/backend/api.response.model'
 import { ApiCepResponse } from '../../../models/api/viacep/viacep.request.model';
-import { Driver } from '../../../models/driver/driver.model';
 
 @Injectable({
   providedIn: 'root'

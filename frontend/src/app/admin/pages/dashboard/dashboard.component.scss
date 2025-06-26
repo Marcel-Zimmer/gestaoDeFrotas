@@ -1,16 +1,16 @@
-/* Estilo para o cabeçalho principal da página */
+
 .page-header {
   display: flex;
-  gap: 16px;           /* Espaço entre o botão "Novo" e a barra de filtros */
+  gap: 16px;         
 }
 
-/* Estilo para a barra que contém os campos e botões de filtro */
+
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;           /* Espaço entre cada campo de filtro */
+  gap: 20px;           
   align-items: center;
-  flex-grow: 1;        /* Faz a barra de filtros ocupar o espaço restante */
+  flex-grow: 1;        
 }
 
 .filter-bar .filter-field {
@@ -18,7 +18,7 @@
 
 }
 
-/* 2. Garante que os botões tenham a mesma altura dos campos compactados */
+
 .page-header .main-actions button,
 .filter-bar .filter-actions button {
   height: 44px;

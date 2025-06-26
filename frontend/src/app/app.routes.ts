@@ -11,6 +11,7 @@ import { ConfigComponent } from './admin/pages/config/config.component';
 import { RefuelingComponent } from './admin/pages/refueling/refueling.component';
 import { DashboardComponent  as DriverDashboardComponent} from './driver/pages/dashboard/dashboard.component';
 import { HistoryComponent } from './driver/pages/history/history.component';
+import { MaintenanceComponent } from './admin/pages/maintence/maintence.component';
 
 
 export const routes: Routes = [
@@ -30,6 +31,7 @@ export const routes: Routes = [
       { path: 'administradores', component:AdminComponent},
       { path: 'configuracoes', component: ConfigComponent },
       { path: 'refueling', component: RefuelingComponent },
+      {path:'maintence', component:MaintenanceComponent}
     ]
   },
   //ROTAS MOTORISTA

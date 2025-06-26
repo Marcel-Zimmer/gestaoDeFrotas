@@ -158,6 +158,10 @@ public class DriverMapper {
         if (driverDomain.getPhoneNumber() != null) {
             user.setPhoneNumber(driverDomain.getPhoneNumber().getPhoneValue());
         }
+        
+        if(driverDomain.getPassword() != null){
+            user.setPassword(driverDomain.getPassword().getHashedValue());
+        }        
 
         // --- Atualização do AddressEntity ---
         if (driverDomain.getAddress() != null) {

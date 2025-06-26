@@ -118,12 +118,10 @@ export class DashboardComponent implements OnInit {
 
     if (startDate) {
         startDate.setHours(0, 0, 0, 0); // Zera a hora para comparar apenas o dia
-        // CORREÇÃO: Converte explicitamente para string para garantir o tipo correto
         dadosFiltrados = dadosFiltrados.filter(trip => new Date(String(trip.date)) >= startDate);
     }
     if (endDate) {
         endDate.setHours(23, 59, 59, 999); // Define o fim do dia para incluir o dia todo
-        // CORREÇÃO: Converte explicitamente para string para garantir o tipo correto
         dadosFiltrados = dadosFiltrados.filter(trip => new Date(String(trip.date)) <= endDate);
     }
 
@@ -140,7 +138,7 @@ export class DashboardComponent implements OnInit {
   dialogoVisualizacao(agendamento?: Trip): void {
     this.dialog.open(AgendamentoComponentComponent, {
       width: '600px',
-      disableClose: false, // Pode fechar clicando fora
+      disableClose: false, 
       data: { 
         tripData: agendamento, 
         viewOnly: true 
@@ -196,7 +194,7 @@ export class DashboardComponent implements OnInit {
     this.snackBar.open(mensagem, 'OK', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      panelClass: ['snackbar-error'] // (Opcional) Classe CSS para estilizar o erro
+      panelClass: ['snackbar-error'] 
     });
   }  
 }
